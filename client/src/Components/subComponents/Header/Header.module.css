@@ -1,0 +1,6 @@
+.logo {
+  @apply max-w-full p-5;
+}
+.nav {
+  @apply p-2 flex flex-col items-center justify-between gap-3;
+}

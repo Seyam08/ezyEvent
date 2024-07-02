@@ -1,0 +1,9 @@
+.menu_item {
+  @apply flex items-center gap-3 px-5 py-3 font-semibold transition  delay-0 rounded-md;
+}
+.menu_item:hover svg {
+  @apply text-white;
+}
+.icon {
+  @apply h-5 w-5;
+}
