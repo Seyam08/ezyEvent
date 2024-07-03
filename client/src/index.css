@@ -13,10 +13,10 @@
     @apply bg-[#8A5AFE];
   }
   .text-primary {
-    @apply text-[#140C37] text-xl dark:text-white;
+    @apply text-[#140C37] dark:text-white;
   }
   .text-secondary {
-    @apply text-neutral-600 dark:text-[#b4b4b4] text-base;
+    @apply text-neutral-600 dark:text-[#b4b4b4];
   }
   .border-thin {
     @apply border border-neutral-200 dark:border-gray-800;
