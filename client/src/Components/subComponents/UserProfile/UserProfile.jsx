@@ -8,7 +8,7 @@ export default function UserProfile() {
       <div className={styles.user_icon}>
         <img src={image} alt="user" />
       </div>
-      <div>
+      <div className="hidden lg:block">
         <h4 className={`${styles.user_name} text-primary`}>Username</h4>
         <p className={`${styles.user_desc} text-secondary`}>Description</p>
       </div>

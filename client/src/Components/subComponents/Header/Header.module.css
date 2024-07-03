@@ -1,6 +1,6 @@
 .nav {
-  @apply p-2 min-h-screen flex flex-col items-start justify-between;
+  @apply p-2 w-full md:min-h-screen flex justify-between flex-row md:flex-col md:items-start items-center;
 }
 .logo {
-  @apply max-w-full p-5;
+  @apply max-w-32 md:max-w-full lg:p-5 md:p-2 p-1;
 }

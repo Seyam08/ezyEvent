@@ -1,5 +1,5 @@
 .mode_btn_container {
-  @apply px-5;
+  @apply lg:px-5 md:px-2 px-1 ml-auto md:mx-auto;
 }
 .area {
   @apply max-w-28 w-28 flex flex-row p-1 rounded-full drop-shadow-md justify-between;

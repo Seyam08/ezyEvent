@@ -1,8 +1,9 @@
 .user_profile {
-  @apply px-5 py-3 w-full flex justify-between items-center;
+  @apply px-1 py-3 md:w-full flex justify-around lg:justify-between items-center
+  gap-1;
 }
 .user_icon {
-  @apply w-7 h-7;
+  @apply w-8 h-8;
 }
 .user_icon img {
   @apply p-1 rounded-full ring-1 ring-[#8A5AFE] h-full w-full;

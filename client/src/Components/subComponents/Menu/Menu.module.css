@@ -1,5 +1,5 @@
 .menu_item {
-  @apply flex items-center gap-3 px-5 py-3 font-semibold transition  delay-0 rounded-md;
+  @apply flex items-center gap-3 lg:px-5 md:px-2 p-1 py-3 font-semibold transition  delay-0 rounded-md;
 }
 .menu_item:hover svg {
   @apply text-white;
