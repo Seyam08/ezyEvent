@@ -1,0 +1,9 @@
+.mode_btn_container {
+  @apply px-5;
+}
+.area {
+  @apply max-w-28 w-28 flex flex-row p-1 rounded-full drop-shadow-md justify-between;
+}
+.mode_btn {
+  @apply rounded-full p-1 transition-colors;
+}

@@ -11,7 +11,7 @@ export default function Menu() {
             key={key}
             className={`${styles.menu_item} text-secondary hover:foreground hover:text-white`}
           >
-            <Icon className="text-secondar" />
+            <Icon className="text-secondary" />
             {label}
           </li>
         );

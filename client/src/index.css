@@ -13,9 +13,12 @@
     @apply bg-[#8A5AFE];
   }
   .text-primary {
-    @apply text-[#140C37] text-xl;
+    @apply text-[#140C37] text-xl dark:text-white;
   }
   .text-secondary {
-    @apply text-[#7B818C] text-base;
+    @apply text-neutral-600 dark:text-[#b4b4b4] text-base;
+  }
+  .border-thin {
+    @apply border border-neutral-200 dark:border-gray-800;
   }
 }
