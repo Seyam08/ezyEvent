@@ -1,0 +1,6 @@
+.sub_menu_box {
+  @apply mt-2 w-48 overflow-auto rounded-xl py-2 shadow-md focus:outline-none absolute;
+}
+.sub_menu_item {
+  @apply flex flex-row gap-4 rounded-md px-4 py-2 transition-colors font-normal;
+}
