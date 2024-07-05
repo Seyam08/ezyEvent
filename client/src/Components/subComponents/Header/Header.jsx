@@ -10,7 +10,7 @@ export default function Header() {
       <div className={styles.logo}>
         <img src={logo} alt="ezyEvent" />
       </div>
-      <Menu className="hidden md:block" />
+      <Menu customClassname="hidden md:block" />
       <ToogleMode />
       <UserProfile />
     </nav>

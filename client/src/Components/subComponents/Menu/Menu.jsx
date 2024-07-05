@@ -1,9 +1,10 @@
+import PropTypes from "prop-types";
 import { menuItem } from "../../../constants/menuItem";
 import styles from "./Menu.module.css";
 
-export default function Menu(props) {
+export default function Menu({ customClassname }) {
   return (
-    <ul {...props}>
+    <ul className={customClassname}>
       {menuItem.map((item, key) => {
         const { label, icon: Icon } = item;
         return (
@@ -19,3 +20,6 @@ export default function Menu(props) {
     </ul>
   );
 }
+Menu.propTypes = {
+  customClassname: PropTypes.string,
+};
