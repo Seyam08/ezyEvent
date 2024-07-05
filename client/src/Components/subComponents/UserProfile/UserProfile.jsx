@@ -31,7 +31,7 @@ export default function UserProfile() {
         menuItem={userProfileMenuItem}
         isOpen={subMenuOpen}
         positionClass={
-          smallScreen ? "right-2 top-12" : "md:left-0 md:bottom-12"
+          smallScreen ? "right-2 top-12" : "md:left-0 md:bottom-14"
         }
       />
     </div>

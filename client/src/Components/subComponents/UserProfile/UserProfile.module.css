@@ -1,6 +1,5 @@
 .user_profile {
-  @apply px-1 py-3 md:w-full flex justify-around lg:justify-between items-center
-  gap-1 relative;
+  @apply px-1 md:py-3 md:w-full flex gap-2 justify-around lg:justify-between items-center relative;
 }
 .user_icon {
   @apply w-8 h-8 cursor-pointer;
