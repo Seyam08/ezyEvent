@@ -1,0 +1,22 @@
+.card {
+  @apply p-4 rounded-lg flex flex-row justify-between;
+}
+.card_col {
+  @apply flex flex-col justify-between gap-2;
+}
+.card_icon {
+  @apply w-12 h-12 bg-gradient-to-b from-red-400 to-red-500 rounded-full shadow shadow-red-400;
+}
+.card_heading {
+  @apply text-base font-semibold;
+}
+.card_more {
+  @apply fill-current cursor-pointer;
+}
+.card_progress_bg {
+  @apply bg-green-500 bg-opacity-25 md:py-1 py-0 md:px-3 px-1 rounded-full flex
+  align-middle;
+}
+.card_progress_txt {
+  @apply text-green-500;
+}

@@ -1,18 +1,47 @@
-import useCounter from "../../../hooks/useCounter";
-import { UserGroupIcon } from "../../../icons/icons";
+import PropTypes from "prop-types";
+import { MoreIcon } from "../../../icons/icons";
+import Count from "./Count";
+import styles from "./CounterCard.module.css";
 
-export default function CounterCard() {
-  const count = useCounter(238);
+export default function CounterCard({
+  limit,
+  heading,
+  icon: Icon,
+  customClass,
+}) {
+  console.log("render");
+
   return (
-    <div className="bg-secondary p-4 rounded-md">
-      <div className="w-12 h-12 bg-gradient-to-b from-red-400 to-red-700 rounded-full">
-        <UserGroupIcon className="text-white p-3 h-full w-full" />
-      </div>
+    <div className={customClass}>
+      <div className={` ${styles.card} bg-secondary`}>
+        <div className={`${styles.card_col} items-start`}>
+          <div className={styles.card_icon}>
+            <Icon className="text-white p-3 h-full w-full" />
+          </div>
 
-      <h3 className="text-secondary text-base font-semibold my-2">
-        Total user
-      </h3>
-      <h2 className="text-primary text-xl font-bold">{count}+</h2>
+          <h3
+            className={`${styles.card_heading} text-secondary text-subHeading-size`}
+          >
+            {heading}
+          </h3>
+          <Count limit={limit} />
+        </div>
+        <div className={`${styles.card_col} items-end`}>
+          <MoreIcon className={`${styles.card_more} text-primary`} />
+          <div className={styles.card_progress_bg}>
+            <span className={`${styles.card_progress_txt} text-desc-size`}>
+              +25%
+            </span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
+
+CounterCard.propTypes = {
+  limit: PropTypes.number.isRequired,
+  heading: PropTypes.string.isRequired,
+  icon: PropTypes.func.isRequired,
+  customClass: PropTypes.string,
+};

@@ -18,6 +18,15 @@
   .text-secondary {
     @apply text-neutral-600 dark:text-[#b4b4b4];
   }
+  .text-heading-size {
+    @apply lg:text-xl md:text-lg text-base;
+  }
+  .text-subHeading-size {
+    @apply lg:text-lg md:text-base text-sm;
+  }
+  .text-desc-size {
+    @apply md:text-sm text-xs;
+  }
   .border-thin {
     @apply border border-neutral-200 dark:border-gray-800;
   }
