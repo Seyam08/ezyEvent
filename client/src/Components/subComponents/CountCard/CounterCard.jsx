@@ -34,7 +34,7 @@ export default function CounterCard({
           <div
             className={`${
               isOpen ? "block" : "hidden"
-            } bg-primary text-primary text-desc-size py-1 px-5 border-thin rounded-full shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px transition animate-fade-left animate-duration-100 animate-ease-in-out hover:foreground`}
+            } bg-primary text-primary text-desc-size py-1 px-5 border-thin rounded-full shadow-[rgba(13,_38,_76,_0.19)_0px_9px_20px transition animate-fade-left animate-duration-100 animate-ease-in-out hover:foreground hover:text-white`}
           >
             See All
           </div>
