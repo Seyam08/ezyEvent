@@ -4,7 +4,7 @@ import styles from "./subMenu.module.css";
 export default function SubMenu({ menuItem, isOpen, positionClass }) {
   return (
     <div
-      className={`bg-primary border-thin ${positionClass} ${
+      className={`bg-primary border-thin animate-fade-up animate-duration-150 ${positionClass} ${
         styles.sub_menu_box
       } ${isOpen ? "grid" : "hidden"}`}
     >

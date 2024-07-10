@@ -9,11 +9,7 @@ export default function Dashboard() {
         <CounterCard limit={234} heading="Total user" icon={UserGroupIcon} />
         <CounterCard limit={454} heading="Total event's" icon={UserGroupIcon} />
         <CounterCard limit={235} heading="Total speaker" icon={UserGroupIcon} />
-        <CounterCard
-          limit={457}
-          heading="Completed Event's"
-          icon={UserGroupIcon}
-        />
+        <CounterCard limit={457} heading="Past Event's" icon={UserGroupIcon} />
       </div>
     </div>
   );
