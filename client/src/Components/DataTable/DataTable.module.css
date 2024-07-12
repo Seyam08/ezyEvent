@@ -5,7 +5,7 @@
   @apply overflow-x-auto;
 }
 .table {
-  @apply min-w-full table-fixed rounded-md overflow-hidden border-collapse;
+  @apply min-w-full table-fixed rounded-md overflow-hidden;
 }
 
 .table_h_row th {
@@ -15,6 +15,7 @@
 .table_d {
   @apply py-2 px-4;
 }
+
 .table_status {
   @apply py-1 px-2 rounded-full flex justify-center;
 }

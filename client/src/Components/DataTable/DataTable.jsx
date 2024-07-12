@@ -25,7 +25,7 @@ export default function DataTable({ dataArray }) {
         <table className={`${styles.table} bg-secondary`}>
           <thead>
             <tr className={styles.table_h_row}>
-              <th className={styles.table_h}>
+              <th className={styles.table_h} colSpan={5}>
                 <ItemHeading>Event Registration User list</ItemHeading>
               </th>
             </tr>

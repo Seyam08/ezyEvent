@@ -5,7 +5,7 @@ export default function ClickToAction() {
   const [open, setOpen] = useState(false);
 
   return (
-    <div className="relative">
+    <div className="relative flex justify-center">
       <MoreIcon
         className="fill-current cursor-pointer text-primary"
         onClick={() => setOpen((prev) => !prev)}

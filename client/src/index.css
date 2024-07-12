@@ -31,6 +31,6 @@
     @apply md:text-sm text-xs;
   }
   .border-thin {
-    @apply border border-neutral-200 dark:border-gray-800;
+    @apply border border-gray-200 dark:border-gray-700;
   }
 }
