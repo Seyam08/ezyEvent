@@ -1,8 +1,8 @@
-import logo from "../../../assets/ezyEvent.png";
+import logo from "../../../public/ezyEvent.png";
+import ToogleMode from "../../Components/ToogleMode/ToogleMode";
+import UserProfile from "../../Components/subComponents/UserProfile/UserProfile";
 import Menu from "../Menu/Menu";
 import MobileMenu from "../Menu/MobileMenu";
-import ToogleMode from "../ToogleMode/ToogleMode";
-import UserProfile from "../UserProfile/UserProfile";
 import styles from "./Header.module.css";
 
 export default function Header() {

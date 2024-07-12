@@ -9,11 +9,14 @@
   .bg-secondary {
     @apply bg-white dark:bg-[#222627];
   }
+  .bg-tertiary {
+    @apply bg-[#e7e7e7] dark:bg-[#333839];
+  }
   .foreground {
     @apply bg-[#8A5AFE];
   }
   .text-primary {
-    @apply text-[#140C37] dark:text-white;
+    @apply text-[#140C37] dark:text-[#EDEDED];
   }
   .text-secondary {
     @apply text-neutral-600 dark:text-[#b4b4b4];

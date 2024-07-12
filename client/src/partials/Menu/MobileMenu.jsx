@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { menuItem } from "../../../constants/menuItem";
-import { MenuIcon } from "../../../icons/icons";
+import { menuItem } from "../../constants/menuItem";
+import { MenuIcon } from "../../icons/icons";
 import SubMenu from "./SubMenu";
 
 export default function MobileMenu({ customClass }) {

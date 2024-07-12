@@ -1,5 +1,5 @@
-import Dashboard from "./pages/Dashboard/Dashboard";
-import Header from "./subComponents/Header/Header";
+import Dashboard from "../pages/Dashboard/Dashboard";
+import Header from "../partials/Header/Header";
 
 export default function Wrapper() {
   return (

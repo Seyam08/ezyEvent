@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MoonIcon, SunIcon } from "../../../icons/icons";
+import { MoonIcon, SunIcon } from "../../icons/icons";
 import styles from "./ToogleMode.module.css";
 
 export default function ToogleMode() {

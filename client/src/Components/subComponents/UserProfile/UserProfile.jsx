@@ -3,7 +3,7 @@ import image from "../../../assets/user.png";
 import { userProfileMenuItem } from "../../../constants/userProfileMenu.js";
 import useScreenSize from "../../../hooks/useScreenSize.js";
 import { ArrowDataTransferVerticalIcon } from "../../../icons/icons";
-import SubMenu from "../Menu/SubMenu";
+import SubMenu from "../../../partials/Menu/SubMenu.jsx";
 import styles from "./UserProfile.module.css";
 
 export default function UserProfile() {

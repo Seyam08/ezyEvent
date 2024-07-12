@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import useCounter from "../../../hooks/useCounter";
+import useCounter from "../../hooks/useCounter";
 
 export default function Count({ limit }) {
   const count = useCounter(limit);

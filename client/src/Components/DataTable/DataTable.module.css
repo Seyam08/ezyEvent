@@ -1,0 +1,20 @@
+.table_container {
+  @apply container mx-auto py-8;
+}
+.table_container > div {
+  @apply overflow-x-auto;
+}
+.table {
+  @apply min-w-full table-fixed rounded-md overflow-hidden border-collapse;
+}
+
+.table_h_row th {
+  @apply text-sm text-left;
+}
+.table_h,
+.table_d {
+  @apply py-2 px-4;
+}
+.table_status {
+  @apply py-1 px-2 rounded-full flex justify-center;
+}

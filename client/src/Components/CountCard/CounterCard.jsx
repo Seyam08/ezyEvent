@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { MoreIcon } from "../../../icons/icons";
+import { MoreIcon } from "../../icons/icons";
 import Count from "./Count";
 import styles from "./CounterCard.module.css";
 

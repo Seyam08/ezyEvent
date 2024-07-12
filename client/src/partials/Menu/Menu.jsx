@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { menuItem } from "../../../constants/menuItem";
+import { menuItem } from "../../constants/menuItem";
 import styles from "./Menu.module.css";
 
 export default function Menu({ customClassname }) {
