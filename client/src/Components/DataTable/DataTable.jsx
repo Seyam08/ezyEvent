@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import { MoreIcon } from "../../icons/icons";
+import ClickToAction from "../subComponents/ClickToAction/ClickToAction";
 import ItemHeading from "../subComponents/Heading/ItemHeading";
 import styles from "./DataTable.module.css";
 
@@ -38,33 +38,30 @@ export default function DataTable({ dataArray }) {
             </tr>
           </thead>
           <tbody>
-            {dataArray.map((item) => (
-              <tr key={item.idNo} className="odd:bg-tertiary">
-                <td className={`${styles.table_d} text-secondary`}>
-                  {item.idNo}
-                </td>
-                <td className={`${styles.table_d} text-primary`}>
-                  {item.name}
-                </td>
-                <td className={`${styles.table_d} text-primary`}>
-                  {item.seminar}
-                </td>
-                <td className={`${styles.table_d} text-secondary`}>
-                  <div
-                    className={`${styles.table_status} ${getStatusClass(
-                      item.status
-                    )}`}
-                  >
-                    <span>{item.status}</span>
-                  </div>
-                </td>
-                <td className={styles.table_d}>
-                  <button>
-                    <MoreIcon className="text-primary fill-current" />
-                  </button>
-                </td>
-              </tr>
-            ))}
+            {dataArray.map((item) => {
+              const { idNo, name, seminar, status } = item;
+              return (
+                <tr key={item.idNo} className="odd:bg-tertiary">
+                  <td className={`${styles.table_d} text-secondary`}>{idNo}</td>
+                  <td className={`${styles.table_d} text-primary`}>{name}</td>
+                  <td className={`${styles.table_d} text-primary`}>
+                    {seminar}
+                  </td>
+                  <td className={`${styles.table_d} text-secondary`}>
+                    <div
+                      className={`${styles.table_status} ${getStatusClass(
+                        status
+                      )}`}
+                    >
+                      <span>{item.status}</span>
+                    </div>
+                  </td>
+                  <td className={`${styles.table_d} relative`}>
+                    <ClickToAction />
+                  </td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>

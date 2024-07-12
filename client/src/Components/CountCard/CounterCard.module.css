@@ -10,9 +10,6 @@
 .card_heading {
   @apply text-base font-semibold;
 }
-.card_more {
-  @apply fill-current cursor-pointer;
-}
 .card_progress_bg {
   @apply bg-green-500 bg-opacity-25 md:py-1 py-0 md:px-3 px-1 rounded-full flex
   align-middle;
