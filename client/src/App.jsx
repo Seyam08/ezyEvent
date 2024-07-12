@@ -1,7 +1,8 @@
-import Wrapper from "./Components/Wrapper";
+import { RouterProvider } from "react-router-dom";
+import route from "./Router/route";
 
 function App() {
-  return <Wrapper />;
+  return <RouterProvider router={route} />;
 }
 
 export default App;

@@ -1,7 +1,6 @@
-import Dashboard from "../pages/Dashboard/Dashboard";
+import { Outlet } from "react-router-dom";
 import Header from "../partials/Header/Header";
-
-export default function Wrapper() {
+export default function Layout() {
   return (
     <div>
       <div className="flex md:flex-row flex-col">
@@ -9,7 +8,7 @@ export default function Wrapper() {
           <Header />
         </div>
         <div className="bg-primary basis-full md:basis-5/6 min-h-screen p-8">
-          <Dashboard />
+          <Outlet />
         </div>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import { NavLink } from "react-router-dom";
 import styles from "./subMenu.module.css";
 
 export default function SubMenu({ menuItem, isOpen, positionClass }) {
@@ -12,14 +13,14 @@ export default function SubMenu({ menuItem, isOpen, positionClass }) {
         {menuItem.map((item, key) => {
           const { href, label, icon: Icon } = item;
           return (
-            <a
+            <NavLink
               className={`${styles.sub_menu_item} text-secondary hover:text-primary hover:bg-secondary dark:hover:bg-secondary`}
               to={href}
               key={key}
             >
               <Icon />
               {label}
-            </a>
+            </NavLink>
           );
         })}
       </div>

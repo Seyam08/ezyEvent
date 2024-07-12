@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import logo from "../../../public/ezyEvent.png";
 import ToogleMode from "../../Components/ToogleMode/ToogleMode";
 import UserProfile from "../../Components/subComponents/UserProfile/UserProfile";
@@ -9,7 +10,9 @@ export default function Header() {
   return (
     <nav className={styles.nav}>
       <div className={styles.logo}>
-        <img src={logo} alt="ezyEvent" />
+        <Link to={"/"}>
+          <img src={logo} alt="ezyEvent" />
+        </Link>
       </div>
       <Menu customClassname="hidden md:block" />
       <ToogleMode />
