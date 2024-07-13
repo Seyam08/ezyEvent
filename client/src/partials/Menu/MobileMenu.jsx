@@ -7,7 +7,7 @@ import SubMenu from "./SubMenu";
 export default function MobileMenu({ customClass }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className={`relative z-50 px-1 ${customClass}`}>
+    <div className={`relative z-10 px-1 ${customClass}`}>
       <MenuIcon
         onClick={() => setOpen((prevState) => !prevState)}
         className="cursor-pointer text-primary"

@@ -2,5 +2,5 @@
   @apply p-2 w-full md:min-h-screen flex gap-3 justify-between flex-row md:flex-col md:items-start items-center;
 }
 .logo {
-  @apply max-w-32 md:max-w-full lg:p-5 md:p-2 p-1;
+  @apply max-w-24 md:max-w-full lg:p-5 md:p-2 p-1;
 }

@@ -15,36 +15,5 @@ export const userProfileMenuItem = [
     href: "/",
     label: "My Events",
     icon: CalendarIcon
-  },
-  {
-    href: "/",
-    label: "My Events",
-    icon: CalendarIcon
-  },
-  {
-    href: "/",
-    label: "My Events",
-    icon: CalendarIcon
-  },
-  {
-    href: "/",
-    label: "My Events",
-    icon: CalendarIcon
-  },
-  {
-    href: "/",
-    label: "My Events",
-    icon: CalendarIcon
-  },
-  {
-    href: "/",
-    label: "My Events",
-    icon: CalendarIcon
-  },
-  {
-    href: "/",
-    label: "My Events",
-    icon: CalendarIcon
-  },
-  
+  }
 ];

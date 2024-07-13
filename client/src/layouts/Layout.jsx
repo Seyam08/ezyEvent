@@ -7,7 +7,7 @@ export default function Layout() {
         <div className="bg-secondary basis-full md:basis-1/6 md:min-h-screen">
           <Header />
         </div>
-        <div className="bg-primary basis-full md:basis-5/6 min-h-screen p-8">
+        <div className="bg-primary basis-full md:basis-5/6 min-h-screen p-2 md:p-8">
           <Outlet />
         </div>
       </div>

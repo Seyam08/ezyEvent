@@ -38,14 +38,14 @@ export default function ToogleMode() {
           onClick={handleDarkSwitch}
           className={`${styles.mode_btn} bg-transparent text-primary  dark:foreground hover:foreground hover:text-white`}
         >
-          <MoonIcon className="dark:fill-current fill-none" />
+          <MoonIcon className="dark:fill-current fill-none h-5 w-5 md:h-6 md:w-6" />
         </button>
         <button
           onClick={handleLightSwitch}
           className={`${styles.mode_btn} foreground text-white dark:bg-transparent
         hover:foreground`}
         >
-          <SunIcon className="fill-current dark:fill-none" />
+          <SunIcon className="fill-current dark:fill-none h-5 w-5 md:h-6 md:w-6" />
         </button>
       </div>
     </div>

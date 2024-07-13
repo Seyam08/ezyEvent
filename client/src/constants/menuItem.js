@@ -2,7 +2,7 @@ import { CalendarCheckOutIcon, Dashboard, MicIcon, TaskDaily, UserGroupIcon } fr
 
 export const menuItem = [
   {
-    href: "/",
+    href: "/dashboard",
     label: "Dashboard",
     icon: Dashboard
   },
