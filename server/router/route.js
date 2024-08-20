@@ -1,4 +1,8 @@
 import { Router } from 'express';
+import {
+  addUserValidationHandler,
+  addUserValidators,
+} from '../middleware/users/addUserValidator.js';
 import avatarUpload from '../middleware/users/avatarUpload.js';
 
 const router = Router();
@@ -9,8 +13,14 @@ router
   .get((req, res) => {
     res.status(200).json('user get');
   })
-  .post(avatarUpload, (req, res) => {
-    res.status(201).json('user post');
-  });
+  .post(
+    avatarUpload,
+    addUserValidators,
+    addUserValidationHandler,
+    (req, res) => {
+      const result = req.body;
+      res.status(201).json(result);
+    },
+  );
 
 export default router;

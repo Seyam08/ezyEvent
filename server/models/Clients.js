@@ -16,6 +16,10 @@ const clientSchema = new Schema({
     trim: true,
     lowercase: true,
   },
+  password: {
+    type: String,
+    required: true,
+  },
   avatar: {
     type: String,
   },
@@ -27,4 +31,6 @@ const clientSchema = new Schema({
   },
 });
 
-export default Client = mongoose.model('Client', clientSchema);
+const Client = mongoose.model('Client', clientSchema);
+
+export default Client;
