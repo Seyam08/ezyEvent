@@ -4,7 +4,11 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 // internal imports
-import { defaultError, notFoundHandler } from './middleware/errorHandler.js';
+import {
+  defaultError,
+  notFoundHandler,
+} from './middleware/common/errorHandler.js';
+import router from './router/route.js';
 
 const app = express();
 dotenv.config();
@@ -22,15 +26,16 @@ mongoose
 // request parser
 app.use(express.json());
 
+// home get req
+app.route('/').get((req, res) => {
+  res.status(200).json({ message: 'Hello, world!' });
+});
+// router
+app.use('/api', router);
 // notFoundHandler
 app.use(notFoundHandler);
 // defaultError handler
 app.use(defaultError);
-
-// home get req
-app.get('/', (req, res) => {
-  res.status(201).json({ message: 'Hello, world!' });
-});
 
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
