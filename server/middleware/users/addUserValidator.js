@@ -9,7 +9,17 @@ export const addUserValidators = [
   check('username')
     .isLength({ min: 1 })
     .withMessage('Username is required')
-    .trim(),
+    .trim()
+    .custom(async (value) => {
+      try {
+        const username = await Client.findOne({ username: value });
+        if (username) {
+          throw createError('Username already in use');
+        }
+      } catch (error) {
+        throw createError(error);
+      }
+    }),
   check('name')
     .isLength({ min: 1 })
     .withMessage('Name is required')
@@ -24,10 +34,10 @@ export const addUserValidators = [
       try {
         const user = await Client.findOne({ email: value });
         if (user) {
-          throw createError('Email already is use!');
+          throw createError('Email already in use!');
         }
-      } catch (err) {
-        throw createError(err.message);
+      } catch (error) {
+        throw createError(error.message);
       }
     }),
   check('password')

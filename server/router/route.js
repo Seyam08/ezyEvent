@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import * as userController from '../controller/userController.js';
 import {
   addUserValidationHandler,
   addUserValidators,
@@ -17,6 +18,7 @@ router
     avatarUpload,
     addUserValidators,
     addUserValidationHandler,
+    userController.addUser,
     (req, res) => {
       const result = req.body;
       res.status(201).json(result);
