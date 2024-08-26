@@ -4,6 +4,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 // internal imports
+import cookieParser from 'cookie-parser';
 import {
   defaultError,
   notFoundHandler,
@@ -25,7 +26,10 @@ mongoose
 
 // request parser
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
+// cookieParser
+app.use(cookieParser(process.env.COOKIE_SECRET));
 // home get req
 app.route('/').get((req, res) => {
   res.status(200).json({ message: 'Hello, world!' });
