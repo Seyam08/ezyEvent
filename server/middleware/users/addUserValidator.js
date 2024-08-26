@@ -17,7 +17,7 @@ export const addUserValidators = [
           throw createError('Username already in use');
         }
       } catch (error) {
-        throw createError(error);
+        throw createError(error.message);
       }
     }),
   check('name')
@@ -59,7 +59,9 @@ export function addUserValidationHandler(req, res, next) {
       const dirName = dirname(fileURLToPath(import.meta.url));
 
       unlink(`${dirName}/../../public/uploads/avatars/${filename}`, (err) => {
-        if (err) console.log(err);
+        if (err) {
+          throw createError('Something wrong while uploading file!');
+        }
       });
     }
 

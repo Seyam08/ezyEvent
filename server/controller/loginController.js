@@ -58,7 +58,6 @@ export async function login(req, res) {
     }
   } catch (error) {
     // if any kind of error happend due to async operation
-    console.log(error);
     res.status(500).json({
       errors: {
         common: {
