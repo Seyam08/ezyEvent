@@ -57,3 +57,46 @@ export async function protectedRoute(req, res, next) {
     res.status(401).send('Unauthorized URL!');
   }
 }
+
+export async function checkLoggedIn(req, res, next) {
+  // checking cookies availability
+  const cookies =
+    Object.keys(req.signedCookies).length > 0 ? req.signedCookies : null;
+
+  if (!cookies) {
+    // if client doesn't have cookie
+    next();
+  } else {
+    try {
+      // decoding token and cookies
+      const token = cookies[process.env.COOKIE_NAME];
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+      // checking the decoded info is valid
+      if (Object.keys(decoded).length > 0) {
+        const { username, name, email } = decoded;
+
+        const user = await Client.find({
+          $and: [{ username }, { email }, { name }],
+        });
+
+        if (Object.keys(user).length > 0) {
+          // decoded info is valid then client is already logged in
+          res.status(409).send('Already logged in!');
+        } else {
+          // if cookie or token is in valid
+          res.clearCookie(process.env.COOKIE_NAME);
+          next();
+        }
+      } else {
+        // if cookie or token decoding failed
+        res.clearCookie(process.env.COOKIE_NAME);
+        next();
+      }
+    } catch (error) {
+      // if decoded info is invalid or token invalid
+      res.clearCookie(process.env.COOKIE_NAME);
+      next();
+    }
+  }
+}

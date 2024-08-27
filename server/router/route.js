@@ -33,6 +33,7 @@ router
 router
   .route('/login')
   .post(
+    protectRoute.checkLoggedIn,
     loginValidation.loginValidators,
     loginValidation.loginValidatorsHandler,
     loginController.login,
