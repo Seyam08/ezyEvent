@@ -5,23 +5,13 @@ import * as loginValidation from '../middleware/authentication/loginValidation.j
 import * as protectRoute from '../middleware/authentication/protectRoute.js';
 import * as addUserValidator from '../middleware/users/addUserValidator.js';
 import avatarUpload from '../middleware/users/avatarUpload.js';
-import Client from '../models/Clients.js';
 
 const router = Router();
 
 // Users Routes
 router
   .route('/users')
-  .get(async (req, res, next) => {
-    try {
-      const users = await Client.find();
-      res.status(200).json({
-        users: users,
-      });
-    } catch (err) {
-      next(err);
-    }
-  })
+  .get(userController.getUser)
   .post(
     avatarUpload,
     addUserValidator.addUserValidators,
