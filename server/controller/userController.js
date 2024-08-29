@@ -57,3 +57,34 @@ export async function getUser(req, res) {
     res.status(500).send('Server error!');
   }
 }
+
+export async function getUserByUsername(req, res) {
+  try {
+    const { username } = req.params;
+    const user = await Client.findOne({ username }).select({
+      _id: 0,
+      password: 0,
+      avatar: 0,
+      __v: 0,
+    });
+    if (user) {
+      res.status(200).json(user);
+    } else {
+      res.status(404).json({
+        errors: {
+          common: {
+            msg: "user doesn't exist!",
+          },
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Internal server error!',
+        },
+      },
+    });
+  }
+}

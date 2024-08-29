@@ -19,6 +19,10 @@ router
     userController.addUser,
   );
 
+// get user by username
+
+router.route('/users/:username').get(userController.getUserByUsername);
+
 // login route
 router
   .route('/login')
