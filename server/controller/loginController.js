@@ -7,7 +7,7 @@ export async function login(req, res) {
   try {
     // checking the username or email is exist
     const user = await Client.findOne({
-      $or: [{ username: req.body.username }, { email: req.body.email }],
+      $or: [{ username: req.body.username }, { email: req.body.username }],
     });
 
     if (user && user._id) {
