@@ -37,7 +37,7 @@ export async function addUser(req, res) {
   }
 }
 
-export async function getUser(req, res) {
+export async function geAlltUser(req, res) {
   try {
     const users = await Client.find({
       role: 'user',
@@ -53,7 +53,6 @@ export async function getUser(req, res) {
       users: users,
     });
   } catch (err) {
-    console.log(err.errmsg);
     res.status(500).send('Server error!');
   }
 }
