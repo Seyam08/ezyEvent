@@ -29,6 +29,24 @@ const clientSchema = new Schema({
     message: '{VALUE} is not supported',
     default: 'user',
   },
+  eventsHosted: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Event',
+    },
+  ],
+  eventsAttended: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Event',
+    },
+  ],
+  eventsSpeaking: [
+    {
+      type: mongoose.Types.ObjectId,
+      ref: 'Event',
+    },
+  ],
 });
 
 const Client = mongoose.model('Client', clientSchema);
