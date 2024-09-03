@@ -16,11 +16,17 @@ export async function protectedRoute(req, res, next) {
       if (Object.keys(decoded).length > 0) {
         const { username, name, email } = decoded;
 
-        const user = await Client.find({
+        const user = await Client.findOne({
           $and: [{ username }, { email }, { name }],
+        }).select({
+          password: 0,
+          avatar: 0,
+          role: 0,
+          __v: 0,
         });
         // decoded info is valid then call the next function
         if (Object.keys(user).length > 0) {
+          req.userInfo = user;
           next();
         } else {
           // Authentication failure if decoded data is wrong
@@ -58,7 +64,7 @@ export async function protectedRoute(req, res, next) {
   }
 }
 
-export async function checkLoggedIn(req, res, next) {
+export async function alreadyLoggedIn(req, res, next) {
   // checking cookies availability
   const cookies =
     Object.keys(req.signedCookies).length > 0 ? req.signedCookies : null;
@@ -76,7 +82,7 @@ export async function checkLoggedIn(req, res, next) {
       if (Object.keys(decoded).length > 0) {
         const { username, name, email } = decoded;
 
-        const user = await Client.find({
+        const user = await Client.findOne({
           $and: [{ username }, { email }, { name }],
         });
 
