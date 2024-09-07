@@ -8,7 +8,7 @@ export async function addEvent(req, res) {
   //  making hostName into an Array, making sure that there will be no repeted value
   const hostName = new Set([username, ...req.body.hostName]);
   //  making speakerName into an Array, making sure that there will be no repeted value
-  const speakerName = [...new Set(req.body.speakerName)];
+  const speakerName = new Set([...req.body.speakerName]);
 
   // save event
   try {
@@ -37,17 +37,19 @@ export async function addEvent(req, res) {
         $push: {
           eventsHosted: event._id,
         },
+        $addToSet: { role: ['host'] },
       },
     );
 
     await Client.updateMany(
       {
-        username: { $in: [...hostName] },
+        username: { $in: [...speakerName] },
       },
       {
         $push: {
           eventsSpeaking: event._id,
         },
+        $addToSet: { role: ['speaker'] },
       },
     );
 

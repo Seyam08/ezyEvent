@@ -24,10 +24,10 @@ const clientSchema = new Schema({
     type: String,
   },
   role: {
-    type: String,
+    type: [String],
     enum: ['host', 'speaker', 'user'],
     message: '{VALUE} is not supported',
-    default: 'user',
+    default: ['user'],
   },
   eventsHosted: [
     {
