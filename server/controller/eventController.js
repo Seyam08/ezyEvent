@@ -29,29 +29,22 @@ export async function addEvent(req, res) {
     });
 
     const event = await newEvent.save();
-    await Client.updateMany(
-      {
-        username: { $in: [...hostName] },
-      },
-      {
-        $push: {
-          eventsHosted: event._id,
-        },
-        $addToSet: { role: ['host'] },
-      },
-    );
 
-    await Client.updateMany(
-      {
-        username: { $in: [...speakerName] },
-      },
-      {
-        $push: {
-          eventsSpeaking: event._id,
+    // maintaining relation of object parallelly
+
+    await Promise.all([
+      Client.updateMany(
+        { username: { $in: [...hostName] } },
+        { $push: { eventsHosted: event._id }, $addToSet: { role: ['host'] } },
+      ),
+      Client.updateMany(
+        { username: { $in: [...speakerName] } },
+        {
+          $push: { eventsSpeaking: event._id },
+          $addToSet: { role: ['speaker'] },
         },
-        $addToSet: { role: ['speaker'] },
-      },
-    );
+      ),
+    ]);
 
     res.status(201).json({
       message: 'Event registration successfull!',
@@ -76,5 +69,74 @@ export async function getAllEvent(req, res) {
     });
   } catch (err) {
     res.status(500).send('Server error!');
+  }
+}
+
+export async function getEvent(req, res) {
+  try {
+    const { id } = req.params;
+    const event = await Event.findOne({ _id: id }).select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
+    if (event) {
+      res.status(200).json(event);
+    } else {
+      res.status(404).json({
+        errors: {
+          common: {
+            msg: "Event doesn't exist!",
+          },
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Internal server error!',
+        },
+      },
+    });
+  }
+}
+
+export async function attendEvent(req, res) {
+  try {
+    const { id } = req.params;
+    const event = await Event.findOne({ _id: id });
+    const userId = req.userInfo._id;
+    const eventId = event._id;
+    const attendanceList = req.userInfo.eventsAttended;
+    const attendeesList = event.attendeesId;
+
+    const attendanceExist = attendanceList.includes(id);
+    const attendeesExist = attendeesList.includes(id);
+
+    if (attendanceExist || attendeesExist) {
+      res.status(409).json({
+        errors: {
+          common: {
+            msg: 'Alredy attended!',
+          },
+        },
+      });
+    }
+    // Update both the event and the user's attended events
+    await Promise.all([
+      Event.updateOne({ _id: eventId }, { $push: { attendeesId: userId } }),
+      Client.updateOne({ _id: userId }, { $push: { eventsAttended: id } }),
+    ]);
+
+    res.status(200).json({ message: 'Event attended successful!' });
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Internal server error!',
+        },
+      },
+    });
   }
 }

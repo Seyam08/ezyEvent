@@ -49,4 +49,13 @@ router
     eventController.addEvent,
   );
 
+//single event by id
+router
+  .route('/event/:id')
+  .get(protectRoute.protectedRoute, eventController.getEvent);
+// attend event route
+router
+  .route('/events/attend/:id')
+  .post(protectRoute.protectedRoute, eventController.attendEvent);
+
 export default router;
