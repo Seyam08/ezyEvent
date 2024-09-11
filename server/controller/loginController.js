@@ -67,6 +67,14 @@ export async function login(req, res) {
     });
   }
 }
+//logged In User Info
+export async function loggedInUserInfo(req, res) {
+  const userInfo = req.userInfo;
+
+  res.status(200).json({
+    profile: userInfo,
+  });
+}
 
 // logout function
 export function logout(req, res) {
