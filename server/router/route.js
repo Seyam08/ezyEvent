@@ -35,6 +35,9 @@ router
     loginController.login,
   );
 router
+  .route('/profile')
+  .get(protectRoute.protectedRoute, loginController.loggedInUserInfo);
+router
   .route('/logout')
   .delete(protectRoute.protectedRoute, loginController.logout);
 
@@ -57,5 +60,9 @@ router
 router
   .route('/events/attend/:id')
   .post(protectRoute.protectedRoute, eventController.attendEvent);
+// remove the attendence
+router
+  .route('/events/removeattend/:id')
+  .post(protectRoute.protectedRoute, eventController.removeAttend);
 
 export default router;

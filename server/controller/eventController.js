@@ -112,7 +112,7 @@ export async function attendEvent(req, res) {
     const attendeesList = event.attendeesId;
 
     const attendanceExist = attendanceList.includes(id);
-    const attendeesExist = attendeesList.includes(id);
+    const attendeesExist = attendeesList.includes(userId);
 
     if (attendanceExist || attendeesExist) {
       res.status(409).json({
@@ -122,14 +122,55 @@ export async function attendEvent(req, res) {
           },
         },
       });
-    }
-    // Update both the event and the user's attended events
-    await Promise.all([
-      Event.updateOne({ _id: eventId }, { $push: { attendeesId: userId } }),
-      Client.updateOne({ _id: userId }, { $push: { eventsAttended: id } }),
-    ]);
+    } else {
+      // Update both - event and user's attended events
+      await Promise.all([
+        Event.updateOne({ _id: eventId }, { $push: { attendeesId: userId } }),
+        Client.updateOne({ _id: userId }, { $push: { eventsAttended: id } }),
+      ]);
 
-    res.status(200).json({ message: 'Event attended successful!' });
+      res.status(200).json({ message: 'Event attended successful!' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Internal server error!',
+        },
+      },
+    });
+  }
+}
+
+export async function removeAttend(req, res) {
+  try {
+    const { id } = req.params;
+    const event = await Event.findOne({ _id: id });
+    const userId = req.userInfo._id;
+    const eventId = event._id;
+    const attendanceList = req.userInfo.eventsAttended;
+    const attendeesList = event.attendeesId;
+
+    const attendanceExist = attendanceList.includes(id);
+    const attendeesExist = attendeesList.includes(userId);
+
+    if (attendanceExist && attendeesExist) {
+      // Update both and remove the user's attended events
+      await Promise.all([
+        Event.updateOne({ _id: eventId }, { $pull: { attendeesId: userId } }),
+        Client.updateOne({ _id: userId }, { $pull: { eventsAttended: id } }),
+      ]);
+
+      res.status(200).json({ message: 'Removed attendence successfully!' });
+    } else {
+      res.status(409).json({
+        errors: {
+          common: {
+            msg: 'Something went wrong. Unable to remove!',
+          },
+        },
+      });
+    }
   } catch (error) {
     res.status(500).json({
       errors: {
