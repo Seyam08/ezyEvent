@@ -57,23 +57,29 @@ router
 router
   .route('/event/:id')
   .get(protectRoute.protectedRoute, eventController.getEvent)
-  .delete(protectRoute.protectedRoute, eventController.deleteEvent);
-// attend event route
-router
-  .route('/events/attend/:id')
-  .post(protectRoute.protectedRoute, eventController.attendEvent);
-// remove the attendence
-router
-  .route('/events/removeattend/:id')
-  .post(protectRoute.protectedRoute, eventController.removeAttend);
-//edit event
-router
-  .route('/events/editEvent/:id')
   .put(
     protectRoute.protectedRoute,
     editEventValidator.editEventValidators,
     editEventValidator.editEventValidationHandler,
     eventController.editEvent,
-  );
+  )
+  .delete(protectRoute.protectedRoute, eventController.deleteEvent);
+// attend event route
+router
+  .route('/event/attend/:id')
+  .post(protectRoute.protectedRoute, eventController.attendEvent);
+// remove the attendence
+router
+  .route('/event/removeattend/:id')
+  .post(protectRoute.protectedRoute, eventController.removeAttend);
 
+// edit speaker list as host
+router
+  .route('/event/editspeaker/:id')
+  .patch(
+    protectRoute.protectedRoute,
+    editEventValidator.editSpeakerValidators,
+    editEventValidator.editSpeakerValidationHandler,
+    eventController.editSpeakerList,
+  );
 export default router;

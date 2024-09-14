@@ -36,6 +36,7 @@ export async function addEvent(req, res) {
       Client.updateMany(
         { username: { $in: [...hostName] } },
         { $push: { eventsHosted: event._id }, $addToSet: { role: ['host'] } },
+        { runValidators: true },
       ),
       Client.updateMany(
         { username: { $in: [...speakerName] } },
@@ -43,6 +44,7 @@ export async function addEvent(req, res) {
           $push: { eventsSpeaking: event._id },
           $addToSet: { role: ['speaker'] },
         },
+        { runValidators: true },
       ),
     ]);
 
@@ -223,6 +225,71 @@ export async function editEvent(req, res) {
         res.status(401).json({
           message:
             'Only event date, attendance limit and event status limit is editable!',
+        });
+      }
+    } else {
+      res.status(401).json({ message: 'Unauthorized task!' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Something wrong on getting event!',
+        },
+      },
+    });
+  }
+}
+
+export async function editSpeakerList(req, res) {
+  try {
+    const { id } = req.params;
+    const event = await Event.findOne({ _id: id });
+    const userId = req.userInfo._id;
+    const eventId = event._id;
+    const eventHosted = req.userInfo.eventsHosted;
+    const hostIds = event.hostId;
+
+    // checking host
+    const eventHostExist = eventHosted.includes(id);
+    const hostIdsExist = hostIds.includes(userId);
+    const role = req.userInfo.role.includes('host');
+
+    if (eventHostExist && hostIdsExist && role) {
+      const { speakerNames, ...rest } = req.body;
+
+      if (Object.keys(rest).length === 0) {
+        //  making speakerName into an Array, making sure that there will be no repeted value
+        const speakerNames = new Set([...req.body.speakerNames]);
+        // finding usersId by username
+        const speakerId = await Client.find({
+          username: { $in: [...speakerNames] },
+        }).select({ _id: 1 });
+
+        const result = await Promise.all([
+          Event.findByIdAndUpdate(
+            { _id: eventId },
+            {
+              $set: {
+                speakerId,
+              },
+            },
+            { new: true, runValidators: true },
+          ).select({ __v: 0, createdAt: 0, updatedAt: 0 }),
+          Client.updateMany(
+            { _id: { $in: speakerId } },
+            {
+              $set: { eventsSpeaking: eventId },
+              $addToSet: { role: 'speaker' },
+            },
+            { new: true, runValidators: true },
+          ).select({ __v: 0, createdAt: 0, updatedAt: 0 }),
+        ]);
+
+        res.status(200).json({ message: result });
+      } else {
+        res.status(401).json({
+          message: 'Only speaker names is editable!',
         });
       }
     } else {
