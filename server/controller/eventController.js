@@ -62,7 +62,11 @@ export async function addEvent(req, res) {
 
 export async function getAllEvent(req, res) {
   try {
-    const events = await Event.find();
+    const events = await Event.find().select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
 
     res.status(200).json({
       events: events,
@@ -135,7 +139,7 @@ export async function attendEvent(req, res) {
     res.status(500).json({
       errors: {
         common: {
-          msg: 'Internal server error!',
+          msg: 'Something wrong on getting event!',
         },
       },
     });
@@ -175,7 +179,59 @@ export async function removeAttend(req, res) {
     res.status(500).json({
       errors: {
         common: {
-          msg: 'Internal server error!',
+          msg: 'Something wrong on getting event!',
+        },
+      },
+    });
+  }
+}
+
+export async function editEvent(req, res) {
+  try {
+    const { id } = req.params;
+    const event = await Event.findOne({ _id: id });
+    const userId = req.userInfo._id;
+    const eventId = event._id;
+    const eventHosted = req.userInfo.eventsHosted;
+    const hostIds = event.hostId;
+
+    // checking host
+    const attendanceExist = eventHosted.includes(id);
+    const attendeesExist = hostIds.includes(userId);
+    const role = req.userInfo.role.includes('host');
+
+    if (attendanceExist && attendeesExist && role) {
+      const { eventDate, attendanceLimit, status, ...rest } = req.body;
+
+      if (Object.keys(rest).length === 0) {
+        console.log(eventDate, attendanceLimit, status);
+
+        const result = await Event.findByIdAndUpdate(
+          { _id: eventId },
+          {
+            $set: {
+              eventDate,
+              attendanceLimit,
+              status,
+            },
+          },
+          { new: true, runValidators: true },
+        ).select({ __v: 0, createdAt: 0, updatedAt: 0 });
+        res.status(200).json({ message: result });
+      } else {
+        res.status(401).json({
+          message:
+            'Only event date, attendance limit and event status limit is editable!',
+        });
+      }
+    } else {
+      res.status(401).json({ message: 'Unauthorized task!' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Something wrong on getting event!',
         },
       },
     });

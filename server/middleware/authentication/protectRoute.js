@@ -21,7 +21,6 @@ export async function protectedRoute(req, res, next) {
         }).select({
           password: 0,
           avatar: 0,
-          role: 0,
           __v: 0,
         });
         // decoded info is valid then call the next function

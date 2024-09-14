@@ -18,8 +18,10 @@ const EventSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      enum: ['Upcoming', 'Ongoing', 'Completed'],
-      message: '{VALUE} is not supported',
+      enum: {
+        values: ['Upcoming', 'Ongoing', 'Completed'],
+        message: '{VALUE} is not supported',
+      },
       default: 'Upcoming',
     },
     hostId: [

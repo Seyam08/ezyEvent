@@ -5,6 +5,7 @@ import * as userController from '../controller/userController.js';
 import * as loginValidation from '../middleware/authentication/loginValidation.js';
 import * as protectRoute from '../middleware/authentication/protectRoute.js';
 import * as addEventValidation from '../middleware/events/addEventValidators.js';
+import * as editEventValidator from '../middleware/events/editEventValidator.js';
 import * as addUserValidator from '../middleware/users/addUserValidators.js';
 import avatarUpload from '../middleware/users/avatarUpload.js';
 
@@ -64,5 +65,14 @@ router
 router
   .route('/events/removeattend/:id')
   .post(protectRoute.protectedRoute, eventController.removeAttend);
+//edit event
+router
+  .route('/events/editEvent/:id')
+  .put(
+    protectRoute.protectedRoute,
+    editEventValidator.editEventValidators,
+    editEventValidator.editEventValidationHandler,
+    eventController.editEvent,
+  );
 
 export default router;
