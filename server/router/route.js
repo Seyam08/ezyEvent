@@ -56,7 +56,8 @@ router
 //single event by id
 router
   .route('/event/:id')
-  .get(protectRoute.protectedRoute, eventController.getEvent);
+  .get(protectRoute.protectedRoute, eventController.getEvent)
+  .delete(protectRoute.protectedRoute, eventController.deleteEvent);
 // attend event route
 router
   .route('/events/attend/:id')

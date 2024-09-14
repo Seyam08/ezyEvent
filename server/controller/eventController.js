@@ -162,7 +162,10 @@ export async function removeAttend(req, res) {
       // Update both and remove the user's attended events
       await Promise.all([
         Event.updateOne({ _id: eventId }, { $pull: { attendeesId: userId } }),
-        Client.updateOne({ _id: userId }, { $pull: { eventsAttended: id } }),
+        Client.updateOne(
+          { _id: userId },
+          { $pull: { eventsAttended: eventId } },
+        ),
       ]);
 
       res.status(200).json({ message: 'Removed attendence successfully!' });
@@ -196,16 +199,14 @@ export async function editEvent(req, res) {
     const hostIds = event.hostId;
 
     // checking host
-    const attendanceExist = eventHosted.includes(id);
-    const attendeesExist = hostIds.includes(userId);
+    const eventHostExist = eventHosted.includes(id);
+    const hostIdsExist = hostIds.includes(userId);
     const role = req.userInfo.role.includes('host');
 
-    if (attendanceExist && attendeesExist && role) {
+    if (eventHostExist && hostIdsExist && role) {
       const { eventDate, attendanceLimit, status, ...rest } = req.body;
 
       if (Object.keys(rest).length === 0) {
-        console.log(eventDate, attendanceLimit, status);
-
         const result = await Event.findByIdAndUpdate(
           { _id: eventId },
           {
@@ -232,6 +233,43 @@ export async function editEvent(req, res) {
       errors: {
         common: {
           msg: 'Something wrong on getting event!',
+        },
+      },
+    });
+  }
+}
+
+export async function deleteEvent(req, res) {
+  try {
+    const { id } = req.params;
+    const event = await Event.findOne({ _id: id });
+    const userId = req.userInfo._id;
+    const eventId = event._id;
+    const eventHosted = req.userInfo.eventsHosted;
+    const hostIds = event.hostId;
+
+    // checking host
+    const eventHostExist = eventHosted.includes(id);
+    const hostIdsExist = hostIds.includes(userId);
+    const role = req.userInfo.role.includes('host');
+
+    if (eventHostExist && hostIdsExist && role) {
+      // Update both and remove the user's hosted events
+      await Promise.all([
+        Event.updateOne({ _id: eventId }, { $pull: { hostId: userId } }),
+        Client.updateOne({ _id: userId }, { $pull: { eventsHosted: eventId } }),
+      ]);
+
+      await Event.deleteOne({ _id: eventId });
+      res.status(200).json({ message: 'Successfully deleted event!' });
+    } else {
+      res.status(401).json({ message: 'Unauthorized event!' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Something went wrong!',
         },
       },
     });
