@@ -260,10 +260,10 @@ export async function editSpeakerList(req, res) {
 
       if (Object.keys(rest).length === 0) {
         //  making speakerName into an Array, making sure that there will be no repeted value
-        const speakerNames = new Set([...req.body.speakerNames]);
+        const gotNames = new Set([...speakerNames]);
         // finding usersId by username
         const speakerId = await Client.find({
-          username: { $in: [...speakerNames] },
+          username: { $in: [...gotNames] },
         }).select({ _id: 1 });
 
         const result = await Promise.all([
@@ -274,22 +274,98 @@ export async function editSpeakerList(req, res) {
                 speakerId,
               },
             },
-            { new: true, runValidators: true },
-          ).select({ __v: 0, createdAt: 0, updatedAt: 0 }),
+            { new: true, runValidators: true, useFindAndModify: false },
+          ).select({
+            eventName: 1,
+            eventDate: 1,
+            attendanceLimit: 1,
+            status: 1,
+            speakerId: 1,
+          }),
           Client.updateMany(
             { _id: { $in: speakerId } },
             {
               $set: { eventsSpeaking: eventId },
               $addToSet: { role: 'speaker' },
             },
-            { new: true, runValidators: true },
-          ).select({ __v: 0, createdAt: 0, updatedAt: 0 }),
+            { new: true, runValidators: true, useFindAndModify: false },
+          ).select({ name: 1 }),
         ]);
-
-        res.status(200).json({ message: result });
+        res.status(200).json({ message: result[0] });
       } else {
         res.status(401).json({
           message: 'Only speaker names is editable!',
+        });
+      }
+    } else {
+      res.status(401).json({ message: 'Unauthorized task!' });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Something wrong on getting event!',
+        },
+      },
+    });
+  }
+}
+
+export async function editAttendenceList(req, res) {
+  try {
+    const { id } = req.params;
+    const event = await Event.findOne({ _id: id });
+    const userId = req.userInfo._id;
+    const eventId = event._id;
+    const eventHosted = req.userInfo.eventsHosted;
+    const hostIds = event.hostId;
+
+    // checking host
+    const eventHostExist = eventHosted.includes(id);
+    const hostIdsExist = hostIds.includes(userId);
+    const role = req.userInfo.role.includes('host');
+
+    if (eventHostExist && hostIdsExist && role) {
+      const { attendeesNames, ...rest } = req.body;
+
+      if (Object.keys(rest).length === 0) {
+        //  making speakerName into an Array, making sure that there will be no repeted value
+        const gotNames = new Set([...attendeesNames]);
+        // finding usersId by username
+        const attendeesId = await Client.find({
+          username: { $in: [...gotNames] },
+        }).select({ _id: 1 });
+
+        const result = await Promise.all([
+          Event.findByIdAndUpdate(
+            { _id: eventId },
+            {
+              $set: {
+                attendeesId,
+              },
+            },
+            { new: true, runValidators: true },
+          ).select({
+            eventName: 1,
+            eventDate: 1,
+            attendanceLimit: 1,
+            status: 1,
+            attendeesId: 1,
+          }),
+          Client.updateMany(
+            { _id: { $in: attendeesId } },
+            {
+              $set: { eventsSpeaking: eventId },
+              $addToSet: { role: 'user' },
+            },
+            { new: true, runValidators: true },
+          ).select({ name: 1 }),
+        ]);
+
+        res.status(200).json({ message: result[0] });
+      } else {
+        res.status(401).json({
+          message: 'Only attendees is editable!',
         });
       }
     } else {

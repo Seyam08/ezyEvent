@@ -82,4 +82,14 @@ router
     editEventValidator.editSpeakerValidationHandler,
     eventController.editSpeakerList,
   );
+// edit attendence list as host
+router
+  .route('/event/editattendence/:id')
+  .patch(
+    protectRoute.protectedRoute,
+    editEventValidator.editAttendenceValidators,
+    editEventValidator.editAttendenceValidationHandler,
+    eventController.editAttendenceList,
+  );
+
 export default router;

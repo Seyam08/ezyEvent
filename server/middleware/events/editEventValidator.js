@@ -109,3 +109,49 @@ export function editSpeakerValidationHandler(req, res, next) {
     });
   }
 }
+
+// edit attendence of event validator and handlers
+export const editAttendenceValidators = [
+  // speakerName validator
+  check('attendeesNames')
+    .isArray()
+    .withMessage('Speaker name should be an array')
+    .custom(async (value) => {
+      let foundUsernames;
+      try {
+        // Find users from value
+        const users = await Client.find({
+          username: { $in: value },
+        }).select({
+          username: 1,
+        });
+
+        // Creating an array of existing username
+        foundUsernames = users.map((user) => user.username);
+      } catch (error) {
+        throw createError(error.message);
+      }
+      // compare with array that gotted from value
+      const missingUsernames = value.filter(
+        (username) => !foundUsernames.includes(username),
+      );
+
+      if (missingUsernames.length > 0) {
+        throw createError(
+          `${missingUsernames.join(', ')} is not registered, it can't be added as Attendence`,
+        );
+      }
+    }),
+];
+export function editAttendenceValidationHandler(req, res, next) {
+  const errors = validationResult(req);
+  const mappedErrors = errors.mapped();
+  if (Object.keys(mappedErrors).length === 0) {
+    next();
+  } else {
+    // response the errors
+    res.status(500).json({
+      errors: mappedErrors,
+    });
+  }
+}
