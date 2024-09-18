@@ -227,7 +227,7 @@ export async function editEvent(req, res) {
         ).select({ __v: 0, createdAt: 0, updatedAt: 0 });
         res.status(200).json({ message: result });
       } else {
-        res.status(401).json({
+        res.status(400).json({
           message:
             'Only event date, attendance limit and event status limit is editable!',
         });

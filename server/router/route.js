@@ -8,10 +8,11 @@ import * as addEventValidation from '../middleware/events/addEventValidators.js'
 import * as editEventValidator from '../middleware/events/editEventValidator.js';
 import * as addUserValidator from '../middleware/users/addUserValidators.js';
 import avatarUpload from '../middleware/users/avatarUpload.js';
+import * as editUserValidator from '../middleware/users/edittUserValidators.js';
 
 const router = Router();
 
-// Users Routes
+// Users Routes - get all users // register user
 router
   .route('/users')
   .get(userController.geAlltUser)
@@ -23,8 +24,17 @@ router
     userController.addUser,
   );
 
-// get user by username
-router.route('/users/:username').get(userController.getUserByUsername);
+// get user by username // edit user
+router
+  .route('/users/:username')
+  .get(userController.getUserByUsername)
+  .put(
+    protectRoute.protectedRoute,
+    avatarUpload,
+    editUserValidator.editUserValidators,
+    editUserValidator.editUserValidationHandler,
+    userController.editUser,
+  );
 
 // login route
 router
@@ -35,14 +45,16 @@ router
     loginValidation.loginValidatorsHandler,
     loginController.login,
   );
+// user profile route
 router
   .route('/profile')
   .get(protectRoute.protectedRoute, loginController.loggedInUserInfo);
+// logout route
 router
   .route('/logout')
   .delete(protectRoute.protectedRoute, loginController.logout);
 
-// Event route
+// Event route - get all event // register event
 router
   .route('/events')
   .get(protectRoute.protectedRoute, eventController.getAllEvent)
@@ -53,7 +65,7 @@ router
     eventController.addEvent,
   );
 
-//single event by id
+//single event by id // edit event // delete event
 router
   .route('/event/:id')
   .get(protectRoute.protectedRoute, eventController.getEvent)

@@ -9,7 +9,7 @@ export const editEventValidators = [
     .optional()
     .custom(async (value, { req }) => {
       if (req.body.hasOwnProperty('eventName')) {
-        throw new Error(`You edit event name!`);
+        throw new createError(`You edit event name!`);
       }
     }),
   // eventDate validator
@@ -31,7 +31,7 @@ export const editEventValidators = [
     .optional()
     .custom(async (value, { req }) => {
       if (req.body.hasOwnProperty('hostName')) {
-        throw new Error(`You edit host name!`);
+        throw new createError(`You edit host name!`);
       }
     }),
   // speakerName validator
@@ -39,7 +39,7 @@ export const editEventValidators = [
     .optional()
     .custom(async (value, { req }) => {
       if (req.body.hasOwnProperty('speakerName')) {
-        throw new Error(`You can't edit speaker name from here!`);
+        throw new createError(`You can't edit speaker name from here!`);
       }
     }),
   // attendees validator
@@ -47,7 +47,7 @@ export const editEventValidators = [
     .optional()
     .custom(async (value, { req }) => {
       if (req.body.hasOwnProperty('attendees')) {
-        throw new Error(`You can't edit attendees from here!`);
+        throw new createError(`You can't edit attendees from here!`);
       }
     }),
 ];

@@ -20,7 +20,6 @@ export async function protectedRoute(req, res, next) {
           $and: [{ username }, { email }, { name }],
         }).select({
           password: 0,
-          avatar: 0,
           __v: 0,
         });
         // decoded info is valid then call the next function
@@ -89,7 +88,7 @@ export async function alreadyLoggedIn(req, res, next) {
           // decoded info is valid then client is already logged in
           res.status(409).send('Already logged in!');
         } else {
-          // if cookie or token is in valid
+          // if cookie or token is invalid
           res.clearCookie(process.env.COOKIE_NAME);
           next();
         }
