@@ -6,9 +6,14 @@ export async function addEvent(req, res) {
 
   const username = req.userInfo.username;
   //  making hostName into an Array, making sure that there will be no repeted value
-  const hostName = new Set([username, ...req.body.hostName]);
+  const hostName = new Set([
+    username,
+    ...(req.body.hostName ? req.body.hostName : ''),
+  ]);
   //  making speakerName into an Array, making sure that there will be no repeted value
-  const speakerName = new Set([...req.body.speakerName]);
+  const speakerName = new Set([
+    ...(req.body.speakerName ? req.body.speakerName : ''),
+  ]);
 
   // save event
   try {
