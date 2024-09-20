@@ -3,6 +3,7 @@ import { unlink } from 'fs/promises';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 import Client from '../models/Clients.js';
+import Event from '../models/Events.js';
 
 export async function addUser(req, res) {
   let newUser;
@@ -118,20 +119,14 @@ export async function editUser(req, res) {
           { runValidators: true },
         );
 
-        const prevFileName = req.userInfo.avatar;
-
         if (result.modifiedCount > 0 && result.acknowledged === true) {
           // remove the previous file
 
-          if (
-            typeof avatarName === 'string' &&
-            prevFileName !== 'avatar-default.jpg'
-          ) {
-            const dirName = dirname(fileURLToPath(import.meta.url));
-            await unlink(
-              `${dirName}/../public/uploads/avatars/${prevFileName}`,
-            );
-          }
+          const dirName = dirname(fileURLToPath(import.meta.url));
+          await unlink(
+            `${dirName}/../public/uploads/avatars/${req.userInfo.avatar}`,
+          );
+
           res.status(200).json({ message: 'Sucessfully edited!' });
         } else {
           res.status(304).json({ message: 'Nothing to change!' });
@@ -181,6 +176,86 @@ export async function editUser(req, res) {
         }
       });
     }
-    res.status(400).json('you are not eligible');
+    res.status(400).json({
+      errors: {
+        common: {
+          msg: 'you are not eligible',
+        },
+      },
+    });
+  }
+}
+
+export async function deleteUser(req, res) {
+  const loggedInUser = req.userInfo.username;
+  const paramUser = req.params.username;
+  // checking that param user is logged in
+  if (loggedInUser === paramUser) {
+    try {
+      const user = await Client.findOne({ username: loggedInUser });
+
+      // password checking for verification
+      const validPass = await bcrypt.compare(req.body.password, user.password);
+      if (validPass) {
+        const delUser = await Client.findByIdAndDelete({ _id: user.id });
+
+        // removing hostId, attendeesId, speakerId from Event collection
+        const { eventsHosted, eventsAttended, eventsSpeaking, id } = delUser;
+
+        if (eventsHosted.length > 0) {
+          await Event.updateMany(
+            { _id: { $in: eventsHosted } },
+            { $pull: { hostId: id } },
+          );
+        }
+        if (eventsAttended.length > 0) {
+          await Event.updateMany(
+            { _id: { $in: eventsAttended } },
+            { $pull: { attendeesId: id } },
+          );
+        }
+        if (eventsSpeaking.length > 0) {
+          await Event.updateMany(
+            { _id: { $in: eventsSpeaking } },
+            { $pull: { speakerId: id } },
+          );
+        }
+        // remove user avatar if any
+        if (delUser.avatar) {
+          const dirName = dirname(fileURLToPath(import.meta.url));
+          await unlink(
+            `${dirName}/../public/uploads/avatars/${delUser.avatar}`,
+          );
+        }
+        // clear cookies
+        res.clearCookie(process.env.COOKIE_NAME);
+        // after all the opration - response
+        res.status(200).json({ message: 'Sucessfully deleted user!' });
+      } else {
+        res.status(400).json({
+          errors: {
+            common: {
+              msg: 'Incorrect password!',
+            },
+          },
+        });
+      }
+    } catch (error) {
+      res.status(400).json({
+        errors: {
+          common: {
+            msg: 'Something went wrong!',
+          },
+        },
+      });
+    }
+  } else {
+    res.status(400).json({
+      errors: {
+        common: {
+          msg: 'you are not eligible',
+        },
+      },
+    });
   }
 }

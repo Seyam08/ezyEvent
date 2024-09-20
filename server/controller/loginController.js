@@ -32,7 +32,7 @@ export async function login(req, res) {
           signed: true,
         });
 
-        res.status(200).send('login sucessfull');
+        res.status(200).json({ message: 'login sucessfull' });
       } else {
         // if password is incorrect but username is correct then username will be also sent on response
         res.status(401).json({
@@ -79,5 +79,5 @@ export async function loggedInUserInfo(req, res) {
 // logout function
 export function logout(req, res) {
   res.clearCookie(process.env.COOKIE_NAME);
-  res.status(200).send('logged out');
+  res.status(200).json({ message: 'logged out' });
 }

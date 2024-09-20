@@ -8,7 +8,8 @@ import * as addEventValidation from '../middleware/events/addEventValidators.js'
 import * as editEventValidator from '../middleware/events/editEventValidator.js';
 import * as addUserValidator from '../middleware/users/addUserValidators.js';
 import avatarUpload from '../middleware/users/avatarUpload.js';
-import * as editUserValidator from '../middleware/users/edittUserValidators.js';
+import * as deleteUserValidator from '../middleware/users/deleteUserValidators.js';
+import * as editUserValidator from '../middleware/users/editUserValidators.js';
 
 const router = Router();
 
@@ -34,6 +35,12 @@ router
     editUserValidator.editUserValidators,
     editUserValidator.editUserValidationHandler,
     userController.editUser,
+  )
+  .delete(
+    protectRoute.protectedRoute,
+    deleteUserValidator.deleteUserValidators,
+    deleteUserValidator.deleteUserValidationHandler,
+    userController.deleteUser,
   );
 
 // login route
