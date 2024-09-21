@@ -10,6 +10,7 @@ import * as addUserValidator from '../middleware/users/addUserValidators.js';
 import avatarUpload from '../middleware/users/avatarUpload.js';
 import * as deleteUserValidator from '../middleware/users/deleteUserValidators.js';
 import * as editUserValidator from '../middleware/users/editUserValidators.js';
+import { copyDefaultAvatar } from '../utilities/defaultAvatarMaker.js';
 
 const router = Router();
 
@@ -111,4 +112,10 @@ router
     eventController.editAttendenceList,
   );
 
+router.route('/test').get(async (req, res) => {
+  const test = await copyDefaultAvatar();
+
+  console.log(test);
+  res.status(200).send('sucess');
+});
 export default router;
