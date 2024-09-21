@@ -59,7 +59,13 @@ export async function geAlltUser(req, res) {
       users: users,
     });
   } catch (err) {
-    res.status(500).send('Server error!');
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Something went wrong!',
+        },
+      },
+    });
   }
 }
 
@@ -129,7 +135,7 @@ export async function editUser(req, res) {
             `${dirName}/../public/uploads/avatars/${req.userInfo.avatar}`,
           );
 
-          res.status(200).json({ message: 'Sucessfully edited!' });
+          res.status(201).json({ message: 'Sucessfully edited!' });
         } else {
           res.status(304).json({ message: 'Nothing to change!' });
         }
@@ -145,7 +151,11 @@ export async function editUser(req, res) {
           });
         }
         res.status(400).json({
-          message: 'ONly name, email, password and avatar are editable!',
+          errors: {
+            common: {
+              msg: 'ONly name, email, password and avatar are editable!',
+            },
+          },
         });
       }
     } catch (error) {

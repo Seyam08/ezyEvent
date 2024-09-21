@@ -58,7 +58,13 @@ export async function protectedRoute(req, res, next) {
     }
   } else {
     // Unauthorized URL if there is no cookie
-    res.status(401).send('Unauthorized URL!');
+    res.status(401).json({
+      errors: {
+        common: {
+          msg: 'Unauthorized URL!',
+        },
+      },
+    });
   }
 }
 

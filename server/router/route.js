@@ -10,7 +10,6 @@ import * as addUserValidator from '../middleware/users/addUserValidators.js';
 import avatarUpload from '../middleware/users/avatarUpload.js';
 import * as deleteUserValidator from '../middleware/users/deleteUserValidators.js';
 import * as editUserValidator from '../middleware/users/editUserValidators.js';
-import { copyDefaultAvatar } from '../utilities/defaultAvatarMaker.js';
 
 const router = Router();
 
@@ -26,7 +25,7 @@ router
     userController.addUser,
   );
 
-// get user by username // edit user
+// get user by username // edit user // delete user
 router
   .route('/users/:username')
   .get(userController.getUserByUsername)
@@ -53,7 +52,7 @@ router
     loginValidation.loginValidatorsHandler,
     loginController.login,
   );
-// user profile route
+// user profile/user information route
 router
   .route('/profile')
   .get(protectRoute.protectedRoute, loginController.loggedInUserInfo);
@@ -73,7 +72,7 @@ router
     eventController.addEvent,
   );
 
-//single event by id // edit event // delete event
+//single event by id // edit event by id // delete event by id
 router
   .route('/event/:id')
   .get(protectRoute.protectedRoute, eventController.getEvent)
@@ -112,10 +111,9 @@ router
     eventController.editAttendenceList,
   );
 
-router.route('/test').get(async (req, res) => {
-  const test = await copyDefaultAvatar();
-
-  console.log(test);
-  res.status(200).send('sucess');
+router.route('/test').get((req, res) => {
+  console.log(first);
+  res.status(200).json('sfa');
 });
+
 export default router;

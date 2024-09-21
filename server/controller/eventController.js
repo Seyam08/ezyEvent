@@ -79,7 +79,13 @@ export async function getAllEvent(req, res) {
       events: events,
     });
   } catch (err) {
-    res.status(500).send('Server error!');
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Internal server error!',
+        },
+      },
+    });
   }
 }
 
@@ -225,15 +231,24 @@ export async function editEvent(req, res) {
           },
           { new: true, runValidators: true },
         ).select({ __v: 0, createdAt: 0, updatedAt: 0 });
-        res.status(200).json({ message: result });
+        res.status(201).json({ message: result });
       } else {
         res.status(400).json({
-          message:
-            'Only event date, attendance limit and event status limit is editable!',
+          errors: {
+            common: {
+              msg: 'Only event date, attendance limit and event status limit is editable!',
+            },
+          },
         });
       }
     } else {
-      res.status(401).json({ message: 'Unauthorized task!' });
+      res.status(401).json({
+        errors: {
+          common: {
+            msg: 'Unauthorized task!',
+          },
+        },
+      });
     }
   } catch (error) {
     res.status(500).json({
@@ -299,11 +314,21 @@ export async function editSpeakerList(req, res) {
         res.status(200).json({ message: result[0] });
       } else {
         res.status(401).json({
-          message: 'Only speaker names is editable!',
+          errors: {
+            common: {
+              msg: 'Only speaker names is editable!',
+            },
+          },
         });
       }
     } else {
-      res.status(401).json({ message: 'Unauthorized task!' });
+      res.status(401).json({
+        errors: {
+          common: {
+            msg: 'Unauthorized task!',
+          },
+        },
+      });
     }
   } catch (error) {
     res.status(500).json({
@@ -370,11 +395,21 @@ export async function editAttendenceList(req, res) {
         res.status(200).json({ message: result[0] });
       } else {
         res.status(401).json({
-          message: 'Only attendees is editable!',
+          errors: {
+            common: {
+              msg: 'Only attendees is editable!',
+            },
+          },
         });
       }
     } else {
-      res.status(401).json({ message: 'Unauthorized task!' });
+      res.status(401).json({
+        errors: {
+          common: {
+            msg: 'Unauthorized task!',
+          },
+        },
+      });
     }
   } catch (error) {
     res.status(500).json({
