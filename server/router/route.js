@@ -111,9 +111,4 @@ router
     eventController.editAttendenceList,
   );
 
-router.route('/test').get((req, res) => {
-  console.log(first);
-  res.status(200).json('sfa');
-});
-
 export default router;
