@@ -127,18 +127,14 @@ export async function editUser(req, res) {
           { runValidators: true },
         );
 
-        if (result.modifiedCount > 0 && result.acknowledged === true) {
+        if (req.files?.length > 0) {
           // remove the previous file
-
           const dirName = dirname(fileURLToPath(import.meta.url));
           await unlink(
             `${dirName}/../public/uploads/avatars/${req.userInfo.avatar}`,
           );
-
-          res.status(201).json({ message: 'Sucessfully edited!' });
-        } else {
-          res.status(304).json({ message: 'Nothing to change!' });
         }
+        res.status(201).json({ message: 'Sucessfully edited!' });
       } else {
         // remove uploaded files
         if (req.files?.length > 0) {
