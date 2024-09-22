@@ -112,7 +112,7 @@ This endpoint allows users to register by providing necessary information. An av
 
 ```json
 {
-  "username": "john@1", // A Unique username
+  "username": "john@1", // A Unique username required
   "name": "John Doe",
   "email": "johndoe@gmail.com", // A un-registered email
   "password": "password123",
