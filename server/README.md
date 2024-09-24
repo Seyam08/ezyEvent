@@ -20,6 +20,8 @@ Replace `example.com` with your actual domain when deploying the API.
 
 ---
 
+---
+
 <!-- User routes start from here -->
 
 ## User Routes
@@ -200,3 +202,69 @@ This endpoint allows users to delete their account. The user must provide their 
 ### Conclusion
 
 The user routes provide essential functionalities for managing user profiles in the ezyEvent application. Users can register, retrieve their information, update their details, and delete their accounts securely. These endpoints are designed to ensure ease of use while maintaining necessary security measures, such as password verification for sensitive actions. By following the provided API specifications, developers can seamlessly integrate user management features into their applications.
+
+---
+
+---
+
+<!-- User routes start from here -->
+
+## Authentication
+
+**Description:**  
+This route handles user authentication using session-based authentication. Passwords are securely hashed using bcrypt, and JWT is used to generate session tokens. Upon successful login, a signed session cookie is generated, which remains valid for 24 hours.
+
+### Login
+
+**Endpoint:**  
+`POST /api/login`
+
+**Description:**  
+This route handles user login feature.
+
+**Request Example:**  
+**_example.com/api/login_**
+
+**Request Format:**
+
+- Content-Type: `application/json` or `application/x-www-form-urlencoded`
+
+**Request Body Example:**
+
+```json
+{
+  "username": "example_username",
+  "password": "example_password"
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "message": "login sucessfull"
+}
+```
+
+### Logout
+
+**Endpoint:**  
+`DELETE /api/logout`
+
+**Description:**  
+This route allows users to log out by invalidating their session. The user must be logged in to access this endpoint.
+
+**Request Example:**  
+**_example.com/api/logout_**
+
+**Request Format:**
+
+Just hit this route while logged in.
+
+**Response Example:**
+
+```json
+{
+  "message": "logged out"
+}
+```
