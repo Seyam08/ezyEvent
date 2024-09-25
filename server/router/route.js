@@ -90,7 +90,7 @@ router
 // remove the attendence
 router
   .route('/event/removeattend/:id')
-  .post(protectRoute.protectedRoute, eventController.removeAttend);
+  .delete(protectRoute.protectedRoute, eventController.removeAttend);
 
 // edit speaker list as host
 router
