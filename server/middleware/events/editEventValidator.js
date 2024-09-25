@@ -115,7 +115,7 @@ export const editAttendenceValidators = [
   // speakerName validator
   check('attendeesNames')
     .isArray()
-    .withMessage('Speaker name should be an array')
+    .withMessage('attendeesNames name should be an array')
     .custom(async (value) => {
       let foundUsernames;
       try {
