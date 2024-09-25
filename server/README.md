@@ -26,6 +26,14 @@ Replace `example.com` with your actual domain when deploying the API.
 
 ## User Routes
 
+The User Routes serve as a critical component of this application, providing a secure and efficient mechanism for user management and interaction. Designed with RESTful principles, these routes facilitate user registration, authentication, and profile management, ensuring that users can easily access and update their information within the application.
+
+Authentication is a key feature of these routes, allowing for secure access to user-specific functionalities. By implementing JSON Web Tokens (JWT) and session-based authentication, ensuring that user data remains protected, while still allowing authorized users to manage their profiles effectively.
+
+Additionally, these routes provide functionalities to retrieve user information, edit profile details, and manage event attendance. With a focus on user roles and permissions, our application guarantees that users can only access or modify data relevant to their roles, enhancing both security and user experience.
+
+In summary, the User Routes form the backbone of user interaction within our application, offering a seamless and secure environment for managing user-related functionalities.
+
 ### Get All Users
 
 ---
@@ -216,6 +224,8 @@ This route handles user authentication using session-based authentication. Passw
 
 ### Login
 
+---
+
 **Endpoint:**  
 `POST /api/login`
 
@@ -246,7 +256,43 @@ This route handles user login feature.
 }
 ```
 
+### Get User Profile
+
+---
+
+**Endpoint:**  
+`GET /api/profile`
+
+**Description:**  
+This route retrieves the authenticated user's profile information. The user must be logged in to access this route.
+
+**Request Example:**  
+**_example.com/api/profile_**
+
+**Authentication Required:**  
+Yes, the user must be logged in.
+
+**Response Example:**
+
+```json
+{
+  "profile": {
+    "_id": "66eb48338079f7f79fbcc3f0",
+    "username": "johndoe@1",
+    "name": "John Doe",
+    "email": "johndoe@example.com",
+    "avatar": "default-avatar.jpg",
+    "role": ["user"],
+    "eventsHosted": [],
+    "eventsAttended": [],
+    "eventsSpeaking": []
+  }
+}
+```
+
 ### Logout
+
+---
 
 **Endpoint:**  
 `DELETE /api/logout`
@@ -268,3 +314,347 @@ Just hit this route while logged in.
   "message": "logged out"
 }
 ```
+
+### Conclusion
+
+The login and logout routes manage user authentication within the ezyEvent application. By using bcrypt for password security and JWT for session management, these routes ensure secure login sessions. The login route establishes a session with a signed cookie valid for 24 hours, while the logout route allows users to securely terminate their session. These endpoints form the foundation for secure and efficient user auth
+
+---
+
+---
+
+<!-- Event routes start from here -->
+
+<!-- introduction -->
+
+## Event Routes
+
+The Event Routes section of this API documentation provides endpoints for managing events within the application. These routes enable users to create, retrieve, update, and delete events while ensuring that the appropriate authentication and authorization mechanisms are in place.
+
+### Key Features:
+
+- **Event Creation:** Users can create new events by providing essential details such as event name, date, attendance limit, host, speaker, and status. The authenticated user is automatically set as the default host.
+- **Event Retrieval:** Users can fetch event details either by ID or retrieve a list of all events. This ensures users can easily access information about upcoming, ongoing, and completed events.
+
+- **Event Updates:** Hosts can modify event details, including date, attendance limits, and speaker lists. Updates can be made for various attributes of the event while maintaining user authentication.
+
+- **Attendance Management:** The API allows users to attend or remove their attendance from events. This feature helps keep track of attendees and ensures that hosts have up-to-date attendance information.
+
+- **Speaker Management:** Hosts can edit the list of speakers for their events, allowing flexibility in event planning and management.
+
+- **Event Deletion:** Only event hosts can delete their events, ensuring that only authorized users can remove an event from the system.
+
+### Authentication and Authorization
+
+All event-related routes require users to be authenticated. Certain actions, such as editing speaker lists and deleting events, require the user to have the host role for the specific event. This adds a layer of security and ensures that event management is handled by authorized users only.
+
+### Usage
+
+This API is designed to be RESTful and utilizes standard HTTP methods for communication. The expected content types for requests include `application/json` and `application/x-www-form-urlencoded`, providing flexibility in how data is submitted to the API.
+
+### Get All Events
+
+---
+
+**Endpoint:**  
+`GET /api/events`
+
+**Description:**  
+This endpoint retrieves a list of all events. The user must be authenticated to access this route.
+
+**Request Example:**  
+**_example.com/api/events_**
+
+**Response Example:**
+
+```json
+{
+  "events": [
+    {
+      "_id": "abc123",
+      "eventName": "Tech Conference 2024",
+      "eventDate": "2024-10-10T00:00:00.000Z",
+      "attendanceLimit": 100,
+      "status": "Upcoming",
+      "hostId": ["host123"],
+      "speakerId": ["speaker123"],
+      "attendeesId": ["attendee123", "attendee456"]
+    },
+    {
+      "_id": "abc124",
+      "eventName": "JavaScript Meetup",
+      "eventDate": "2024-09-30T00:00:00.000Z",
+      "attendanceLimit": 50,
+      "status": "Ongoing",
+      "hostId": ["host124"],
+      "speakerId": ["speaker124"],
+      "attendeesId": ["attendee789"]
+    }
+  ]
+}
+```
+
+### Get Event by ID
+
+---
+
+**Endpoint:**  
+`GET /api/event/:eventId`
+
+**Description:**  
+This endpoint retrieves details about a specific event by its ID. The user must be authenticated to access this route.
+
+**Request Example:**  
+**_example.com/api/event/66f3e35f7edb98_**
+
+**Authentication Required:**  
+Yes, the user must be logged in.
+
+**Response Example:**
+
+```json
+{
+  "_id": "66f3e35f7edb98_",
+  "eventName": "Express meetup",
+  "eventDate": "2024-10-18T00:00:00.000Z",
+  "attendanceLimit": 35,
+  "status": "Ongoing",
+  "hostId": ["66eb48338079f7f"],
+  "speakerId": ["66d75fe457f21", "66d762739fc"],
+  "attendeesId": ["66d762739fc"]
+}
+```
+
+### Create Event
+
+---
+
+**Endpoint:**  
+`POST /api/events`
+
+**Description:**  
+This endpoint is used to create a new event. The user must be authenticated to access this route. The logged-in user will automatically be set as the default host if the `hostName` array is empty or not provided. All usernames provided in `hostName` and `speakerName` must be registered users.
+
+**Request Example:**  
+**_example.com/api/events_**
+
+**Content-Type:**  
+`application/json` or `application/x-www-form-urlencoded`
+
+**Request Object:**
+
+```json
+{
+  "eventName": "React Conference", // Must be a string
+  "eventDate": "2024-10-18", // Must be a valid date
+  "attendanceLimit": 25, // Must be a number
+  "hostName": ["jhon@1"], // Must be an array of usernames; each username must be registered; the logged-in user will be set as the default host if not provided
+  "speakerName": ["andrew@1"], // Must be an array of usernames; each username must be registered
+  "status": "Ongoing" // Must be one of ['Upcoming', 'Ongoing', 'Completed']
+}
+```
+
+**Response Example:**
+
+```json
+{
+  "message": "Event registration successfull!"
+}
+```
+
+### Edit Event
+
+---
+
+**Endpoint:**  
+`PUT /api/event/:eventId`
+
+**Description:**  
+This endpoint allows updating the event details like event date, attendance limit, and status. The user must be authenticated and only certain fields can be updated.
+
+**Request Example:**  
+**_example.com/api/event/66f3e35f7edb98_**
+
+**Authentication Required:**  
+Yes, the user must be logged in.
+
+**Request Body:**
+
+````json
+{
+  "eventDate": "2024-10-18",  // must be a date
+  "attendanceLimit": 25,       // must be a number
+  "status": "Ongoing"          // must be one of ['Upcoming', 'Ongoing', 'Completed']
+}
+
+**Response Example:**
+
+```json
+{
+    "message": {
+        "_id": "66f3e35f7ed",
+        "eventName": "express con 15",
+        "eventDate": "2024-12-20T00:00:00.000Z",
+        "attendanceLimit": 10,
+        "status": "Completed",
+        "hostId": [
+            "66f3e35f7ed"
+        ],
+        "speakerId": [
+            "66f3e35f7ed",
+            "66d762739fc"
+        ],
+        "attendeesId": []
+    }
+}
+````
+
+### Attend Event
+
+---
+
+**Endpoint:**  
+`POST /api/event/attend/:eventId`
+
+**Description:**  
+This endpoint allows a logged-in user to attend an event. Authentication is required.
+
+**Request Example:**  
+**_example.com/api/event/attend/66dcb3cf6d_**
+
+**Authentication Required:**  
+Yes, the user must be logged in.
+
+**Response Example:**
+
+```json
+{
+  "message": "Event attended successfully!"
+}
+```
+
+### Remove Attendance
+
+---
+
+**Endpoint:**  
+`DELETE /api/event/removeattend/:eventId`
+
+**Description:**  
+This endpoint allows a logged-in user to remove their attendance from an event. Authentication is required.
+
+**Request Example:**  
+**_example.com/api/event/removeattend/66dcb3cf6d_**
+
+**Authentication Required:**  
+Yes, the user must be logged in.
+
+**Response Example:**
+
+```json
+{
+  "message": "Removed attendance successfully!"
+}
+```
+
+### Edit Speaker List as Host
+
+---
+
+**Endpoint:**  
+`PATCH /api/event/editspeaker/:eventId`
+
+**Description:**  
+This endpoint allows the host of an event to edit the speaker list. Authentication is required, and the user must have a host role to use this route.
+
+**Request Example:**
+**_example.com/api/event/editspeaker/66dcb3cf6d_**
+
+```json
+{
+  "speakerNames": ["jhon@1", "jhon@2", "jhon@3"] // value type array of usernames and each username must be registered
+}
+```
+
+**Response Example:**
+will return the updated event
+
+```json
+{
+  "message": {
+    "_id": "66f3e35f7edb",
+    "eventName": "express metup",
+    "eventDate": "2024-12-20T00:00:00.000Z",
+    "attendanceLimit": 10,
+    "status": "Completed",
+    "speakerId": ["66eb432c060659", "66d75fe457f210", "66d762739fcc22"]
+  }
+}
+```
+
+### Edit Attendance List as Host
+
+---
+
+**Endpoint:**  
+`PATCH /api/event/editattendence/:eventId`
+
+**Description:**  
+This endpoint allows the host of an event to edit the attendance list. Authentication is required, and the user must have the host role to use this route.
+
+**Request Example:**
+**_example.com/api/event/editattendence/66dcb3cf6d_**
+
+```json
+{
+  "attendeesNames": ["jhon@1", "jhon@2", "jhon@3"] // value type array of usernames and each username must be registered
+}
+```
+
+**Response Example:**
+will return the updated event
+
+```json
+{
+  "message": {
+    "_id": "66f3e35f7edb987e46676556",
+    "eventName": "express con 15",
+    "eventDate": "2024-12-20T00:00:00.000Z",
+    "attendanceLimit": 10,
+    "status": "Completed",
+    "attendeesId": ["66eb432c060659", "66d75fe457f210", "66d762739fcc2f"]
+  }
+}
+```
+
+### Delete Event by ID
+
+---
+
+**Endpoint:**  
+`DELETE /api/event/:eventId`
+
+**Description:**  
+This endpoint allows the host of an event to delete the event. Authentication is required, and the user must have the host role for the specified event to perform this action.
+
+**Request Example:**
+**_example.com/api/event/66dcb3cf6d_**
+
+**Authentication Required:**  
+Yes, the user must be logged in and have the host role for the event being deleted.
+
+**Response Example:**
+
+```json
+{
+  "message": "Event deleted successfully!"
+}
+```
+
+## Conclusion
+
+The Event Routes provide a comprehensive and secure framework for managing events within this application. By leveraging RESTful principles and ensuring robust authentication and authorization mechanisms, these routes empower users to create, modify, and delete events with ease while maintaining the integrity of the data.
+
+Through this API, users can effectively manage event logistics, track attendance, and collaborate with speakers, all while ensuring that only authorized personnel have access to critical functionalities. The emphasis on user roles and responsibilities guarantees that event hosts have the necessary control over their events, facilitating smooth operation and enhanced user experience.
+
+Encouraging developers to explore these routes. For any further questions or clarifications, please refer to the detailed endpoint documentation provided above.
