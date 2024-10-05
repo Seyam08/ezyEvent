@@ -24,7 +24,9 @@ Install this app with npm
    npm install
    ```
 
-4. Start the application:
+4. Rename the .env-example file to .env and config it with own credential.
+
+5. Start the application:
 
    Development version
 
@@ -38,7 +40,7 @@ Install this app with npm
    npm start
    ```
 
-5. Open the package.json file to see all the scripts.
+6. Open the package.json file to see all the scripts.
 
 ## API Overview
 
