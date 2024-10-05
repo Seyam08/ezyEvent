@@ -2,6 +2,44 @@
 
 This documentation covers the RESTful API endpoints for the **ezyEvent** backend, which facilitates event management. The API provides various features such as user authentication, event creation, and user role management. It is designed to handle user registration, login, and event functionalities efficiently.
 
+## Installation
+
+Install this app with npm
+
+1. Clone the repository:
+
+   ```
+   git clone https://github.com/Seyam08/ezyEvent.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```
+   cd ezyEvent\server
+   ```
+
+3. Install the dependencies:
+
+   ```
+   npm install
+   ```
+
+4. Start the application:
+
+   Development version
+
+   ```
+   npm run dev
+   ```
+
+   Production version
+
+   ```
+   npm start
+   ```
+
+5. Open the package.json file to see all the scripts.
+
 ## API Overview
 
 The API is divided into the following sections:
