@@ -1,0 +1,47 @@
+.form {
+  @apply flex flex-col gap-4 p-8 w-1/2 rounded-2xl;
+}
+
+.form button {
+  @apply self-end;
+}
+
+.flex_column > label {
+  @apply font-medium tracking-wider;
+}
+
+.inputForm {
+  @apply border-2 border-solid border-transparent rounded-xl h-12 flex items-center pl-3 transition-all;
+}
+
+.input {
+  @apply ml-2.5 rounded-lg border-none w-full h-full text-[#8a5afe] caret-[#8a5afe] bg-white;
+}
+
+.input:focus {
+  @apply outline-none;
+}
+
+.inputForm:focus-within {
+  @apply border-2 border-solid border-[#8a5afe];
+}
+
+.flex_row {
+  @apply flex flex-row items-center gap-3 justify-between;
+}
+
+.flex_row > div > label {
+  @apply text-sm font-normal;
+}
+
+.span {
+  @apply text-sm ml-1.5 text-[#8a5afe] font-medium cursor-pointer;
+}
+
+.button_submit {
+  @apply foreground mt-5 mb-2.5 border-none text-white text-base font-medium rounded-xl h-12 w-full cursor-pointer hover:opacity-75 transition-opacity;
+}
+
+.p {
+  @apply text-desc-size text-center my-1;
+}
