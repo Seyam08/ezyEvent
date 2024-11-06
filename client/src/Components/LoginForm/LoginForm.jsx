@@ -7,7 +7,7 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
 
   return (
-    <form className={`${styles.form} bg-secondary`}>
+    <form className={`${styles.form} bg-secondary box-shadow`}>
       <div className={styles.flex_column}>
         <label className={`text-primary`}>Email </label>
       </div>
@@ -45,12 +45,17 @@ export default function LoginForm() {
           <label className={`text-secondary`}>Remember me </label>
         </div>
 
-        <span className={styles.span}>Forgot password?</span>
+        {/* <span className={styles.span}>Forgot password?</span> */}
       </div>
       <button className={styles.button_submit}>Sign In</button>
-      <p className={`${styles.p} text-primary`}>
-        Don&apos;t have an account? <span className={styles.span}>Sign Up</span>
-      </p>
+      <div className={styles.short_note_row}>
+        <span className={styles.line} />
+        <p className={`${styles.p} text-primary`}>
+          Don&apos;t have an account?{" "}
+          <span className={styles.span}>Sign Up</span>
+        </p>
+        <span className={styles.line} />
+      </div>
     </form>
   );
 }
