@@ -1,0 +1,42 @@
+.registration_form {
+  @apply relative py-3 sm:max-w-xl sm:mx-auto;
+}
+.form_box {
+  @apply relative px-4 py-10 rounded-3xl sm:p-10;
+}
+.inner_box {
+  @apply max-w-md mx-auto;
+}
+.two_col_inp_fild {
+  @apply mt-5 grid grid-cols-1 sm:grid-cols-2 gap-5;
+}
+.center_btn_row {
+  @apply flex justify-center items-center;
+}
+.submit_btn_row {
+  @apply mt-5;
+}
+.short_note_row {
+  @apply flex items-center justify-between mt-4;
+}
+.form_label {
+  @apply font-semibold text-sm pb-1 block;
+}
+.input_box {
+  @apply border border-transparent rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-[#8A5AFE] focus:ring-2 focus:ring-[#8A5AFE] text-[#8a5afe] caret-[#8a5afe] outline-none transition-all;
+}
+.signUp_with_btn {
+  @apply flex items-center justify-center py-2 px-20 hover:opacity-75 focus:ring-[#8a5afe] focus:ring-offset-[#8a5afe] w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
+}
+.submit_btn {
+  @apply py-2 px-4 bg-[#8a5afe] hover:opacity-75 focus:ring-transparent focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
+}
+.note {
+  @apply text-sm;
+}
+.line {
+  @apply w-1/5 border-b border-slate-500 dark:border-gray-600 md:w-1/4;
+}
+.span {
+  @apply ml-1.5 text-[#8a5afe] font-medium cursor-pointer hover:underline uppercase;
+}
