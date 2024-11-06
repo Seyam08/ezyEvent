@@ -1,8 +1,8 @@
 .mode_btn_container {
-  @apply lg:px-5 md:px-2 px-1 ml-auto md:mx-auto;
+  @apply /* lg:px-5 md:px-2 px-1*/ ml-auto md:mx-auto;
 }
 .area {
-  @apply max-w-28 w-20 md:w-28 flex flex-row p-1 rounded-full drop-shadow-md justify-between;
+  @apply max-w-28 w-20 md:w-28 flex flex-row p-1 rounded-full justify-between border-thin;
 }
 .mode_btn {
   @apply rounded-full p-1 transition-colors;

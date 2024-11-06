@@ -1,8 +1,9 @@
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { MoonIcon, SunIcon } from "../../icons/icons";
 import styles from "./ToogleMode.module.css";
 
-export default function ToogleMode() {
+export default function ToogleMode({ customClass }) {
   const [theme, setTheme] = useState(() => {
     const storedTheme = localStorage.getItem("theme");
     return storedTheme
@@ -33,7 +34,11 @@ export default function ToogleMode() {
 
   return (
     <div className={styles.mode_btn_container}>
-      <div className={`${styles.area} bg-primary border-thin`}>
+      <div
+        className={`${styles.area} bg-primary border-thin ${
+          customClass ? customClass : ""
+        }`}
+      >
         <button
           onClick={handleDarkSwitch}
           className={`${styles.mode_btn} bg-transparent text-primary  dark:foreground hover:foreground hover:text-white`}
@@ -51,3 +56,7 @@ export default function ToogleMode() {
     </div>
   );
 }
+
+ToogleMode.propTypes = {
+  customClass: PropTypes.string,
+};
