@@ -1,0 +1,23 @@
+import { NavLink } from "react-router-dom";
+import { accountsPageMenu } from "../../constants/accountsPageMenu";
+import styles from "./VerticalMenu.module.css";
+
+export default function VerticalMenu() {
+  return (
+    <>
+      <ul className={`${styles.menu} vertical-menu `}>
+        {accountsPageMenu.map((item, key) => {
+          const { href, label, icon: Icon } = item;
+          return (
+            <NavLink to={href} key={key}>
+              <li className={styles.item}>
+                <Icon />
+                {label}
+              </li>
+            </NavLink>
+          );
+        })}
+      </ul>
+    </>
+  );
+}

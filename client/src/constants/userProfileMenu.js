@@ -1,19 +1,19 @@
-import { CalendarIcon, Dashboard, UserStarIcon } from '../icons/icons';
+import { CalendarIcon, Dashboard, UserStarIcon } from "../icons/icons";
 
 export const userProfileMenuItem = [
   {
     href: "/",
     label: "Dashboard",
-    icon: Dashboard
+    icon: Dashboard,
   },
   {
-    href: "/",
-    label: "Profile",
-    icon: UserStarIcon
+    href: "/accounts",
+    label: "Accounts",
+    icon: UserStarIcon,
   },
   {
     href: "/",
     label: "My Events",
-    icon: CalendarIcon
-  }
+    icon: CalendarIcon,
+  },
 ];
