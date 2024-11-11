@@ -4,13 +4,13 @@
 
 @layer components {
   .bg-primary {
-    @apply bg-[#EDEDED] dark:bg-[#131718];
+    @apply bg-[#efefef] dark:bg-[#0D1117];
   }
   .bg-secondary {
-    @apply bg-white dark:bg-[#222627];
+    @apply bg-[#f6f6f6] dark:bg-[#161B22];
   }
   .bg-tertiary {
-    @apply bg-[#e7e7e7] dark:bg-[#333839];
+    @apply bg-[#f1edf9] dark:bg-[#21262D];
   }
   .foreground {
     @apply bg-[#8A5AFE];
