@@ -9,7 +9,7 @@ export default function Menu({ customClassname }) {
       {menuItem.map((item, key) => {
         const { href, label, icon: Icon } = item;
         return (
-          <NavLink to={href} key={key}>
+          <NavLink to={href} key={key} className={styles.active}>
             <li
               className={`${styles.menu_item} text-secondary hover:foreground hover:text-white`}
             >

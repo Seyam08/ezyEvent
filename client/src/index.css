@@ -36,4 +36,9 @@
   .box-shadow {
     @apply shadow-md shadow-slate-500/10 dark:shadow-slate-300/10;
   }
+  /* menu active item start */
+  .sidebar-main-nav .active li {
+    @apply foreground text-white;
+  }
+  /* menu active item end */
 }

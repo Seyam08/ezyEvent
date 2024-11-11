@@ -14,7 +14,7 @@ export default function Header() {
           <img src={logo} alt="ezyEvent" />
         </Link>
       </div>
-      <Menu customClassname="hidden md:block" />
+      <Menu customClassname="hidden md:block sidebar-main-nav" />
       <ToogleMode />
       <UserProfile />
       <MobileMenu customClass={"md:hidden"} />
