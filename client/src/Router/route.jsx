@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
+import AccountsPageLayout from "../layouts/AccountsPageLayout";
 import Layout from "../layouts/Layout";
-import Accounts from "../pages/Accounts/Accounts";
+import MyProfile from "../pages/Accounts/MyProfile";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
@@ -16,7 +17,17 @@ const route = createBrowserRouter([
       },
       {
         path: "/accounts",
-        element: <Accounts />,
+        element: <AccountsPageLayout />,
+        children: [
+          {
+            path: "/accounts/my-profile",
+            element: <MyProfile />,
+          },
+          {
+            path: "/accounts/anything",
+            element: <Login />,
+          },
+        ],
       },
     ],
   },
