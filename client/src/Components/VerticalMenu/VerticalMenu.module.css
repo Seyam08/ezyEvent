@@ -1,11 +1,11 @@
 .menu {
-  @apply flex flex-row md:flex-col flex-wrap max-w-full md:max-w-max md:justify-center rounded-md items-center md:items-baseline;
+  @apply flex flex-row md:flex-col flex-wrap max-w-full md:justify-center rounded-md items-center md:items-baseline;
 }
 .menu a {
-  @apply my-0.5 md:basis-auto basis-36;
+  @apply my-0.5 md:basis-auto w-full basis-36;
 }
 .item {
-  @apply bg-transparent flex relative gap-1 md:w-40 max-w-full cursor-pointer rounded px-4 py-2.5 border-none after:content-[''] after:absolute after:w-1 after:h-4/5 after:bg-[#8A5AFE] after:opacity-0 after:rounded-md after:right-1 after:top-1  transition;
+  @apply bg-transparent flex relative gap-1 max-w-full cursor-pointer rounded px-4 py-2.5 border-none after:content-[''] after:absolute after:w-1 after:h-4/5 after:bg-[#8A5AFE] after:opacity-0 after:rounded-md after:right-1 after:top-1  transition;
 }
 
 .item:focus,

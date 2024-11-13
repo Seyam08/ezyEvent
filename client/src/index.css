@@ -40,6 +40,9 @@
   .sidebar-main-nav .active li {
     @apply foreground text-white;
   }
+  .vertical-menu .active li {
+    @apply bg-tertiary;
+  }
   .vertical-menu .active li::after {
     @apply opacity-100;
   }

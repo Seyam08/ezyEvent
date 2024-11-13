@@ -11,7 +11,7 @@ export default function VerticalMenu() {
           return (
             <NavLink to={href} key={key}>
               <li
-                className={`${styles.item} text-primary focus:bg-tertiary active:bg-tertiary hover:bg-tertiary`}
+                className={`${styles.item} text-primary focus:bg-tertiary hover:bg-tertiary`}
               >
                 <Icon />
                 {label}
