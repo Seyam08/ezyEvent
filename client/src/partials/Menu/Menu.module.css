@@ -1,8 +1,14 @@
 .menu_item {
-  @apply flex items-center gap-3 lg:px-5 md:px-2 p-1 py-3 font-semibold transition  delay-0 rounded-md;
+  @apply flex items-center gap-3 lg:px-5 md:px-2 p-1 py-3 font-semibold transition  delay-0 rounded-md relative after:content-[''] after:absolute after:w-1 after:h-4/5 after:bg-[#8A5AFE] after:opacity-0 after:rounded-md after:right-1 after:top-1;
 }
-.menu_item:hover svg {
-  @apply text-white;
+.menu_item:focus,
+.menu_item:active {
+  @apply outline-none;
+}
+.menu_item:focus::after,
+.menu_item:hover::after,
+.menu_item:active::after {
+  @apply opacity-100;
 }
 .icon {
   @apply h-5 w-5;

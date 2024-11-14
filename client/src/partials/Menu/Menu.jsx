@@ -11,7 +11,7 @@ export default function Menu({ customClassname }) {
         return (
           <NavLink to={href} key={key} className={styles.active}>
             <li
-              className={`${styles.menu_item} text-secondary hover:foreground hover:text-white`}
+              className={`${styles.menu_item} text-secondary focus:bg-tertiary hover:bg-tertiary`}
             >
               <Icon className="text-secondary" />
               {label}

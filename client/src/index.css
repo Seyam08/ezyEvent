@@ -42,7 +42,10 @@
   }
   /* menu active item start */
   .sidebar-main-nav .active li {
-    @apply foreground text-white;
+    @apply bg-tertiary;
+  }
+  .sidebar-main-nav .active li::after {
+    @apply opacity-100;
   }
   .vertical-menu .active li {
     @apply bg-tertiary;
