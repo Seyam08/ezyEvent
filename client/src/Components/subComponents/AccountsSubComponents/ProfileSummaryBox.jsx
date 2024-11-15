@@ -9,7 +9,7 @@ export default function ProfileSummaryBox({ name, role, designation }) {
         <img
           src={image}
           alt="Avatar"
-          className="p-1 rounded-full ring-1 ring-[#8A5AFE] h-full w-full"
+          className="p-1 rounded-full ring-1 ring-[#8C5BFE] h-full w-full"
         />
       </div>
       <section className="block border-l border-gray-400 m-3">

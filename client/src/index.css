@@ -13,7 +13,7 @@
     @apply bg-[#f1edf9] dark:bg-[#21262D];
   }
   .foreground {
-    @apply bg-[#8A5AFE];
+    @apply bg-[#8C5BFE];
   }
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];

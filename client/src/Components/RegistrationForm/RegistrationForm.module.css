@@ -23,13 +23,13 @@
   @apply font-semibold text-sm pb-1 block;
 }
 .input_box {
-  @apply border border-transparent rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-[#8A5AFE] focus:ring-2 focus:ring-[#8A5AFE] text-[#8a5afe] caret-[#8a5afe] outline-none transition-all;
+  @apply border border-transparent rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full focus:border-[#8C5BFE] focus:ring-2 focus:ring-[#8C5BFE] text-[#8C5BFE] caret-[#8C5BFE] outline-none transition-all;
 }
 .signUp_with_btn {
-  @apply flex items-center justify-center py-2 px-20 hover:opacity-75 focus:ring-[#8a5afe] focus:ring-offset-[#8a5afe] w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
+  @apply flex items-center justify-center py-2 px-20 hover:opacity-75 focus:ring-[#8C5BFE] focus:ring-offset-[#8C5BFE] w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
 }
 .submit_btn {
-  @apply py-2 px-4 bg-[#8a5afe] hover:opacity-75 focus:ring-transparent focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
+  @apply py-2 px-4 bg-[#8C5BFE] hover:opacity-75 focus:ring-transparent focus:ring-offset-blue-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2 rounded-lg;
 }
 .note {
   @apply text-sm;
@@ -38,5 +38,5 @@
   @apply w-1/5 border-b border-slate-500 dark:border-gray-600 md:w-1/4;
 }
 .span {
-  @apply ml-1.5 text-[#8a5afe] font-medium cursor-pointer hover:underline uppercase;
+  @apply ml-1.5 text-[#8C5BFE] font-medium cursor-pointer hover:underline uppercase;
 }

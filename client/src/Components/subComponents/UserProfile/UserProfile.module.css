@@ -5,7 +5,7 @@
   @apply w-8 h-8 cursor-pointer;
 }
 .user_icon img {
-  @apply p-1 rounded-full ring-1 ring-[#8A5AFE] h-full w-full;
+  @apply p-1 rounded-full ring-1 ring-[#8C5BFE] h-full w-full;
 }
 .user_name {
   @apply text-base;
