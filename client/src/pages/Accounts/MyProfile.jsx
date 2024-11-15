@@ -1,7 +1,8 @@
 import ProfileInfo from "../../Components/subComponents/AccountsSubComponents/ProfileInfo";
 import ProfileSummaryBox from "../../Components/subComponents/AccountsSubComponents/ProfileSummaryBox";
-import EditIconComponent from "../../Components/subComponents/AnimatedIcons/EditIconComponent";
+import TooltipIcon from "../../Components/subComponents/AnimatedIcons/TooltipIcon";
 import PageHeading from "../../Components/subComponents/Heading/PageHeading";
+import { EditIcon } from "../../icons/icons";
 
 export default function MyProfile() {
   return (
@@ -18,7 +19,7 @@ export default function MyProfile() {
             Personal information
           </h2>
           <div className="absolute top-4 right-4">
-            <EditIconComponent />
+            <TooltipIcon text={"Edit"} icon={EditIcon} />
           </div>
         </div>
 

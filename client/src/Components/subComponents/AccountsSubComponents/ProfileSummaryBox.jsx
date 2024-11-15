@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import image from "../../../assets/user.png";
-import EditIconComponent from "../AnimatedIcons/EditIconComponent";
+import { EditIcon } from "../../../icons/icons";
+import TooltipIcon from "../AnimatedIcons/TooltipIcon";
 
 export default function ProfileSummaryBox({ name, role, designation }) {
   return (
@@ -25,7 +26,7 @@ export default function ProfileSummaryBox({ name, role, designation }) {
       </section>
 
       <div className="absolute top-4 right-4">
-        <EditIconComponent />
+        <TooltipIcon text={"Edit"} icon={EditIcon} />
       </div>
     </div>
   );
