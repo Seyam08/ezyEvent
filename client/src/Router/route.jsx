@@ -5,6 +5,7 @@ import MyProfile from "../pages/Accounts/MyProfile";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
 import Registration from "../pages/Registration/Registration";
+import Speakers from "../pages/Speakers/Speakers";
 
 const route = createBrowserRouter([
   {
@@ -14,6 +15,10 @@ const route = createBrowserRouter([
       {
         path: "/dashboard",
         element: <Dashboard />,
+      },
+      {
+        path: "/speakers",
+        element: <Speakers />,
       },
       {
         path: "/accounts",

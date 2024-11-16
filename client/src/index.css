@@ -38,7 +38,7 @@
     @apply border border-gray-300 dark:border-gray-700;
   }
   .box-shadow {
-    @apply shadow-md shadow-slate-500/10 dark:shadow-slate-300/10;
+    @apply shadow-light-shadow dark:shadow-dark-shadow;
   }
   /* menu active item start */
   .sidebar-main-nav .active li {
