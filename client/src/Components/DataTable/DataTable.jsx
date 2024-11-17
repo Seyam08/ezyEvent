@@ -3,7 +3,7 @@ import ClickToAction from "../subComponents/ClickToAction/ClickToAction";
 import ItemHeading from "../subComponents/Heading/ItemHeading";
 import styles from "./DataTable.module.css";
 
-export default function DataTable({ dataArray }) {
+export default function DataTable({ dataArray, customClass }) {
   const getStatusClass = (status) => {
     switch (status) {
       case "Approved":
@@ -20,7 +20,7 @@ export default function DataTable({ dataArray }) {
   };
 
   return (
-    <div className={styles.table_container}>
+    <div className={`${styles.table_container} ${customClass}`}>
       <div>
         <table className={`${styles.table} bg-secondary`}>
           <thead>
@@ -71,4 +71,5 @@ export default function DataTable({ dataArray }) {
 
 DataTable.propTypes = {
   dataArray: PropTypes.array.isRequired,
+  customClass: PropTypes.string,
 };
