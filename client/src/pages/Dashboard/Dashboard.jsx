@@ -1,5 +1,7 @@
 import CounterCard from "../../Components/CountCard/CounterCard";
 import DataTable from "../../Components/DataTable/DataTable";
+import SpeakerList from "../../Components/SpeakerList/SpeakerList";
+import { speakersList } from "../../constants/speakersList.js";
 import { dataTable } from "../../constants/userReg";
 import { UserGroupIcon } from "../../icons/icons";
 
@@ -12,8 +14,17 @@ export default function Dashboard() {
         <CounterCard limit={235} heading="Total speaker" icon={UserGroupIcon} />
         <CounterCard limit={457} heading="Past Event's" icon={UserGroupIcon} />
       </div>
-      <div>
-        <DataTable dataArray={dataTable} />
+      <div className="grid grid-cols-1 md:grid-cols-1 lg:grid-cols-3 lg:gap-3 md:gap-2 gap-1">
+        <SpeakerList
+          list={speakersList}
+          link="/speakers"
+          customClass={"mt-8"}
+        />
+        <DataTable
+          dataArray={dataTable}
+          customClass={"lg:col-span-2"}
+          link="/"
+        />
       </div>
     </div>
   );

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function SpeakerList({ list, link, customClass }) {
   return (
     <div
-      className={`p-6 bg-secondary rounded-lg shadow-md max-w-md mx-auto ${customClass}`}
+      className={`px-5 py-5 bg-secondary rounded-lg w-full mx-auto ${customClass}`}
     >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold text-primary">
@@ -12,7 +12,7 @@ export default function SpeakerList({ list, link, customClass }) {
         </h2>
         <Link
           to={link}
-          className="text-secondary font-medium bg-tertiary rounded-full px-4 py-1 hover:foreground"
+          className="text-secondary font-medium text-base bg-tertiary rounded-full px-4 py-1 hover:foreground hover:text-[#EDEDED] transition"
         >
           View All
         </Link>

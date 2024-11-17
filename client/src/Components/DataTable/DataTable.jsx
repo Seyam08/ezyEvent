@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 import ClickToAction from "../subComponents/ClickToAction/ClickToAction";
 import ItemHeading from "../subComponents/Heading/ItemHeading";
 import styles from "./DataTable.module.css";
 
-export default function DataTable({ dataArray, customClass }) {
+export default function DataTable({ dataArray, customClass, link }) {
   const getStatusClass = (status) => {
     switch (status) {
       case "Approved":
@@ -25,8 +26,16 @@ export default function DataTable({ dataArray, customClass }) {
         <table className={`${styles.table} bg-secondary`}>
           <thead>
             <tr className={styles.table_h_row}>
-              <th className={styles.table_h} colSpan={5}>
+              <th className={styles.table_h} colSpan={4}>
                 <ItemHeading>Event Registration User list</ItemHeading>
+              </th>
+              <th className={styles.table_h}>
+                <Link
+                  to={link}
+                  className="text-secondary font-medium text-base bg-tertiary rounded-full px-4 py-1 hover:foreground hover:text-[#EDEDED] transition"
+                >
+                  View All
+                </Link>
               </th>
             </tr>
             <tr className={`${styles.table_h_row} text-secondary`}>
@@ -72,4 +81,5 @@ export default function DataTable({ dataArray, customClass }) {
 DataTable.propTypes = {
   dataArray: PropTypes.array.isRequired,
   customClass: PropTypes.string,
+  link: PropTypes.string.isRequired,
 };
