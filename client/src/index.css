@@ -24,7 +24,9 @@
   .text-tertiary {
     @apply text-[#7C899C] dark:text-[#a1a1a1];
   }
-
+  .text-glow {
+    @apply text-[#8C5BFE];
+  }
   .text-heading-size {
     @apply lg:text-xl md:text-lg text-base;
   }

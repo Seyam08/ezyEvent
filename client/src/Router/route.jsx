@@ -4,6 +4,7 @@ import Layout from "../layouts/Layout";
 import MyProfile from "../pages/Accounts/MyProfile";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
+import PublicProfile from "../pages/PublicProfile/PublicProfile";
 import Registration from "../pages/Registration/Registration";
 import Speakers from "../pages/Speakers/Speakers";
 
@@ -19,6 +20,10 @@ const route = createBrowserRouter([
       {
         path: "/speakers",
         element: <Speakers />,
+      },
+      {
+        path: "/public",
+        element: <PublicProfile />,
       },
       {
         path: "/accounts",
