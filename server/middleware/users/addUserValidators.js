@@ -54,7 +54,7 @@ export function addUserValidationHandler(req, res, next) {
     next();
   } else {
     // remove uploaded files
-    if (req.files.length > 0) {
+    if (req.files?.length > 0) {
       const { filename } = req.files[0];
       const dirName = dirname(fileURLToPath(import.meta.url));
 
