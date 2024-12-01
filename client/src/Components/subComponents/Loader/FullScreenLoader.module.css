@@ -1,0 +1,27 @@
+/* FullScreenLoader.module.css */
+
+/* Full-screen overlay */
+.loaderOverlay {
+  @apply fixed w-full h-full backdrop-blur-[1px] z-[9999] flex items-center justify-center left-0 top-0;
+}
+
+/* Centered loader container */
+.loaderContainer {
+  @apply flex justify-center items-center p-5 rounded-[10px];
+}
+
+/* Loader animation */
+.loaderSpan {
+  @apply w-full h-full animate-[blink_0.6s_alternate_infinite_linear];
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0.3;
+    transform: scale(0.5) rotate(5deg);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
