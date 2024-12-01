@@ -5,7 +5,7 @@ import MyProfile from "../pages/Accounts/MyProfile";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
 import PublicProfile from "../pages/PublicProfile/PublicProfile";
-import Registration from "../pages/Registration/Registration";
+import Register from "../pages/Registration/Registration";
 import Speakers from "../pages/Speakers/Speakers";
 
 const route = createBrowserRouter([
@@ -46,8 +46,8 @@ const route = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/registration",
-    element: <Registration />,
+    path: "/register",
+    element: <Register />,
   },
 ]);
 

@@ -14,7 +14,7 @@
   @apply flex justify-center items-center;
 }
 .submit_btn_row {
-  @apply mt-5;
+  @apply my-5;
 }
 .short_note_row {
   @apply flex items-center justify-between mt-4;

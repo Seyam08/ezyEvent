@@ -2,7 +2,7 @@ import RegistrationForm from "../../Components/RegistrationForm/RegistrationForm
 import ToogleMode from "../../Components/ToogleMode/ToogleMode";
 import styles from "./Registration.module.css";
 
-export default function Registration() {
+export default function Register() {
   return (
     <div>
       <div className="bg-primary flex flex-row items-center min-h-screen">
