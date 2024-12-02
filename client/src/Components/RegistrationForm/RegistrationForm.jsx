@@ -3,14 +3,15 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader";
 import { useRegisterMutation } from "../../features/auth/authApi";
+import { regFormSchema } from "../../helper/registration/regFormSchema";
+import { resErrorHandler } from "../../helper/registration/resErrorHandler";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
 import styles from "./RegistrationForm.module.css";
-import { regFormSchema } from "./regFormSchema";
 
 export default function RegistrationForm() {
   const [agreed, setAgreed] = useState(false);
-  const [error, setError] = useState("");
+  const [resError, setResError] = useState({});
   // react hook form
   const {
     register: formRegister,
@@ -26,12 +27,9 @@ export default function RegistrationForm() {
     useRegisterMutation();
 
   useEffect(() => {
-    console.log(isLoading),
-      console.log(JSON.stringify(responseError)),
-      console.log(responseError),
-      console.log(data);
-    if (responseError?.data) {
-      setError(responseError.data.message);
+    if (responseError) {
+      const extractError = resErrorHandler(responseError);
+      setResError(extractError);
     }
     if (data) {
       console.log(data);
@@ -39,15 +37,7 @@ export default function RegistrationForm() {
   }, [data, responseError, isLoading]);
 
   const onSubmit = (data) => {
-    console.log(
-      JSON.stringify({
-        username: data.username,
-        name: data.fullname,
-        email: data.email,
-        password: data.password,
-      })
-    );
-    setError("");
+    setResError({});
     register({
       username: data.username,
       name: data.fullname,
@@ -60,8 +50,6 @@ export default function RegistrationForm() {
     // Set the value of "agreed" in React Hook Form manually
     setValue("agreed", agreed);
   }, [agreed, setValue]);
-
-  console.log("render");
 
   return (
     <div className={styles.registration_form}>
@@ -109,6 +97,11 @@ export default function RegistrationForm() {
                   {errors.email.message}
                 </ErrorMsgBox>
               )}
+              {resError?.email && (
+                <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                  {resError.email}
+                </ErrorMsgBox>
+              )}
             </div>
             {/* username  */}
             <div>
@@ -127,6 +120,11 @@ export default function RegistrationForm() {
               {errors.username && (
                 <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
                   {errors.username.message}
+                </ErrorMsgBox>
+              )}
+              {resError?.username && (
+                <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                  {resError.username}
                 </ErrorMsgBox>
               )}
             </div>
@@ -167,6 +165,11 @@ export default function RegistrationForm() {
               {errors.password && (
                 <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
                   {errors.password.message}
+                </ErrorMsgBox>
+              )}
+              {resError?.password && (
+                <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                  {resError.password}
                 </ErrorMsgBox>
               )}
             </div>
@@ -261,13 +264,13 @@ export default function RegistrationForm() {
             </button>
           </div>
           <div>
-            {error !== "" && (
+            {resError?.fetch && (
               <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
-                {error}
+                {resError.fetch}
               </ErrorMsgBox>
             )}
-            {data !== undefined && (
-              <ErrorMsgBox bgColor="bg-green-400" txtColor="text-green-400">
+            {data?.message && (
+              <ErrorMsgBox bgColor="bg-emerald-400" txtColor="text-emerald-400">
                 {data.message}
               </ErrorMsgBox>
             )}

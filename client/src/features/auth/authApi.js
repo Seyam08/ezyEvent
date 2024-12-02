@@ -7,9 +7,6 @@ export const authApi = apiSlice.injectEndpoints({
         url: "/users",
         method: "POST",
         body: data,
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
       }),
     }),
   }),
