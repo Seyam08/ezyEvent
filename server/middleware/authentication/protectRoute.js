@@ -18,13 +18,19 @@ export async function protectedRoute(req, res, next) {
 
         const user = await Client.findOne({
           $and: [{ username }, { email }, { name }],
-        }).select({
-          password: 0,
-          __v: 0,
-        });
+        })
+          .select({
+            password: 0,
+            __v: 0,
+          })
+          .lean();
         // decoded info is valid then call the next function
         if (Object.keys(user).length > 0) {
-          req.userInfo = user;
+          const resUser = {
+            ...user,
+            avatar: `avatars/${user.avatar}`,
+          };
+          req.userInfo = resUser;
           next();
         } else {
           // Authentication failure if decoded data is wrong

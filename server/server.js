@@ -3,6 +3,8 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
 import mongoose from 'mongoose';
+import { dirname } from 'path';
+import { fileURLToPath } from 'url';
 // internal imports
 import cookieParser from 'cookie-parser';
 import {
@@ -36,8 +38,13 @@ app.use(cors());
 
 // home get req
 app.route('/').get((req, res) => {
-  res.status(200).json({ message: 'Hello, world!' });
+  res
+    .status(200)
+    .json({ message: `Hello!, It's ezyEvent. The event management website.` });
 });
+// Serve the 'avatars' folder directly from the root URL
+const dirName = dirname(fileURLToPath(import.meta.url));
+app.use('/avatars', express.static(`${dirName}/public/uploads/avatars/`));
 // router
 app.use('/api', router);
 // notFoundHandler
