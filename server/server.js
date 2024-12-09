@@ -34,7 +34,12 @@ app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 // enabling cors
-app.use(cors());
+app.use(
+  cors({
+    origin: process.env.CLIENT_ORIGIN, // Use environment variable for browser
+    credentials: true, // Allow cookies
+  }),
+);
 
 // home get req
 app.route('/').get((req, res) => {
