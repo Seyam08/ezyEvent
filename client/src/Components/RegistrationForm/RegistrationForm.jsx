@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import { regFormSchema } from "../../helper/registration/regFormSchema";
-import { resErrorHandler } from "../../helper/registration/resErrorHandler";
+import { regResErrorHandler } from "../../helper/registration/regResErrorHandler";
 import { FileAddIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
+import FullScreenLoader from "../subComponents/Loader/FullScreenLoader";
 import styles from "./RegistrationForm.module.css";
 
 export default function RegistrationForm() {
@@ -31,13 +31,14 @@ export default function RegistrationForm() {
 
   useEffect(() => {
     if (responseError) {
-      const extractError = resErrorHandler(responseError);
+      const extractError = regResErrorHandler(responseError);
       setResError(extractError);
     }
     if (data) {
       console.log(data);
+      reset();
     }
-  }, [data, responseError, isLoading]);
+  }, [data, responseError, reset]);
 
   const onSubmit = (data) => {
     setResError({});
@@ -52,7 +53,6 @@ export default function RegistrationForm() {
     }
 
     register(formData);
-    reset();
   };
 
   useEffect(() => {
