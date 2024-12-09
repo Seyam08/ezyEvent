@@ -1,4 +1,4 @@
-export function resErrorHandler(errorResponse) {
+export function regResErrorHandler(errorResponse) {
   // Initialize an empty errors object
   const errors = {};
 
