@@ -5,6 +5,7 @@ import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLo
 import { useRegisterMutation } from "../../features/auth/authApi";
 import { regFormSchema } from "../../helper/registration/regFormSchema";
 import { resErrorHandler } from "../../helper/registration/resErrorHandler";
+import { FileAddIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
 import styles from "./RegistrationForm.module.css";
@@ -17,11 +18,13 @@ export default function RegistrationForm() {
     register: formRegister,
     handleSubmit,
     setValue,
+    watch,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(regFormSchema),
   });
-
+  const selectedFile = watch("avatar");
   // rtk mutation
   const [register, { data, isLoading, error: responseError }] =
     useRegisterMutation();
@@ -38,12 +41,18 @@ export default function RegistrationForm() {
 
   const onSubmit = (data) => {
     setResError({});
-    register({
-      username: data.username,
-      name: data.fullname,
-      email: data.email,
-      password: data.password,
-    });
+    // Prepare FormData
+    const formData = new FormData();
+    formData.append("username", data.username);
+    formData.append("email", data.email);
+    formData.append("name", data.name);
+    formData.append("password", data.password);
+    if (data.avatar) {
+      formData.append("avatar", data.avatar[0]);
+    }
+
+    register(formData);
+    reset();
   };
 
   useEffect(() => {
@@ -239,6 +248,36 @@ export default function RegistrationForm() {
               </button>
             </div>
           </div> */}
+          {/* add avatar button  */}
+
+          <div>
+            <input
+              id="avatar"
+              type="file"
+              className="hidden"
+              {...formRegister("avatar")}
+              accept="image/png, image/jpeg"
+            />
+            <label
+              htmlFor="avatar"
+              className="flex items-center justify-center max-w-max px-3 py-1 foreground bg-opacity-50 text-primary text-sm rounded-md shadow cursor-pointer hover:bg-opacity-100 transition-all mb-3"
+            >
+              <FileAddIcon className="text-primary h-4 w-4 mr-2" />
+              Add Avatar
+            </label>
+            {selectedFile?.length > 0 && (
+              <>
+                <ErrorMsgBox bgColor="bg-amber-400" txtColor="text-amber-400">
+                  {selectedFile[0].name}
+                </ErrorMsgBox>
+              </>
+            )}
+            {errors.avatar && (
+              <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                {errors.avatar.message}
+              </ErrorMsgBox>
+            )}
+          </div>
           {/* t&c agreed */}
           <div>
             <div className="flex my-3">
@@ -254,6 +293,7 @@ export default function RegistrationForm() {
               </ErrorMsgBox>
             )}
           </div>
+
           <div className={styles.submit_btn_row}>
             <button
               className={styles.submit_btn}
