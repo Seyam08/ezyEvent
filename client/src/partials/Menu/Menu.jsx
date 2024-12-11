@@ -5,7 +5,7 @@ import styles from "./Menu.module.css";
 
 export default function Menu({ customClassname }) {
   return (
-    <ul className={customClassname}>
+    <ul className={`${customClassname} min-w-full`}>
       {menuItem.map((item, key) => {
         const { href, label, icon: Icon } = item;
         return (
