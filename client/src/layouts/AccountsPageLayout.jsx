@@ -7,7 +7,7 @@ export default function AccountsPageLayout() {
     <div>
       <PageHeading>Accounts</PageHeading>
       <div className="flex md:flex-row flex-col gap-5 py-5">
-        <div className="bg-secondary basis-full md:basis-1/6 md:min-h-screen">
+        <div className="py-3 bg-secondary basis-full md:basis-1/6 md:max-h-max">
           <VerticalMenu />
         </div>
         <div className="bg-primary basis-full md:basis-5/6 min-h-screen">

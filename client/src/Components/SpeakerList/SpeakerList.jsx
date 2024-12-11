@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export default function SpeakerList({ list, link, customClass }) {
   return (
     <div
-      className={`px-5 py-5 bg-secondary rounded-lg w-full mx-auto ${customClass}`}
+      className={`px-5 py-5 bg-secondary rounded-lg w-full mx-auto max-h-max ${customClass}`}
     >
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-lg font-semibold text-primary">
