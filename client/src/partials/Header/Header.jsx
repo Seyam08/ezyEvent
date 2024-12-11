@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import ToogleMode from "../../Components/ToogleMode/ToogleMode";
 import UserProfile from "../../Components/subComponents/UserProfile/UserProfile";
-import logo from "../../assets/ezyTrans.svg";
+import logo from "../../assets/ezyTrans.png";
 import Menu from "../Menu/Menu";
 import MobileMenu from "../Menu/MobileMenu";
 import styles from "./Header.module.css";
