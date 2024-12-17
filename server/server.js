@@ -23,7 +23,7 @@ mongoose
     console.log('database connection sucessful');
   })
   .catch((err) => {
-    console.log(err);
+    // debug
   });
 
 // request parser

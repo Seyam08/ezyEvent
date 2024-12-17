@@ -24,7 +24,17 @@ export async function login(req, res) {
         const token = jwt.sign(userInfo, process.env.JWT_SECRET, {
           expiresIn: process.env.JWT_EXPIRY,
         });
-
+        const profile = {
+          _id: user._id,
+          username: user.username,
+          name: user.name,
+          email: user.email,
+          avatar: user.avatar,
+          role: user.role,
+          eventsHosted: user.eventsHosted,
+          eventsAttended: user.eventsAttended,
+          eventsSpeaking: user.eventsSpeaking,
+        };
         // set cookie
         res.cookie(process.env.COOKIE_NAME, token, {
           maxAge: process.env.JWT_EXPIRY,
@@ -32,7 +42,7 @@ export async function login(req, res) {
           signed: true,
         });
 
-        res.status(200).json({ message: 'login sucessfull' });
+        res.status(200).json({ message: 'login sucessfull', profile });
       } else {
         // if password is incorrect but username is correct then username will be also sent on response
         res.status(401).json({
