@@ -16,7 +16,6 @@ export default function LoginForm() {
   const [resError, setResError] = useState({});
   const { error: authError } = useSelector((state) => state.auth);
 
-  console.log(authError);
   // handling the form using react hook form
   const {
     register: formRegister,
@@ -35,11 +34,13 @@ export default function LoginForm() {
     setValue("rememberMe", rememberMe);
   }, [rememberMe, setValue]);
 
+  // form submit handler
   const onSubmit = (data) => {
     setResError({});
     login({ username: data.email, password: data.password });
   };
 
+  // useEffect to handle the response error and action after successful login
   useEffect(() => {
     if (responseError) {
       const extractError = loginErrorHandler(responseError);
@@ -50,11 +51,11 @@ export default function LoginForm() {
     }
   }, [data, responseError, reset]);
 
-  console.log("login render");
-
   return (
     <div>
+      {/* Loader component to show loading state */}
       {isLoading ? <FullScreenLoader color="bg-[#8C5BFE]" /> : null}
+
       <form
         className={`${styles.form} bg-secondary box-shadow`}
         onSubmit={handleSubmit(onSubmit)}
@@ -117,16 +118,19 @@ export default function LoginForm() {
         >
           Sign In
         </button>
+        {/*  Error message box for login mutation error */}
         {resError?.message && (
           <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
             {resError.message}
           </ErrorMsgBox>
         )}
+        {/* successful message if login is successful and no error while generating token */}
         {!authError && data?.message && (
           <ErrorMsgBox bgColor="bg-emerald-400" txtColor="text-emerald-400">
             {data.message}
           </ErrorMsgBox>
         )}
+        {/* Error message box for auth error - error from redux state while generating token */}
         {authError && (
           <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
             {authError}
