@@ -26,38 +26,43 @@ export const authApi = apiSlice.injectEndpoints({
             // Extract the profile from the result
             const profile = result?.data?.profile;
 
-            // Convert the secret key to Uint8Array
-
-            const secretKey = new TextEncoder().encode(
-              import.meta.env.VITE_JWT_SECRET
-            );
-
-            // Get the expiration time from environment variables
-            const expirationTime = import.meta.env.VITE_JWT_EXP;
-            // Generate JWT token inline
-            const token = await new SignJWT(profile)
-              .setProtectedHeader({ alg: "HS256" })
-              .setIssuedAt()
-              .setExpirationTime(expirationTime)
-              .sign(secretKey);
-
-            // Store the token in localStorage
-            localStorage.setItem("auth", token);
-
             // Dispatch the userLoggedIn action with the profile
             dispatch(
               userLoggedIn({
                 profile: result?.data?.profile,
               })
             );
+
+            try {
+              // Convert the secret key to Uint8Array
+
+              const secretKey = new TextEncoder().encode(
+                import.meta.env.VITE_JWT_SECRET
+              );
+              // const secretKey = import.meta.env.VITE_JWT_SECRET;
+
+              // Get the expiration time from environment variables
+              const expirationTime = import.meta.env.VITE_JWT_EXP;
+              // Generate JWT token inline
+              const token = await new SignJWT(profile)
+                .setProtectedHeader({ alg: "HS256" })
+                .setIssuedAt()
+                .setExpirationTime(expirationTime)
+                .sign(secretKey);
+
+              // Store the token in localStorage
+              localStorage.setItem("auth", token);
+            } catch (error) {
+              // Dispatch an action to update the state with an error message, if there is an error while generating the token
+              dispatch(
+                userLoggedIn({ error: "Something went wrong! Unable to login" })
+              );
+              // Dispatch the logout mutation to ensure the user is logged out, is there is an error while generating the token
+              dispatch(authApi.endpoints.logout.initiate());
+            }
           }
         } catch (error) {
-          // Dispatch an action to update the state with an error message, if there is an error while generating the token
-          dispatch(
-            userLoggedIn({ error: "Something went wrong! Unable to login" })
-          );
-          // Dispatch the logout mutation to ensure the user is logged out, is there is an error while generating the token
-          dispatch(authApi.endpoints.logout.initiate());
+          // do nothing
         }
       },
     }),
