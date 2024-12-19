@@ -7,7 +7,7 @@ import { regResErrorHandler } from "../../helper/registration/regResErrorHandler
 import { FileAddIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
-import FullScreenLoader from "../subComponents/Loader/FullScreenLoader";
+import FullScreenLoader from "../subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import styles from "./RegistrationForm.module.css";
 
 export default function RegistrationForm() {

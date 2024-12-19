@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AccountsPageLayout from "../layouts/AccountsPageLayout";
 import Layout from "../layouts/Layout";
 import MyProfile from "../pages/Accounts/MyProfile";
+import ComingSoon from "../pages/ComingSoon/ComingSoon";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
 import PublicProfile from "../pages/PublicProfile/PublicProfile";
@@ -48,6 +49,10 @@ const route = createBrowserRouter([
   {
     path: "/register",
     element: <Register />,
+  },
+  {
+    path: "/coming-soon",
+    element: <ComingSoon />,
   },
 ]);
 

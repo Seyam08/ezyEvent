@@ -1,18 +1,23 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import { useLoginMutation } from "../../features/auth/authApi";
 import { loginFormSchema } from "../../helper/login/loginFormSchema";
 import { loginErrorHandler } from "../../helper/login/loginResErrorHandler";
 import { AtIcon, LockIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
-import FullScreenLoader from "../subComponents/Loader/FullScreenLoader";
+import FullScreenLoader from "../subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [resError, setResError] = useState({});
+  const { error: authError } = useSelector((state) => state.auth);
+
+  console.log(authError);
+  // handling the form using react hook form
   const {
     register: formRegister,
     handleSubmit,
@@ -20,7 +25,7 @@ export default function LoginForm() {
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(loginFormSchema),
+    resolver: yupResolver(loginFormSchema), // using yup resolver for schema validation
   });
   // rtk mutation
   const [login, { data, isLoading, error: responseError }] = useLoginMutation();
@@ -45,7 +50,7 @@ export default function LoginForm() {
     }
   }, [data, responseError, reset]);
 
-  // console.log(resError);
+  console.log("login render");
 
   return (
     <div>
@@ -91,12 +96,6 @@ export default function LoginForm() {
 
         <div className={styles.flex_row}>
           <div className="flex">
-            {/* <input
-            type="checkbox"
-            className="mx-2.5"
-            checked={rememberMe}
-            onChange={(e) => setRememberMe(e.target.checked)}
-          /> */}
             <AnimatedCheckbox
               isChecked={rememberMe}
               setIsChecked={setRememberMe}
@@ -123,9 +122,14 @@ export default function LoginForm() {
             {resError.message}
           </ErrorMsgBox>
         )}
-        {data?.message && (
+        {!authError && data?.message && (
           <ErrorMsgBox bgColor="bg-emerald-400" txtColor="text-emerald-400">
             {data.message}
+          </ErrorMsgBox>
+        )}
+        {authError && (
+          <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+            {authError}
           </ErrorMsgBox>
         )}
         <div className={styles.short_note_row}>
