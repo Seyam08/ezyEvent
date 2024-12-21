@@ -82,6 +82,11 @@ export const authApi = apiSlice.injectEndpoints({
         } catch (error) {
           // Handle any errors that occur during the logout process
           const errorData = loginErrorHandler(error.error);
+
+          if (errorData.message === "Unauthorized URL!") {
+            // Remove the token from localStorage if the URL is unauthorized
+            localStorage.removeItem("auth");
+          }
           // Dispatch the userLoggedOut action with an error message if the logout fails
           dispatch(userLoggedOut({ error: errorData }));
         }

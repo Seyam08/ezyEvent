@@ -35,7 +35,6 @@ export default function RegistrationForm() {
       setResError(extractError);
     }
     if (data) {
-      console.log(data);
       reset();
     }
   }, [data, responseError, reset]);

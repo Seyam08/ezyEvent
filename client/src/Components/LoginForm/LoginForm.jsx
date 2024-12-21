@@ -131,9 +131,9 @@ export default function LoginForm() {
           </ErrorMsgBox>
         )}
         {/* Error message box for auth error - error from redux state while generating token */}
-        {authError && (
+        {authError?.message && (
           <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
-            {authError}
+            {authError.message}
           </ErrorMsgBox>
         )}
         <div className={styles.short_note_row}>

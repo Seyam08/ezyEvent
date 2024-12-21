@@ -29,6 +29,7 @@ export default function useAuthCheck() {
           }
         })
         .catch(() => {
+          localStorage.removeItem("auth");
           logout();
         });
     }

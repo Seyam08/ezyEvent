@@ -4,11 +4,9 @@ import useAuth from "./hooks/useAuth";
 import useAuthCheck from "./hooks/useAuthCheck";
 
 function App() {
+  // eslint-disable-next-line no-unused-vars
   const authChecked = useAuthCheck();
   const loggedIn = useAuth();
-
-  console.log("auth check status", authChecked);
-  console.log("logged status", loggedIn);
 
   return (
     <>
