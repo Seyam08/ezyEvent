@@ -82,7 +82,7 @@ In summary, the User Routes form the backbone of user interaction within our app
 `GET /api/users/`
 
 **Description:**  
-This endpoint retrieves all user information. No authentication is required to access this endpoint.
+This endpoint retrieves all user information. User need to authenticate to access this route.
 
 **Request Example:**
 
@@ -210,7 +210,7 @@ This endpoint allows users to edit their profile information. Users must be logg
 
 ```json
 {
-  "message": "Sucessfully edited!"
+  "message": "Successfully edited!"
 }
 ```
 
@@ -243,7 +243,7 @@ This endpoint allows users to delete their account. The user must provide their 
 
 ```json
 {
-  "message": "Sucessfully deleted user!"
+  "message": "Successfully deleted user!"
 }
 ```
 
@@ -292,7 +292,18 @@ This route handles user login feature.
 
 ```json
 {
-  "message": "login sucessfull"
+  "message": "login successful",
+  "profile": {
+    "_id": "1234567890abcdef",
+    "username": "johndoe",
+    "name": "John Doe",
+    "email": "johndoe@email.com",
+    "avatar": "avatar.png",
+    "role": ["user"],
+    "eventsHosted": [],
+    "eventsAttended": [],
+    "eventsSpeaking": []
+  }
 }
 ```
 
@@ -498,7 +509,7 @@ This endpoint is used to create a new event. The user must be authenticated to a
 
 ```json
 {
-  "message": "Event registration successfull!"
+  "message": "Event registration successful!"
 }
 ```
 
