@@ -16,7 +16,7 @@ const router = Router();
 // Users Routes - get all users // register user
 router
   .route('/users')
-  .get(userController.geAlltUser)
+  .get(protectRoute.protectedRoute, userController.geAlltUser)
   .post(
     protectRoute.alreadyLoggedIn,
     avatarUpload,
