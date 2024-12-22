@@ -13,7 +13,7 @@
 }
 .table_h,
 .table_d {
-  @apply pt-5 pb-2 px-4;
+  @apply pt-3 pb-3 px-4;
 }
 
 .table_status {
