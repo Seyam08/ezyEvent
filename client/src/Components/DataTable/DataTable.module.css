@@ -9,11 +9,14 @@
 }
 
 .table_h_row th {
-  @apply text-sm text-left;
+  @apply text-sm text-left pt-4;
 }
-.table_h,
+.table_h {
+  @apply py-2 px-4;
+}
+
 .table_d {
-  @apply pt-3 pb-3 px-4;
+  @apply py-3 px-4;
 }
 
 .table_status {

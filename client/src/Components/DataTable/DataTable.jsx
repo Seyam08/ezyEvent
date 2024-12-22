@@ -26,10 +26,10 @@ export default function DataTable({ dataArray, customClass, link }) {
         <table className={`${styles.table} bg-secondary`}>
           <thead>
             <tr className={styles.table_h_row}>
-              <th className={styles.table_h} colSpan={4}>
+              <th className={styles.table_h} colSpan={3}>
                 <ItemHeading>Event Registration User list</ItemHeading>
               </th>
-              <th className={styles.table_h}>
+              <th className={`!text-end ${styles.table_h}`} colSpan={2}>
                 <Link
                   to={link}
                   className="text-secondary font-medium text-base bg-tertiary rounded-full px-4 py-1 hover:foreground hover:text-[#EDEDED] transition"
