@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import styles from "./FullScreenLoader.module.css";
 
-export default function FullScreenLoader({ color }) {
+export default function FullScreenLoader({ color = "bg-[#8C5BFE]" }) {
   return (
     <div className={`${styles.loaderOverlay} bg-tertiary bg-opacity-5`}>
       <div className={`${styles.loaderContainer} bg-secondary box-shadow`}>
@@ -36,5 +36,5 @@ export default function FullScreenLoader({ color }) {
   );
 }
 FullScreenLoader.propTypes = {
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
 };
