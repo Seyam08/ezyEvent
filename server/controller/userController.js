@@ -43,15 +43,13 @@ export async function addUser(req, res) {
   }
 }
 
-export async function geAlltUser(req, res) {
+export async function geAllUser(req, res) {
   try {
     const users = await Client.find({
       role: 'user',
     }).select({
       _id: 0,
       password: 0,
-      avatar: 0,
-      role: 0,
       __v: 0,
     });
 
