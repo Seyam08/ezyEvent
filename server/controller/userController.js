@@ -47,15 +47,18 @@ export async function geAllUser(req, res) {
   try {
     const users = await Client.find({
       role: 'user',
-    }).select({
-      _id: 0,
-      password: 0,
-      __v: 0,
-    });
-
-    res.status(200).json({
-      users: users,
-    });
+    })
+      .select({
+        _id: 0,
+        password: 0,
+        __v: 0,
+      })
+      .lean();
+    const updatedUsers = users.map((user) => ({
+      ...user,
+      avatar: `avatars/${user.avatar}`,
+    }));
+    res.status(200).json(updatedUsers);
   } catch (err) {
     res.status(500).json({
       errors: {

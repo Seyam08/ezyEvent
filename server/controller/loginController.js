@@ -29,7 +29,7 @@ export async function login(req, res) {
           username: user.username,
           name: user.name,
           email: user.email,
-          avatar: user.avatar,
+          avatar: `avatars/${user.avatar}`,
           role: user.role,
           eventsHosted: user.eventsHosted,
           eventsAttended: user.eventsAttended,
@@ -42,7 +42,7 @@ export async function login(req, res) {
           signed: true,
         });
 
-        res.status(200).json({ message: 'login sucessfull', profile });
+        res.status(200).json({ message: 'login successful', profile });
       } else {
         // if password is incorrect but username is correct then username will be also sent on response
         res.status(401).json({
@@ -67,7 +67,7 @@ export async function login(req, res) {
       });
     }
   } catch (error) {
-    // if any kind of error happend due to async operation
+    // if any kind of error happened due to async operation
     res.status(500).json({
       errors: {
         common: {
