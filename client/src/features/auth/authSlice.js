@@ -17,6 +17,7 @@ const authSlice = createSlice({
 
         state.isAuthenticated = true;
         state.profile = profile;
+        state.error = null;
       } else if (actions?.payload?.error) {
         // If the payload contains an error, update the state with the error
         state.error = actions.payload.error;

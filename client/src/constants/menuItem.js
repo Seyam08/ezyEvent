@@ -23,8 +23,8 @@ export const menuItem = [
     icon: MicIcon,
   },
   {
-    href: "/",
-    label: "User's List",
+    href: "/all-users",
+    label: "All users",
     icon: UserGroupIcon,
   },
   {

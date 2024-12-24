@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import AccountsPageLayout from "../layouts/AccountsPageLayout";
 import Layout from "../layouts/Layout";
 import MyProfile from "../pages/Accounts/MyProfile";
+import AllUsers from "../pages/AllUsers/AllUsers";
 import ComingSoon from "../pages/ComingSoon/ComingSoon";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import Login from "../pages/Login/Login";
@@ -23,8 +24,12 @@ const route = createBrowserRouter([
         element: <Speakers />,
       },
       {
-        path: "/public",
+        path: "/users/:id",
         element: <PublicProfile />,
+      },
+      {
+        path: "/all-users",
+        element: <AllUsers />,
       },
       {
         path: "/accounts",
