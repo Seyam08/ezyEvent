@@ -456,7 +456,7 @@ This endpoint retrieves a list of all events. The user must be authenticated to 
 `GET /api/event/:eventId`
 
 **Description:**  
-This endpoint retrieves details about a specific event by its ID. The user must be authenticated to access this route.
+This endpoint retrieves details about a specific event by its ID. The user don't need to be authenticated to access this route.
 
 **Request Example:**  
 **_example.com/api/event/66f3e35f7edb98_**

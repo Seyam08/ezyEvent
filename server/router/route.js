@@ -75,7 +75,7 @@ router
 //single event by id // edit event by id // delete event by id
 router
   .route('/event/:id')
-  .get(protectRoute.protectedRoute, eventController.getEvent)
+  .get(eventController.getEvent)
   .put(
     protectRoute.protectedRoute,
     editEventValidator.editEventValidators,
@@ -87,7 +87,7 @@ router
 router
   .route('/event/attend/:id')
   .post(protectRoute.protectedRoute, eventController.attendEvent);
-// remove the attendence
+// remove the attendance
 router
   .route('/event/removeattend/:id')
   .delete(protectRoute.protectedRoute, eventController.removeAttend);
