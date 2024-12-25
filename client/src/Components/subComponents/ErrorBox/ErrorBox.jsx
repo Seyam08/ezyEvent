@@ -27,7 +27,7 @@ export default function ErrorBox({ status, heading, desc }) {
   );
 }
 ErrorBox.propTypes = {
-  status: PropTypes.number.isRequired,
+  status: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
   heading: PropTypes.string.isRequired,
   desc: PropTypes.string,
 };
