@@ -99,7 +99,8 @@ This endpoint retrieves all user information. User need to authenticate to acces
       "email": "johndoe@gmail.com",
       "eventsHosted": ["event_id_1", "event_id_2", "event_id_3"],
       "eventsAttended": ["event_id_1", "event_id_2"],
-      "eventsSpeaking": ["event_id_4", "event_id_5"]
+      "eventsSpeaking": ["event_id_4", "event_id_5"],
+      "avatar": "avatars/avatar-default-1733086474786.jpg"
     },
     {
       "username": "john@2",
@@ -107,7 +108,8 @@ This endpoint retrieves all user information. User need to authenticate to acces
       "email": "johndoe2@gmail.com",
       "eventsHosted": [],
       "eventsAttended": [],
-      "eventsSpeaking": []
+      "eventsSpeaking": [],
+      "avatar": "avatars/avatar-default-1733086474786.jpg"
     }
   ]
 }
@@ -137,7 +139,8 @@ This endpoint retrieves user information by username. No authentication is requi
   "role": ["user"],
   "eventsHosted": [],
   "eventsAttended": [],
-  "eventsSpeaking": []
+  "eventsSpeaking": [],
+  "avatar": "avatars/avatar-default-1733086474786.jpg"
 }
 ```
 

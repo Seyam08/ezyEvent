@@ -73,14 +73,19 @@ export async function geAllUser(req, res) {
 export async function getUserByUsername(req, res) {
   try {
     const { username } = req.params;
-    const user = await Client.findOne({ username }).select({
-      _id: 0,
-      password: 0,
-      avatar: 0,
-      __v: 0,
-    });
+    const user = await Client.findOne({ username })
+      .select({
+        _id: 0,
+        password: 0,
+        __v: 0,
+      })
+      .lean();
     if (user) {
-      res.status(200).json(user);
+      const updatedUsers = {
+        ...user,
+        avatar: `avatars/${user.avatar}`,
+      };
+      res.status(200).json(updatedUsers);
     } else {
       res.status(404).json({
         errors: {
