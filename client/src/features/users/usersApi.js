@@ -8,7 +8,13 @@ export const usersApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted() {},
     }),
+    getUser: builder.query({
+      query: (username) => ({
+        url: `/users/${username}`,
+      }),
+      async onQueryStarted() {},
+    }),
   }),
 });
 
-export const { useGetAllUsersQuery } = usersApi;
+export const { useGetAllUsersQuery, useGetUserQuery } = usersApi;
