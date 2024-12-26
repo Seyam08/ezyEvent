@@ -1,29 +1,10 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import useColorMode from "../../hooks/useColorMode";
 import { MoonIcon, SunIcon } from "../../icons/icons";
 import styles from "./ToogleMode.module.css";
 
 export default function ToogleMode({ customClass }) {
-  const [theme, setTheme] = useState(() => {
-    const storedTheme = localStorage.getItem("theme");
-    return storedTheme
-      ? storedTheme
-      : window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  });
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [theme]);
+  const [theme, setTheme] = useColorMode();
 
   const handleDarkSwitch = () => {
     setTheme("dark");

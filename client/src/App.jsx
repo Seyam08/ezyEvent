@@ -2,10 +2,12 @@ import { RouterProvider } from "react-router-dom";
 import route from "./Router/route";
 import useAuth from "./hooks/useAuth";
 import useAuthCheck from "./hooks/useAuthCheck";
+import useColorMode from "./hooks/useColorMode";
 
 function App() {
   // eslint-disable-next-line no-unused-vars
   const authChecked = useAuthCheck();
+  const [theme, setTheme] = useColorMode();
   const loggedIn = useAuth();
 
   return (
