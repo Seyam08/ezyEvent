@@ -24,9 +24,6 @@
   .text-tertiary {
     @apply text-[#7C899C] dark:text-[#a1a1a1];
   }
-  .text-glow {
-    @apply text-[#8C5BFE];
-  }
   .text-heading-size {
     @apply lg:text-xl md:text-lg text-base;
   }
@@ -41,6 +38,9 @@
   }
   .box-shadow {
     @apply shadow-light-shadow dark:shadow-dark-shadow;
+  }
+  .text-glow {
+    @apply text-[#8C5BFE];
   }
   /* menu active item start */
   .sidebar-main-nav .active li {
