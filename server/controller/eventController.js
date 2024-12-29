@@ -69,11 +69,26 @@ export async function addEvent(req, res) {
 
 export async function getAllEvent(req, res) {
   try {
-    const events = await Event.find().select({
-      __v: 0,
-      createdAt: 0,
-      updatedAt: 0,
-    });
+    const events = await Event.find()
+      .select({
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+      })
+      .populate([
+        {
+          path: 'hostId',
+          select: 'username avatar',
+        },
+        {
+          path: 'speakerId',
+          select: 'username avatar',
+        },
+        {
+          path: 'attendeesId',
+          select: 'username avatar',
+        },
+      ]);
 
     res.status(200).json({
       events: events,
@@ -92,11 +107,26 @@ export async function getAllEvent(req, res) {
 export async function getEvent(req, res) {
   try {
     const { id } = req.params;
-    const event = await Event.findOne({ _id: id }).select({
-      __v: 0,
-      createdAt: 0,
-      updatedAt: 0,
-    });
+    const event = await Event.findOne({ _id: id })
+      .select({
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+      })
+      .populate([
+        {
+          path: 'hostId',
+          select: 'username avatar',
+        },
+        {
+          path: 'speakerId',
+          select: 'username avatar',
+        },
+        {
+          path: 'attendeesId',
+          select: 'username avatar',
+        },
+      ]);
     if (event) {
       res.status(200).json(event);
     } else {
