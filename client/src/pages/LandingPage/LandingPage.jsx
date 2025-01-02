@@ -5,7 +5,7 @@ export default function LandingPage() {
   return (
     <div className="">
       {/* Hero Section */}
-      <section className="bg-[#514cfe] bg-opacity-90">
+      <section className="foreground bg-opacity-90">
         <div className=" bg-landing-bg bg-cover bg-center">
           {/* Header Section */}
 
@@ -24,15 +24,15 @@ export default function LandingPage() {
                   Our secure and user-friendly platform ensures a seamless
                   experience for you and your audience.
                 </p>
-                <button className="bg-[#514CFE] text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 transition hover:text-[#514CFE]">
+                <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 transition hover:text-[#514CFE]">
                   Get started
                 </button>
               </div>
               {/* space */}
-              <div className="h-40"></div>
+              <div className="md:h-40 h-32"></div>
               {/* second section */}
               <div className="relative">
-                <div className="h-auto md:w-[600px] w-96 absolute  m-auto inset-x-0 -top-40">
+                <div className="h-auto md:w-[600px] md:max-w-[600px] w-80 max-w-80 absolute m-auto inset-x-0 md:-top-40 -top-24">
                   <img src={mac} alt="Mac Mockup" className="w-full" />
                 </div>
               </div>
@@ -43,17 +43,6 @@ export default function LandingPage() {
         <div className="bg-primary">
           <div className="h-32 md:h-60"></div>
         </div>
-      </section>
-
-      {/* Logo Section */}
-      <section className="flex justify-center items-center py-8 space-x-8">
-        {["GQ", "The Guardian", "NY Times", "Mashable", "CNN", "HuffPost"].map(
-          (logo) => (
-            <div key={logo} className="text-xl font-semibold">
-              {logo}
-            </div>
-          )
-        )}
       </section>
 
       {/* Features Section */}

@@ -22,7 +22,7 @@ export default function Header() {
               const { href, label } = item;
               return (
                 <NavLink key={key} to={href}>
-                  <li className="text-primary font-semibold px-3 py-2 hover:text-black dark:hover:text-white transition-colors rounded-xl">
+                  <li className="text-white font-semibold px-3 py-2 hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-xl">
                     {label}
                   </li>
                 </NavLink>
@@ -32,7 +32,7 @@ export default function Header() {
         </nav>
 
         <div className="ml-auto md:ml-0">
-          <ToogleMode />
+          <ToogleMode customClass={"bg-[#625EFE]"} />
         </div>
 
         <MobileMenu customClass={"md:hidden"} menuItem={menuItem} />
