@@ -3,7 +3,7 @@ import useColorMode from "../../hooks/useColorMode";
 import { MoonIcon, SunIcon } from "../../icons/icons";
 import styles from "./ToogleMode.module.css";
 
-export default function ToogleMode({ customClass }) {
+export default function ToogleMode({ customClass = "bg-primary border-thin" }) {
   const [theme, setTheme] = useColorMode();
 
   const handleDarkSwitch = () => {
@@ -15,11 +15,7 @@ export default function ToogleMode({ customClass }) {
 
   return (
     <div className={styles.mode_btn_container}>
-      <div
-        className={`${styles.area} bg-primary border-thin ${
-          customClass ? customClass : ""
-        }`}
-      >
+      <div className={`${styles.area} ${customClass ? customClass : ""}`}>
         <button
           onClick={handleDarkSwitch}
           className={`${styles.mode_btn} bg-transparent text-primary  dark:foreground hover:foreground hover:text-white`}
