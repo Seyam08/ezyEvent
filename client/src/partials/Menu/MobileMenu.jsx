@@ -1,10 +1,9 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
-import { menuItem } from "../../constants/menuItem";
 import { MenuIcon } from "../../icons/icons";
 import SubMenu from "./SubMenu";
 
-export default function MobileMenu({ customClass }) {
+export default function MobileMenu({ customClass, menuItem }) {
   const [open, setOpen] = useState(false);
   return (
     <div className={`relative z-10 px-1 ${customClass}`}>
@@ -22,4 +21,5 @@ export default function MobileMenu({ customClass }) {
 }
 MobileMenu.propTypes = {
   customClass: PropTypes.string,
+  menuItem: PropTypes.array.isRequired,
 };
