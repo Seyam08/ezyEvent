@@ -13,7 +13,7 @@
     @apply bg-[#f1edf9] dark:bg-[#21262D];
   }
   .foreground {
-    @apply bg-[#8C5BFE];
+    @apply bg-[#514cfe];
   }
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];
@@ -40,7 +40,7 @@
     @apply shadow-light-shadow dark:shadow-dark-shadow;
   }
   .text-glow {
-    @apply text-[#8C5BFE];
+    @apply text-[#514cfe];
   }
   /* menu active item start */
   .sidebar-main-nav .active li {

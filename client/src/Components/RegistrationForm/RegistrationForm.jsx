@@ -62,7 +62,7 @@ export default function RegistrationForm() {
   return (
     <div className={styles.registration_form}>
       <div className={`${styles.form_box} bg-secondary box-shadow`}>
-        {isLoading ? <FullScreenLoader color="bg-[#8C5BFE]" /> : null}
+        {isLoading ? <FullScreenLoader color="bg-[#514cfe]" /> : null}
 
         <form className={styles.inner_box} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.two_col_inp_fild}>

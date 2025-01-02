@@ -69,7 +69,7 @@ export default function PublicProfile() {
                 src={image}
                 alt={`${name}'s avatar`}
                 onError={handleImageError}
-                className="p-1 rounded-full ring-1 ring-[#8C5BFE] h-full w-full"
+                className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
               />
             </div>
             <h2 className="text-xl font-semibold mt-4 text-primary">{name}</h2>

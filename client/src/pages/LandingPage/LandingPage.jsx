@@ -1,26 +1,47 @@
+import mac from "../../assets/mac_mockup.png";
 import Header from "../../partials/PublicComponent/Header/Header";
 
 export default function LandingPage() {
   return (
-    <div className="bg-gradient-to-b from-blue-600 to-blue-900 text-white font-sans">
-      {/* Header Section */}
-
-      <Header />
+    <div className="">
       {/* Hero Section */}
-      <section className="text-center py-16 px-4">
-        <h1 className="text-4xl md:text-6xl font-bold mb-6">
-          Conduct more customers in a better way
-        </h1>
-        <p className="text-lg md:text-xl text-gray-300 mb-6">
-          Streamline your workflow with our advanced analytics
-        </p>
-        <div className="space-x-4">
-          <button className="bg-orange-500 hover:bg-orange-600 px-6 py-3 rounded-md">
-            Get Started Now
-          </button>
-          <button className="border border-gray-300 px-6 py-3 rounded-md">
-            Watch Trailer
-          </button>
+      <section className="bg-[#514cfe] bg-opacity-90">
+        <div className=" bg-landing-bg bg-cover bg-center">
+          {/* Header Section */}
+
+          <Header />
+          <div className="max-w-6xl w-full mx-auto py-8 px-4">
+            <div className="max-w-full">
+              {/* first section  */}
+              <div className="max-w-2xl mx-auto text-center">
+                <h1 className="text-3xl font-bold text-[#EDEDED]">
+                  Simplify Event Planning and Management with a Platform
+                  Designed for Success
+                </h1>
+                <p className="text-md my-6 px-10 text-[#c7c7c7]">
+                  Take control of every aspect of your events, from user
+                  registration to attendance tracking and speaker management.
+                  Our secure and user-friendly platform ensures a seamless
+                  experience for you and your audience.
+                </p>
+                <button className="bg-[#514CFE] text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 transition hover:text-[#514CFE]">
+                  Get started
+                </button>
+              </div>
+              {/* space */}
+              <div className="h-40"></div>
+              {/* second section */}
+              <div className="relative">
+                <div className="h-auto md:w-[600px] w-96 absolute  m-auto inset-x-0 -top-40">
+                  <img src={mac} alt="Mac Mockup" className="w-full" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        {/* extra space */}
+        <div className="bg-primary">
+          <div className="h-32 md:h-60"></div>
         </div>
       </section>
 

@@ -54,7 +54,7 @@ export default function LoginForm() {
   return (
     <div>
       {/* Loader component to show loading state */}
-      {isLoading ? <FullScreenLoader color="bg-[#8C5BFE]" /> : null}
+      {isLoading ? <FullScreenLoader color="bg-[#514cfe]" /> : null}
 
       <form
         className={`${styles.form} bg-secondary box-shadow`}

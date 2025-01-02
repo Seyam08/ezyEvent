@@ -105,7 +105,7 @@ export default function AllUsersTable({ users }) {
                         src={image}
                         alt={`${name}'s avatar`}
                         onError={handleImageError}
-                        className="p-1 rounded-full ring-1 ring-[#8C5BFE] h-full w-full"
+                        className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
                       />
                     </div>
                   </td>

@@ -52,11 +52,11 @@
 }
 
 .check:hover svg {
-  stroke: var(--accent-color, #8c5bfe);
+  stroke: var(--accent-color, #514cfe);
 }
 
 .cbx2:checked + .check svg {
-  stroke: var(--accent-color, #8c5bfe);
+  stroke: var(--accent-color, #514cfe);
 }
 
 .cbx2:checked + .check svg path {

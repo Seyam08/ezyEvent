@@ -27,7 +27,7 @@ export default function SpeakerList({ list, link, customClass }) {
               <img
                 src={speaker.avatar}
                 alt={speaker.name}
-                className="p-1 rounded-full ring-1 ring-[#8C5BFE] h-full w-full"
+                className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
               />
             </div>
 
