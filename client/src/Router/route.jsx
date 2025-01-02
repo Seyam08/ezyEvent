@@ -6,6 +6,7 @@ import AllUsers from "../pages/AllUsers/AllUsers";
 import ComingSoon from "../pages/ComingSoon/ComingSoon";
 import Dashboard from "../pages/Dashboard/Dashboard";
 import EventPage from "../pages/EventPage/EventPage";
+import LandingPage from "../pages/LandingPage/LandingPage";
 import Login from "../pages/Login/Login";
 import PublicProfile from "../pages/PublicProfile/PublicProfile";
 import Register from "../pages/Registration/Registration";
@@ -63,6 +64,10 @@ const route = createBrowserRouter([
   {
     path: "/coming-soon",
     element: <ComingSoon />,
+  },
+  {
+    path: "/landing",
+    element: <LandingPage />,
   },
 ]);
 
