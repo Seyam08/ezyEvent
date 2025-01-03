@@ -5,9 +5,13 @@ import ToogleMode from "../../../Components/ToogleMode/ToogleMode";
 import { menuItem } from "../../../constants/menuItem";
 import MobileMenu from "../../Menu/MobileMenu";
 
-export default function Header() {
+import PropTypes from "prop-types";
+
+export default function Header({ customClass = "flex" }) {
   return (
-    <header className="flex justify-between items-center px-2 md:px-8 py-4">
+    <header
+      className={`justify-between items-center px-2 md:px-8 py-4 z-30 ${customClass}`}
+    >
       <div className="flex items-center justify-between gap-3 max-w-6xl w-full mx-auto px-4 py-3 md:px-6">
         <div>
           <div className="h-10 w-20">
@@ -40,3 +44,7 @@ export default function Header() {
     </header>
   );
 }
+
+Header.propTypes = {
+  customClass: PropTypes.string,
+};

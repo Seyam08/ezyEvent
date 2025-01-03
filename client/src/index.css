@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+}
 @layer components {
   .bg-primary {
     @apply bg-[#efefef] dark:bg-[#0D1117];
@@ -14,6 +19,9 @@
   }
   .foreground {
     @apply bg-[#514cfe];
+  }
+  .gradient-bg {
+    @apply bg-gradient-to-r from-[#7471FE] to-[#504BFF];
   }
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];

@@ -1,15 +1,39 @@
 import mac from "../../assets/mac_mockup.png";
+import { useScroll } from "../../hooks/useScroll";
 import Header from "../../partials/PublicComponent/Header/Header";
 
 export default function LandingPage() {
+  const { isScrollBottom, isScrollTop, isScrollUp } = useScroll();
+
+  // console.log({
+  //   isScrollBottom: isScrollBottom,
+  //   isScrollTop: isScrollTop,
+  //   isScrollUp: isScrollUp,
+  // });
+
+  // !isScrollBottom && !isScrollTop && isScrollUp
+  //   ? console.log("show")
+  //   : isScrollBottom && !isScrollTop && !isScrollUp
+  //   ? console.log("show")
+  //   : console.log("hidden");
+
   return (
     <div className="">
       {/* Hero Section */}
-      <section className="foreground bg-opacity-90">
-        <div className=" bg-landing-bg bg-cover bg-center">
-          {/* Header Section */}
+      <section className="gradient-bg bg-opacity-90">
+        <div className="bg-landing-bg bg-cover bg-center relative">
+          {/* space */}
+          <div className="md:h-40 h-32"></div>
 
-          <Header />
+          <Header
+            customClass={
+              !isScrollBottom && !isScrollTop && isScrollUp
+                ? "fixed inset-x-0 top-0 gradient-bg animate-fade-down animate-duration-300"
+                : isScrollBottom && !isScrollTop && !isScrollUp
+                ? "fixed inset-x-0 top-0 gradient-bg animate-fade-down animate-duration-300"
+                : "absolute inset-x-0 top-0 bg-transparent"
+            }
+          />
           <div className="max-w-6xl w-full mx-auto py-8 px-4">
             <div className="max-w-full">
               {/* first section  */}
