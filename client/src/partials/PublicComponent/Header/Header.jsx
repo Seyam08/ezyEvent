@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/ezyTrans.png";
@@ -5,12 +6,10 @@ import ToogleMode from "../../../Components/ToogleMode/ToogleMode";
 import { menuItem } from "../../../constants/menuItem";
 import MobileMenu from "../../Menu/MobileMenu";
 
-import PropTypes from "prop-types";
-
 export default function Header({ customClass = "flex" }) {
   return (
     <header
-      className={`justify-between items-center px-2 md:px-8 py-4 z-30 ${customClass}`}
+      className={`justify-between items-center px-2 md:px-8 py-1 z-30 ${customClass}`}
     >
       <div className="flex items-center justify-between gap-3 max-w-6xl w-full mx-auto px-4 py-3 md:px-6">
         <div>

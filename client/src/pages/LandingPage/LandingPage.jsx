@@ -26,13 +26,11 @@ export default function LandingPage() {
           <div className="md:h-40 h-32"></div>
 
           <Header
-            customClass={
-              !isScrollBottom && !isScrollTop && isScrollUp
-                ? "fixed inset-x-0 top-0 gradient-bg animate-fade-down animate-duration-300"
-                : isScrollBottom && !isScrollTop && !isScrollUp
-                ? "fixed inset-x-0 top-0 gradient-bg animate-fade-down animate-duration-300"
-                : "absolute inset-x-0 top-0 bg-transparent"
-            }
+            customClass={`fixed inset-x-0 top-0 transition-all ease-in-out duration-500 ${
+              !isScrollBottom && !isScrollTop && !isScrollUp
+                ? "transform -translate-y-full"
+                : ""
+            } ${isScrollTop ? "bg-transparent" : "gradient-bg"}`}
           />
           <div className="max-w-6xl w-full mx-auto py-8 px-4">
             <div className="max-w-full">
