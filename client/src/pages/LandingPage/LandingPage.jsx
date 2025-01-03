@@ -22,16 +22,9 @@ export default function LandingPage() {
       {/* Hero Section */}
       <section className="gradient-bg bg-opacity-90">
         <div className="bg-landing-bg bg-cover bg-center relative">
+          <Header sticky={true} />
           {/* space */}
-          <div className="md:h-40 h-32"></div>
-
-          <Header
-            customClass={`fixed inset-x-0 top-0 transition-all ease-in-out duration-500 ${
-              !isScrollBottom && !isScrollTop && !isScrollUp
-                ? "transform -translate-y-full"
-                : ""
-            } ${isScrollTop ? "bg-transparent" : "gradient-bg"}`}
-          />
+          <div className="md:h-32 h-28"></div>
           <div className="max-w-6xl w-full mx-auto py-8 px-4">
             <div className="max-w-full">
               {/* first section  */}

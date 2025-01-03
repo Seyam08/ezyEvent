@@ -4,12 +4,23 @@ import { Link, NavLink } from "react-router-dom";
 import logo from "../../../assets/ezyTrans.png";
 import ToogleMode from "../../../Components/ToogleMode/ToogleMode";
 import { menuItem } from "../../../constants/menuItem";
+import { useScroll } from "../../../hooks/useScroll";
 import MobileMenu from "../../Menu/MobileMenu";
 
-export default function Header({ customClass = "flex" }) {
+export default function Header({ sticky = false }) {
+  const { isScrollBottom, isScrollTop, isScrollUp } = useScroll();
   return (
     <header
-      className={`justify-between items-center px-2 md:px-8 py-1 z-30 ${customClass}`}
+      className={`px-2 md:px-8 py-1 z-30 ${
+        sticky
+          ? `fixed inset-x-0 top-0 transition-all ease-in-out duration-500 ${
+              !isScrollBottom && !isScrollTop && !isScrollUp
+                ? "transform -translate-y-full"
+                : ""
+            } ${isScrollTop ? "bg-transparent" : "gradient-bg"}`
+          : "flex justify-between items-center"
+      }
+      `}
     >
       <div className="flex items-center justify-between gap-3 max-w-6xl w-full mx-auto px-4 py-3 md:px-6">
         <div>
@@ -45,5 +56,5 @@ export default function Header({ customClass = "flex" }) {
 }
 
 Header.propTypes = {
-  customClass: PropTypes.string,
+  sticky: PropTypes.bool,
 };
