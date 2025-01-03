@@ -19,8 +19,7 @@ export default function Header({ sticky = false }) {
                 : ""
             } ${isScrollTop ? "bg-transparent" : "gradient-bg"}`
           : "flex justify-between items-center"
-      }
-      `}
+      }`}
     >
       <div className="flex items-center justify-between gap-3 max-w-6xl w-full mx-auto px-4 py-3 md:px-6">
         <div>
