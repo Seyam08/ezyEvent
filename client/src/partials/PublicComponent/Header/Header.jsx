@@ -17,7 +17,11 @@ export default function Header({ sticky = false }) {
               !isScrollBottom && !isScrollTop && !isScrollUp
                 ? "transform -translate-y-full"
                 : ""
-            } ${isScrollTop ? "bg-transparent" : "gradient-bg"}`
+            } ${
+              isScrollTop
+                ? "bg-transparent"
+                : "foreground-2nd shadow-light-shadow dark:shadow-dark-shadow"
+            }`
           : "flex justify-between items-center"
       }`}
     >
@@ -45,7 +49,7 @@ export default function Header({ sticky = false }) {
         </nav>
 
         <div className="ml-auto md:ml-0">
-          <ToogleMode customClass={"bg-[#625EFE]"} />
+          <ToogleMode customClass={"bg-slate-300 bg-opacity-20"} />
         </div>
 
         <MobileMenu customClass={"md:hidden"} menuItem={menuItem} />
