@@ -18,7 +18,7 @@ const webLink = import.meta.env.VITE_DEVELOPERS_WEBSITE;
 export default function Footer() {
   return (
     <footer className="gradient-bg-2nd">
-      <div className="max-w-6xl mx-auto px-4 py-14 md:px-6">
+      <div className="width-holder px-4 py-14 md:px-6">
         {/* first row */}
         <div className="text-center mb-8">
           <h3 className="text-2xl font-semibold uppercase mb-4 text-gray-100">
