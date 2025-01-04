@@ -5,7 +5,7 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "landing-bg": "url('./src/assets/hero.png')",
+        "landing-bg": "url('./src/assets/hero2.png')",
       },
       boxShadow: {
         "light-shadow": "0 4px 12px rgba(100, 100, 100, 0.1)",

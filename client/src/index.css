@@ -24,7 +24,7 @@
     @apply bg-[#15242E];
   }
   .gradient-bg {
-    @apply bg-gradient-to-r from-[#7471FE] to-[#504BFF];
+    @apply bg-gradient-to-br from-[#605df5] to-[#504BFF];
   }
   .gradient-bg-2nd {
     @apply bg-gradient-to-b from-[#2D3A43] to-[#15242E];

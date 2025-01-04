@@ -6,8 +6,8 @@ export default function LandingPage() {
   return (
     <div className="">
       {/* Hero Section */}
-      <section className="gradient-bg bg-opacity-90">
-        <div className="bg-landing-bg bg-cover bg-center relative">
+      <section className="gradient-bg-2nd">
+        <div className="bg-landing-bg bg-cover bg-right-bottom relative">
           <Header sticky={true} />
           {/* space */}
           <div className="md:h-32 h-28"></div>
@@ -16,25 +16,33 @@ export default function LandingPage() {
               {/* first section  */}
               <div className="max-w-2xl mx-auto text-center">
                 <h1 className="text-3xl font-bold text-[#EDEDED]">
-                  Simplify Event Planning and Management with a Platform
-                  Designed for Success
+                  Seamless Event Management, User Control, and Role-Based
+                  Access—All in One Place
                 </h1>
                 <p className="text-md my-6 px-10 text-[#c7c7c7]">
-                  Take control of every aspect of your events, from user
-                  registration to attendance tracking and speaker management.
-                  Our secure and user-friendly platform ensures a seamless
-                  experience for you and your audience.
+                  Simplify event creation, user authentication, and attendance
+                  tracking with our secure and scalable solution.
                 </p>
-                <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 transition hover:text-[#514CFE]">
-                  Get started
-                </button>
+                <div className="space-x-4">
+                  <button className="foreground text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-right animate-duration-500">
+                    Get started
+                  </button>
+                  <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 border border-transparent transition hover:text-[#514CFE] animate-fade-down animate-duration-800">
+                    Explore
+                  </button>
+                </div>
               </div>
               {/* space */}
               <div className="md:h-40 h-32"></div>
               {/* second section */}
               <div className="relative">
-                <div className="h-auto md:w-[600px] md:max-w-[600px] w-80 max-w-80 absolute m-auto inset-x-0 md:-top-40 -top-24">
-                  <img src={mac} alt="Mac Mockup" className="w-full" />
+                <div className="h-auto md:w-[600px] md:max-w-[600px] w-80 max-w-80 absolute m-auto inset-x-0 md:-top-40 -top-24 animate-fade-up animate-duration-800">
+                  <img
+                    src={mac}
+                    alt="Mac Mockup"
+                    className="w-full"
+                    loading="lazy"
+                  />
                 </div>
               </div>
             </div>
