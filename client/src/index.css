@@ -20,8 +20,14 @@
   .foreground {
     @apply bg-[#514cfe];
   }
+  .foreground-2nd {
+    @apply bg-[#15242E];
+  }
   .gradient-bg {
     @apply bg-gradient-to-r from-[#7471FE] to-[#504BFF];
+  }
+  .gradient-bg-2nd {
+    @apply bg-gradient-to-b from-[#2D3A43] to-[#15242E];
   }
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];

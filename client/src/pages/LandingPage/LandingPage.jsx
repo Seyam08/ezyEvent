@@ -1,22 +1,8 @@
 import mac from "../../assets/mac_mockup.png";
-import { useScroll } from "../../hooks/useScroll";
+import Footer from "../../partials/PublicComponent/Footer/Footer";
 import Header from "../../partials/PublicComponent/Header/Header";
 
 export default function LandingPage() {
-  const { isScrollBottom, isScrollTop, isScrollUp } = useScroll();
-
-  // console.log({
-  //   isScrollBottom: isScrollBottom,
-  //   isScrollTop: isScrollTop,
-  //   isScrollUp: isScrollUp,
-  // });
-
-  // !isScrollBottom && !isScrollTop && isScrollUp
-  //   ? console.log("show")
-  //   : isScrollBottom && !isScrollTop && !isScrollUp
-  //   ? console.log("show")
-  //   : console.log("hidden");
-
   return (
     <div className="">
       {/* Hero Section */}
@@ -150,11 +136,7 @@ export default function LandingPage() {
       </section>
 
       {/* Footer Section */}
-      <footer className="bg-blue-900 text-white py-8">
-        <div className="max-w-5xl mx-auto text-center">
-          <p className="text-gray-300">© 2024 SassPack. All Rights Reserved.</p>
-        </div>
-      </footer>
+      <Footer />
     </div>
   );
 }
