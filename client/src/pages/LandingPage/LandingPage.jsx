@@ -1,17 +1,18 @@
 import mac from "../../assets/mac_mockup.png";
+import Features from "../../Components/LandingPage/Features";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
 import Header from "../../partials/PublicComponent/Header/Header";
 
 export default function LandingPage() {
   return (
-    <div className="">
+    <>
       {/* Hero Section */}
       <section className="gradient-bg-2nd">
         <div className="bg-landing-bg bg-cover bg-right-bottom relative">
           <Header sticky={true} />
           {/* space */}
           <div className="md:h-32 h-28"></div>
-          <div className="max-w-6xl w-full mx-auto py-8 px-4">
+          <div className="width-holder py-8 px-4">
             <div className="max-w-full">
               {/* first section  */}
               <div className="max-w-2xl mx-auto text-center">
@@ -24,7 +25,7 @@ export default function LandingPage() {
                   tracking with our secure and scalable solution.
                 </p>
                 <div className="space-x-4">
-                  <button className="foreground text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-right animate-duration-500">
+                  <button className="foreground-2nd text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-right animate-duration-500">
                     Get started
                   </button>
                   <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 border border-transparent transition hover:text-[#514CFE] animate-fade-down animate-duration-800">
@@ -55,36 +56,8 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="bg-white text-gray-900 py-16 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Our Solutions</h2>
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            {[
-              {
-                title: "Expand Your Reach",
-                description: "A complete solution for core economy standards.",
-              },
-              {
-                title: "Higher Annualized Growth",
-                description: "A complete solution for core economy standards.",
-              },
-              {
-                title: "Book Your Provider",
-                description:
-                  "Accelerates your decisions with multi-industrial connections.",
-              },
-              {
-                title: "Secure Multi-Usable",
-                description: "Core economy information progressive and robust.",
-              },
-            ].map(({ title, description }) => (
-              <div key={title} className="text-center">
-                <h3 className="text-xl font-semibold mb-2">{title}</h3>
-                <p className="text-gray-600">{description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+      <section className="bg-primary">
+        <Features />
       </section>
 
       {/* Pricing Section */}
@@ -145,6 +118,6 @@ export default function LandingPage() {
 
       {/* Footer Section */}
       <Footer />
-    </div>
+    </>
   );
 }

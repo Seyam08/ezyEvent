@@ -8,6 +8,9 @@
   }
 }
 @layer components {
+  .width-holder {
+    @apply max-w-6xl w-full mx-auto;
+  }
   .bg-primary {
     @apply bg-[#efefef] dark:bg-[#0D1117];
   }
