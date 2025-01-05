@@ -30,7 +30,10 @@
     @apply bg-gradient-to-br from-[#605df5] to-[#504BFF];
   }
   .gradient-bg-2nd {
-    @apply bg-gradient-to-b from-[#2D3A43] to-[#15242E];
+    @apply bg-gradient-to-br from-[#2D3A43] to-[#15242E];
+  }
+  .gradient-bg-3rd {
+    @apply bg-gradient-to-tl from-[#E9E9E9] to-[#F4F4F4] dark:from-[#020202] dark:to-[#0A0C0B];
   }
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];

@@ -73,7 +73,7 @@ export default function Features() {
         {features.map((feature) => (
           <div
             key={feature.id}
-            className="bg-secondary p-6 rounded-sm box-shadow flex gap-5 items-start"
+            className="gradient-bg-3rd p-6 rounded-sm box-shadow flex gap-5 items-start"
           >
             <div className="flex flex-col gap-14">
               <h2 className="text-glow font-bold underline decoration-4 underline-offset-8 text-2xl">
@@ -87,7 +87,7 @@ export default function Features() {
                 {feature.title}
               </h3>
               <p className="text-tertiary text-sm">{feature.description}</p>
-              <button className="text-glow font-bold flex items-center space-x-2">
+              <button className="text-glow font-bold flex items-center space-x-2 w-max">
                 <span>{feature.action}</span>
                 <ArrowUp
                   className={
