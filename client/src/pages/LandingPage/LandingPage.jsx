@@ -16,7 +16,7 @@ export default function LandingPage() {
           <div className="width-holder py-8 px-4">
             <div className="max-w-full">
               {/* first section  */}
-              <div className="max-w-2xl mx-auto text-center">
+              <div className="max-w-2xl 2xl:max-w-3xl mx-auto text-center">
                 <h1 className="text-3xl font-bold text-[#EDEDED]">
                   Seamless Event Management, User Control, and Role-Based
                   Access—All in One Place
