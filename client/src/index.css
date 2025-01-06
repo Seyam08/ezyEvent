@@ -6,6 +6,9 @@
   html {
     @apply scroll-smooth;
   }
+  body {
+    font-family: "Montserrat", sans-serif;
+  }
 }
 @layer components {
   .width-holder {
