@@ -1,14 +1,15 @@
 import mac from "../../assets/mac_mockup.png";
 import Features from "../../Components/LandingPage/Features";
+import UseCase from "../../Components/LandingPage/UseCase";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
 import Header from "../../partials/PublicComponent/Header/Header";
 
 export default function LandingPage() {
   return (
-    <>
+    <div className="bg-primary">
       {/* Hero Section */}
       <section className="gradient-bg-2nd">
-        <div className="bg-landing-bg bg-cover bg-right-bottom relative">
+        <div className="bg-landing-bg bg-cover bg-right-bottom bg-fixed relative">
           <Header sticky={true} />
           {/* space */}
           <div className="md:h-32 h-28"></div>
@@ -61,63 +62,14 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing Section */}
-      <section className="py-16 px-4">
-        <div className="max-w-5xl mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-8">Pricing Plans</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                plan: "Basic",
-                price: "$65.99",
-                features: [
-                  "10 GB Bandwidth",
-                  "Business Analytics",
-                  "24-hour Support",
-                ],
-              },
-              {
-                plan: "Standard",
-                price: "$75.99",
-                features: [
-                  "50 GB Bandwidth",
-                  "Advanced Analytics",
-                  "Priority Support",
-                ],
-              },
-              {
-                plan: "Premium",
-                price: "$85.99",
-                features: [
-                  "100 GB Bandwidth",
-                  "Expert Analysis",
-                  "Premium Support",
-                ],
-              },
-            ].map(({ plan, price, features }) => (
-              <div
-                key={plan}
-                className="bg-white text-gray-900 p-6 rounded-lg shadow-md"
-              >
-                <h3 className="text-xl font-semibold mb-4">{plan}</h3>
-                <p className="text-3xl font-bold mb-4">
-                  {price} <span className="text-sm font-normal">/ Yearly</span>
-                </p>
-                <ul className="text-gray-600 mb-6 space-y-2">
-                  {features.map((feature) => (
-                    <li key={feature}>{feature}</li>
-                  ))}
-                </ul>
-                <button className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md">
-                  Choose Plan
-                </button>
-              </div>
-            ))}
-          </div>
+      <section className="gradient-bg-5th">
+        <div className="bg-landing-bg-2nd bg-contain bg-top bg-no-repeat">
+          <UseCase />
         </div>
       </section>
 
       {/* Footer Section */}
       <Footer />
-    </>
+    </div>
   );
 }

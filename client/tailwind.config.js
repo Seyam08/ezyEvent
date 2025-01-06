@@ -6,6 +6,7 @@ export default {
     extend: {
       backgroundImage: {
         "landing-bg": "url('./src/assets/hero2.png')",
+        "landing-bg-2nd": "url('./src/assets/bg-overlay.png')",
       },
       boxShadow: {
         "light-shadow": "0 4px 12px rgba(100, 100, 100, 0.1)",

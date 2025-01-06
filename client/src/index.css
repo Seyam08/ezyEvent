@@ -9,7 +9,7 @@
 }
 @layer components {
   .width-holder {
-    @apply max-w-6xl w-full mx-auto;
+    @apply max-w-6xl 2xl:max-w-7xl w-full mx-auto;
   }
   .bg-primary {
     @apply bg-[#efefef] dark:bg-[#0D1117];
@@ -35,6 +35,18 @@
   .gradient-bg-3rd {
     @apply bg-gradient-to-tl from-[#E9E9E9] to-[#F4F4F4] dark:from-[#020202] dark:to-[#0A0C0B];
   }
+  .gradient-bg-4th {
+    @apply bg-gradient-to-tl from-cyan-500 to-blue-700;
+  }
+  .gradient-bg-5th {
+    background: rgb(6, 182, 212);
+    background: linear-gradient(
+      180deg,
+      rgba(6, 182, 212, 1) 0%,
+      rgba(29, 78, 216, 1) 80%,
+      rgba(0, 0, 0, 0) 80%
+    );
+  }
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];
   }
@@ -42,7 +54,7 @@
     @apply text-[#263858] dark:text-[#c7c7c7];
   }
   .text-tertiary {
-    @apply text-[#7C899C] dark:text-[#a1a1a1];
+    @apply text-[#091e42] dark:text-[#a1a1a1];
   }
   .text-heading-size {
     @apply lg:text-xl md:text-lg text-base;
@@ -61,6 +73,9 @@
   }
   .text-glow {
     @apply text-[#514cfe];
+  }
+  .text-glow-2nd {
+    @apply text-purple-700;
   }
   /* menu active item start */
   .sidebar-main-nav .active li {
