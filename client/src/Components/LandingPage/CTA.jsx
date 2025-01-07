@@ -10,10 +10,10 @@ export default function CTA() {
           smarter with our secure platform.
         </p>
         <div className="space-x-2 md:space-x-5">
-          <button className="bg-[#efefef] dark:bg-gray-800 text-base py-1 px-4 md:py-2 md:px-6 rounded-full font-bold text-gray-800 dark:text-[#EDEDED] border-2 border-white dark:border-gray-800 hover:bg-transparent hover:text-white dark:hover:text-gray-800 transition-colors">
+          <button className="bg-[#efefef] dark:bg-gray-800 text-sm md:text-base py-1 px-4 md:py-2 md:px-6 rounded-full font-bold text-gray-800 dark:text-[#EDEDED] border-2 border-white dark:border-gray-800 hover:bg-transparent hover:text-white dark:hover:text-gray-800 transition-colors">
             Host an event
           </button>
-          <button className="bg-transparent text-base py-1 px-4 md:py-2 md:px-6 rounded-full font-bold text-white dark:text-gray-800 border-2 border-white dark:border-gray-800 hover:bg-white dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-white transition-colors">
+          <button className="bg-transparent text-sm md:text-base py-1 px-4 md:py-2 md:px-6 rounded-full font-bold text-white dark:text-gray-800 border-2 border-white dark:border-gray-800 hover:bg-white dark:hover:bg-gray-800 hover:text-gray-800 dark:hover:text-white transition-colors">
             Join an event
           </button>
         </div>
