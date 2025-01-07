@@ -25,7 +25,7 @@ export default function Header({ sticky = false }) {
           : "flex justify-between items-center"
       }`}
     >
-      <div className="flex items-center justify-between gap-3 max-w-6xl w-full mx-auto px-4 py-3 md:px-6">
+      <div className="flex items-center justify-between gap-3 width-holder px-4 py-3 md:px-6">
         <div>
           <div className="h-10 w-20">
             <Link to={"/"}>
