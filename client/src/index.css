@@ -50,6 +50,14 @@
       rgba(0, 0, 0, 0) 80%
     );
   }
+  .gradient-bg-6th {
+    background-image: linear-gradient(
+      90.1deg,
+      rgba(8, 81, 98, 1) 14.5%,
+      rgba(198, 231, 249, 1) 135.4%
+    );
+  }
+
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];
   }

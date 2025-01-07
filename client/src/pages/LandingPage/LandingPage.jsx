@@ -1,4 +1,5 @@
 import mac from "../../assets/mac_mockup.png";
+import CTA from "../../Components/LandingPage/CTA";
 import Features from "../../Components/LandingPage/Features";
 import UseCase from "../../Components/LandingPage/UseCase";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
@@ -61,10 +62,17 @@ export default function LandingPage() {
         <Features />
       </section>
 
-      {/* Pricing Section */}
+      {/* UseCase Section */}
       <section className="gradient-bg-5th">
         <div className="bg-landing-bg-2nd bg-contain bg-top bg-no-repeat">
           <UseCase />
+        </div>
+      </section>
+
+      {/* CTA Section */}
+      <section className="bg-primary">
+        <div>
+          <CTA />
         </div>
       </section>
 
