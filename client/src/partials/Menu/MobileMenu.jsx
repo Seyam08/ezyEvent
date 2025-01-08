@@ -3,13 +3,17 @@ import { useState } from "react";
 import { MenuIcon } from "../../icons/icons";
 import SubMenu from "./SubMenu";
 
-export default function MobileMenu({ customClass, menuItem }) {
+export default function MobileMenu({
+  customClass,
+  menuItem,
+  color = "text-primary",
+}) {
   const [open, setOpen] = useState(false);
   return (
     <div className={`relative z-10 px-1 ${customClass}`}>
       <MenuIcon
         onClick={() => setOpen((prevState) => !prevState)}
-        className="cursor-pointer text-primary"
+        className={`cursor-pointer ${color}`}
       />
       <SubMenu
         menuItem={menuItem}
@@ -22,4 +26,5 @@ export default function MobileMenu({ customClass, menuItem }) {
 MobileMenu.propTypes = {
   customClass: PropTypes.string,
   menuItem: PropTypes.array.isRequired,
+  color: PropTypes.string,
 };

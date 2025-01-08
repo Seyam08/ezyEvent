@@ -1,14 +1,16 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router-dom";
-import { NavHashLink } from "react-router-hash-link";
+import { HashLink } from "react-router-hash-link";
 import logo from "../../../assets/ezyTrans.svg";
 import ToogleMode from "../../../Components/ToogleMode/ToogleMode";
 import { publicMenu } from "../../../constants/publicMenu";
+import useAuth from "../../../hooks/useAuth";
 import { useScroll } from "../../../hooks/useScroll";
 import MobileMenu from "../../Menu/MobileMenu";
 
 export default function Header({ sticky = false }) {
+  const loggedIn = useAuth();
   const { isScrollBottom, isScrollTop, isScrollUp } = useScroll();
   return (
     <header
@@ -34,32 +36,47 @@ export default function Header({ sticky = false }) {
             </Link>
           </div>
         </div>
+
         <nav>
           <ul className="hidden items-center gap-1 md:flex">
             {publicMenu.map((item, key) => {
               const { href, label } = item;
               return (
                 <li
-                  className="text-white font-semibold hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-lg"
+                  className="text-white font-semibold hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-lg text-base 2xl:text-lg"
                   key={key}
                 >
-                  <NavHashLink
-                    to={href}
-                    className="block px-3 py-1 text-white font-semibold hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-lg"
-                  >
+                  <HashLink to={href} className="block px-3 py-1">
                     {label}
-                  </NavHashLink>
+                  </HashLink>
                 </li>
               );
             })}
           </ul>
         </nav>
 
-        <div className="ml-auto md:ml-0">
+        <div className="flex space-x-2 ml-auto md:ml-0">
+          <div>
+            <button className="foreground-2nd text-white font-semibold rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
+              {loggedIn ? (
+                <Link to={"/"} className="block px-3 py-1 2xl:py-2">
+                  Dashboard
+                </Link>
+              ) : (
+                <Link to={"/login"} className="block px-3 py-1 2xl:py-2">
+                  Login
+                </Link>
+              )}
+            </button>
+          </div>
           <ToogleMode customClass={"bg-slate-300 bg-opacity-20"} />
         </div>
 
-        <MobileMenu customClass={"md:hidden"} menuItem={publicMenu} />
+        <MobileMenu
+          customClass={"md:hidden"}
+          menuItem={publicMenu}
+          color="text-white"
+        />
       </div>
     </header>
   );
