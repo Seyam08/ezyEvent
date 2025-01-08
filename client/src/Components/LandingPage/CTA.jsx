@@ -1,6 +1,12 @@
+import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
+
 export default function CTA() {
+  const fadeInRef = useFadeInOnScroll();
   return (
-    <div className="width-holder gradient-bg-6th my-5 border-8 border-[#dedae6] dark:border-[#2b323b] rounded-3xl">
+    <div
+      className="width-holder gradient-bg-6th my-5 border-8 border-[#dedae6] dark:border-[#2b323b] rounded-3xl fadeIn"
+      ref={fadeInRef}
+    >
       <div className="p-10 md:p-20 space-y-5 bg-landing-bg-3rd bg-cover bg-right bg-no-repeat">
         <h2 className="text-white text-2xl md:text-4xl font-bold">
           Take Control of Your Events Today!

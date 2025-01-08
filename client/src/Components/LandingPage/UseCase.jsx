@@ -1,8 +1,10 @@
 import { Link } from "react-router-dom";
 import mockup from "../../assets/screenshot-mockup.png";
+import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
 import { CalendarIcon, Dashboard, TaskDaily } from "../../icons/icons";
 
 export default function UseCase() {
+  const fadeInRef = useFadeInOnScroll();
   const cases = [
     {
       id: 1,
@@ -51,8 +53,9 @@ export default function UseCase() {
           <div
             className={`bg-primary max-w-full flex flex-col ${
               useCase.id % 2 === 0 ? "md:flex-row-reverse" : "md:flex-row"
-            } items-center gap-8 p-4 md:p-8 rounded-lg box-shadow`}
+            } items-center gap-8 p-4 md:p-8 rounded-lg box-shadow fadeIn`}
             key={useCase.id}
+            ref={fadeInRef}
           >
             <div className="basis-full md:basis-1/2">
               <img

@@ -2,10 +2,12 @@ import mac from "../../assets/mac_mockup.png";
 import CTA from "../../Components/LandingPage/CTA";
 import Features from "../../Components/LandingPage/Features";
 import UseCase from "../../Components/LandingPage/UseCase";
+import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
 import Header from "../../partials/PublicComponent/Header/Header";
 
 export default function LandingPage() {
+  const fadeInRef = useFadeInOnScroll();
   return (
     <div className="bg-primary">
       {/* Hero Section */}
@@ -18,16 +20,16 @@ export default function LandingPage() {
             <div className="max-w-full">
               {/* first section  */}
               <div className="max-w-2xl 2xl:max-w-3xl mx-auto text-center">
-                <h1 className="text-3xl font-bold text-[#EDEDED]">
+                <h1 className="text-3xl font-bold text-[#EDEDED] animate-fade-up">
                   Seamless Event Management, User Control, and Role-Based
                   Access—All in One Place
                 </h1>
-                <p className="text-md my-6 px-10 text-[#c7c7c7]">
+                <p className="text-md my-6 px-10 text-[#c7c7c7] animate-fade-up">
                   Simplify event creation, user authentication, and attendance
                   tracking with our secure and scalable solution.
                 </p>
                 <div className="space-x-4">
-                  <button className="foreground-2nd text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-right animate-duration-500">
+                  <button className="foreground-2nd text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
                     Get started
                   </button>
                   <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 border border-transparent transition hover:text-[#514CFE] animate-fade-down animate-duration-800">
@@ -64,7 +66,10 @@ export default function LandingPage() {
 
       {/* UseCase Section */}
       <section className="gradient-bg-5th">
-        <div className="bg-landing-bg-2nd bg-contain bg-top bg-no-repeat">
+        <div
+          className="bg-landing-bg-2nd bg-contain bg-top bg-no-repeat fadeIn"
+          ref={fadeInRef}
+        >
           <UseCase />
         </div>
       </section>

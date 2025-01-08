@@ -1,3 +1,4 @@
+import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
 import {
   ArrowUp,
   CalendarIcon,
@@ -7,6 +8,7 @@ import {
 } from "../../icons/icons";
 
 export default function Features() {
+  const fadeInRef = useFadeInOnScroll();
   const features = [
     {
       id: 1,
@@ -73,7 +75,8 @@ export default function Features() {
         {features.map((feature) => (
           <div
             key={feature.id}
-            className="gradient-bg-3rd p-6 rounded-sm box-shadow flex gap-5 items-start"
+            className={`gradient-bg-3rd p-6 rounded-sm box-shadow flex gap-5 items-start fadeIn`}
+            ref={fadeInRef}
           >
             <div className="flex flex-col gap-14">
               <h2 className="text-glow font-bold underline decoration-4 underline-offset-8 text-2xl">

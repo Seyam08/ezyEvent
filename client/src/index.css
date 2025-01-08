@@ -88,6 +88,9 @@
   .text-glow-2nd {
     @apply text-purple-700;
   }
+  .fadeIn {
+    @apply opacity-0 translate-y-5 transition-all duration-500 ease-in;
+  }
   /* menu active item start */
   .sidebar-main-nav .active li {
     @apply bg-tertiary;
