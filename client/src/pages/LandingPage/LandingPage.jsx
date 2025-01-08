@@ -11,7 +11,7 @@ export default function LandingPage() {
   return (
     <div className="bg-primary">
       {/* Hero Section */}
-      <section className="gradient-bg-2nd">
+      <section className="gradient-bg-2nd" id="hero">
         <div className="bg-landing-bg bg-cover bg-right-bottom bg-fixed relative">
           <Header sticky={true} />
           {/* space */}
@@ -60,12 +60,12 @@ export default function LandingPage() {
       </section>
 
       {/* Features Section */}
-      <section className="bg-primary">
+      <section className="bg-primary" id="features">
         <Features />
       </section>
 
       {/* UseCase Section */}
-      <section className="gradient-bg-5th">
+      <section className="gradient-bg-5th" id="uses">
         <div
           className="bg-landing-bg-2nd bg-contain bg-top bg-no-repeat fadeIn"
           ref={fadeInRef}

@@ -1,9 +1,10 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { NavHashLink } from "react-router-hash-link";
 import logo from "../../../assets/ezyTrans.svg";
 import ToogleMode from "../../../Components/ToogleMode/ToogleMode";
-import { menuItem } from "../../../constants/menuItem";
+import { publicMenu } from "../../../constants/publicMenu";
 import { useScroll } from "../../../hooks/useScroll";
 import MobileMenu from "../../Menu/MobileMenu";
 
@@ -34,15 +35,21 @@ export default function Header({ sticky = false }) {
           </div>
         </div>
         <nav>
-          <ul className="hidden items-center gap-1 md:flex navMenu">
-            {menuItem.map((item, key) => {
+          <ul className="hidden items-center gap-1 md:flex">
+            {publicMenu.map((item, key) => {
               const { href, label } = item;
               return (
-                <NavLink key={key} to={href}>
-                  <li className="text-white font-semibold px-3 py-2 hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-xl">
+                <li
+                  className="text-white font-semibold hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-lg"
+                  key={key}
+                >
+                  <NavHashLink
+                    to={href}
+                    className="block px-3 py-1 text-white font-semibold hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-lg"
+                  >
                     {label}
-                  </li>
-                </NavLink>
+                  </NavHashLink>
+                </li>
               );
             })}
           </ul>
@@ -52,7 +59,7 @@ export default function Header({ sticky = false }) {
           <ToogleMode customClass={"bg-slate-300 bg-opacity-20"} />
         </div>
 
-        <MobileMenu customClass={"md:hidden"} menuItem={menuItem} />
+        <MobileMenu customClass={"md:hidden"} menuItem={publicMenu} />
       </div>
     </header>
   );
