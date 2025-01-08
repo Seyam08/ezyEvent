@@ -5,9 +5,9 @@ export default {
   theme: {
     extend: {
       backgroundImage: {
-        "landing-bg": "url('./src/assets/hero2.png')",
-        "landing-bg-2nd": "url('./src/assets/bg-overlay.png')",
-        "landing-bg-3rd": "url('./src/assets/bg-overlay(3).png')",
+        "landing-bg": "url('/hero2.png')", // store config file image in public folder
+        "landing-bg-2nd": "url('/bg-overlay.png')",
+        "landing-bg-3rd": "url('/bg-overlay3.PNG')",
       },
       boxShadow: {
         "light-shadow": "0 4px 12px rgba(100, 100, 100, 0.1)",

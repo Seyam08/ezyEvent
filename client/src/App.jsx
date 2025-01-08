@@ -12,13 +12,16 @@ function App() {
 
   return (
     <>
-      <div className="fixed top-0 right-0 m-2 h-4 w-4 flex items-center space-x-2">
-        <div
-          className={`h-3 w-3 rounded-full ${
-            loggedIn ? "bg-emerald-500" : "bg-red-500"
-          }`}
-        ></div>
-      </div>
+      {import.meta.env.MODE === "development" && (
+        <div className="fixed top-0 right-0 m-2 h-4 w-4 flex items-center space-x-2 z-50">
+          <div
+            className={`h-3 w-3 rounded-full ${
+              loggedIn ? "bg-emerald-500" : "bg-red-500"
+            }`}
+          ></div>
+        </div>
+      )}
+
       <RouterProvider router={route} />
     </>
   );
