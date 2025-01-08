@@ -1,4 +1,4 @@
-import logo from "../../assets/ezyTrans.png";
+import logo from "../../assets/ezyTrans.svg";
 import LogoutBtn from "../../Components/subComponents/AuthButton/LogoutBtn";
 
 export default function ComingSoon() {

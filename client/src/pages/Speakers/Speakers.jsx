@@ -1,4 +1,4 @@
-import image from "../../assets/user.png";
+import image from "../../assets/user.svg";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import PageHeading from "../../Components/subComponents/Heading/PageHeading";
 

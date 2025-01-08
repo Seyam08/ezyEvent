@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import defaultImage from "../../assets/avatar.png";
+import defaultImage from "../../assets/avatar.svg";
 
 export default function AllUsersTable({ users }) {
   const getRoleClass = (role) => {

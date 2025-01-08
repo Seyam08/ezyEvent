@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
-import logo from "../../../assets/ezyTrans.png";
+import logo from "../../../assets/ezyTrans.svg";
 import ToogleMode from "../../../Components/ToogleMode/ToogleMode";
 import { menuItem } from "../../../constants/menuItem";
 import { useScroll } from "../../../hooks/useScroll";

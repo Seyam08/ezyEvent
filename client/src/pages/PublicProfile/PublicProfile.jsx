@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 // import { FacebookIcon, LinkedinIcon, NewTwitterIcon } from "../../icons/icons";
-import defaultImage from "../../assets/avatar.png";
+import defaultImage from "../../assets/avatar.svg";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import { useGetUserQuery } from "../../features/users/usersApi";

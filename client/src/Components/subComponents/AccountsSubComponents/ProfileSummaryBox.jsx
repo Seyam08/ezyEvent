@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import image from "../../../assets/user.png";
+import image from "../../../assets/user.svg";
 import { EditIcon } from "../../../icons/icons";
 import TooltipIcon from "../AnimatedIcons/TooltipIcon";
 

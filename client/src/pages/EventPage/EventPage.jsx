@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
-import dummyImage from "../../assets/dummy-image-removebg-preview.png";
-import image from "../../assets/user.png";
+import dummyImage from "../../assets/dummy-image-removebg-preview.svg";
+import image from "../../assets/user.svg";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";

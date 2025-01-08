@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import mockup from "../../assets/screenshot-mockup.png";
+import mockup from "../../assets/screenshot-mockup.svg";
 import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
 import { CalendarIcon, Dashboard, TaskDaily } from "../../icons/icons";
 

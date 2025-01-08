@@ -1,4 +1,4 @@
-import mac from "../../assets/mac_mockup.png";
+import mac from "../../assets/mac_mockup.svg";
 import CTA from "../../Components/LandingPage/CTA";
 import Features from "../../Components/LandingPage/Features";
 import UseCase from "../../Components/LandingPage/UseCase";
@@ -32,7 +32,7 @@ export default function LandingPage() {
                   <button className="foreground-2nd text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
                     Get started
                   </button>
-                  <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 border border-transparent transition hover:text-[#514CFE] animate-fade-down animate-duration-800">
+                  <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 border border-transparent transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
                     Explore
                   </button>
                 </div>
@@ -41,7 +41,7 @@ export default function LandingPage() {
               <div className="md:h-40 h-32"></div>
               {/* second section */}
               <div className="relative">
-                <div className="h-auto md:w-[600px] md:max-w-[600px] w-80 max-w-80 absolute m-auto inset-x-0 md:-top-40 -top-24 animate-fade-up animate-duration-800">
+                <div className="h-auto md:w-[600px] md:max-w-[600px] w-80 max-w-80 absolute m-auto inset-x-0 md:-top-40 -top-24 animate-fade-down animate-duration-500">
                   <img
                     src={mac}
                     alt="Mac Mockup"

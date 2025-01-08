@@ -1,5 +1,5 @@
 import { useState } from "react";
-import image from "../../../assets/user.png";
+import image from "../../../assets/user.svg";
 import { userProfileMenuItem } from "../../../constants/userProfileMenu.js";
 import useScreenSize from "../../../hooks/useScreenSize.js";
 import { ArrowDataTransferVerticalIcon } from "../../../icons/icons";
