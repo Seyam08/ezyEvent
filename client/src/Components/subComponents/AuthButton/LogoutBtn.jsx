@@ -13,8 +13,8 @@ export default function LogoutBtn() {
     <button
       onClick={handleBtnClick}
       disabled={isLoading}
-      className={`flex justify-evenly items-center cursor-pointer w-28 h-10 foreground text-white  hover:opacity-80 hover:shadow-lg transition-all group ease-in-out ${
-        isLoading ? "w-11 h-11 rounded-full duration-300" : "rounded-lg"
+      className={`flex justify-evenly items-center cursor-pointer w-28 h-8 foreground text-white  hover:opacity-80 hover:shadow-lg transition-all group ease-in-out ${
+        isLoading ? "w-11 h-11 rounded-full duration-300" : "rounded-full"
       }`}
     >
       <svg

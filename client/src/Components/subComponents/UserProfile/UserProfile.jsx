@@ -4,6 +4,7 @@ import { userProfileMenuItem } from "../../../constants/userProfileMenu.js";
 import useScreenSize from "../../../hooks/useScreenSize.js";
 import { ArrowDataTransferVerticalIcon } from "../../../icons/icons";
 import SubMenu from "../../../partials/Menu/SubMenu.jsx";
+import LogoutBtn from "../AuthButton/LogoutBtn.jsx";
 import styles from "./UserProfile.module.css";
 
 export default function UserProfile() {
@@ -33,6 +34,7 @@ export default function UserProfile() {
         positionClass={
           smallScreen ? "right-2 top-12" : "md:left-0 md:bottom-14"
         }
+        lastBtn={LogoutBtn}
       />
     </div>
   );
