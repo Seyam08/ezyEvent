@@ -25,9 +25,6 @@
 .flex_row > div > label {
   @apply text-sm font-normal;
 }
-.span {
-  @apply text-sm ml-1.5 text-glow font-medium cursor-pointer hover:underline uppercase;
-}
 .button_submit {
   @apply foreground mt-5 mb-2.5 border-none text-white text-base font-medium rounded-xl h-12 w-full cursor-pointer hover:opacity-75 transition-opacity;
 }

@@ -3,7 +3,7 @@ import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
 import {
   ArrowUp,
   CalendarIcon,
-  LockIcon,
+  ShieldIcon,
   TaskDaily,
   UserGroupIcon,
 } from "../../icons/icons";
@@ -31,7 +31,7 @@ export default function Features() {
       action: "Authentication",
       icon: (
         <div className="gradient-bg w-12 h-12 rounded-2xl flex items-center justify-center">
-          <LockIcon className={"text-white h-8 w-8"} />
+          <ShieldIcon className={"text-white h-8 w-8"} />
         </div>
       ),
     },

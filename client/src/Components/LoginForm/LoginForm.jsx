@@ -2,6 +2,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { useLoginMutation } from "../../features/auth/authApi";
 import { loginFormSchema } from "../../helper/login/loginFormSchema";
 import { loginErrorHandler } from "../../helper/login/loginResErrorHandler";
@@ -64,9 +65,9 @@ export default function LoginForm() {
           <label className={`text-primary`}>Email</label>
         </div>
         <div className={`${styles.inputForm} bg-primary`}>
-          <AtIcon className="fill-[#333839] dark:fill-[#e7e7e7]" />
+          <AtIcon className="text-primary" />
           <input
-            placeholder="Enter your Email"
+            placeholder="Type here..."
             className={`${styles.input} bg-primary`}
             type="text"
             {...formRegister("email")}
@@ -81,9 +82,9 @@ export default function LoginForm() {
           <label className={`text-primary`}>Password </label>
         </div>
         <div className={`${styles.inputForm} bg-primary`}>
-          <LockIcon className="fill-[#333839] dark:fill-[#e7e7e7]" />
+          <LockIcon className="text-primary" />
           <input
-            placeholder="Enter your Password"
+            placeholder="Type here..."
             className={`${styles.input} bg-primary`}
             type="password"
             {...formRegister("password")}
@@ -140,7 +141,12 @@ export default function LoginForm() {
           <span className={styles.line} />
           <p className={`${styles.p} text-primary`}>
             Don&apos;t have an account?{" "}
-            <span className={styles.span}>Sign Up</span>
+            <Link
+              to={"/register"}
+              className="text-sm ml-1.5 text-glow font-medium uppercase hover:underline hover:decoration-2 hover:underline-offset-2 transition-all"
+            >
+              Sign Up
+            </Link>
           </p>
           <span className={styles.line} />
         </div>
