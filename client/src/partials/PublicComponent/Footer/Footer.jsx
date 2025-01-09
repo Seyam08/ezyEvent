@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import TooltipIcon from "../../../Components/subComponents/AnimatedIcons/TooltipIcon";
+import { footerMenu } from "../../../constants/footerMenu";
 import {
   FacebookIcon,
   GithubIcon,
@@ -27,21 +29,15 @@ export default function Footer() {
           {/* Navigation Links */}
           <nav className="mb-8">
             <ul className="flex flex-wrap justify-center space-x-6">
-              {[
-                "Outside",
-                "Interior",
-                "Location",
-                "Video",
-                "Team",
-                "Enquire",
-              ].map((item) => (
-                <li key={item} className="py-2">
-                  <Link
-                    to="#"
-                    className="text-base md:text-lg text-gray-400 hover:text-gray-100 transition-colors"
+              {footerMenu.map(({ label, href }, index) => (
+                <li key={index} className="py-2">
+                  <HashLink
+                    to={href}
+                    className="text-base md:text-lg text-gray-400 hover:text-gray-100 
+                    hover:underline hover:decoration-2 hover:underline-offset-4 transition-all"
                   >
-                    {item}
-                  </Link>
+                    {label}
+                  </HashLink>
                 </li>
               ))}
             </ul>
@@ -103,8 +99,8 @@ export default function Footer() {
           </div>
           {/* Explore app */}
           <div>
-            <button className="text-base text-gray-200 transition-colors py-1 px-8 border border-gray-300 rounded-full bg-slate-300 bg-opacity-20 hover:bg-opacity-0">
-              <Link to="#" className="">
+            <button className="text-base text-gray-200 transition-colors border border-gray-300 rounded-full bg-slate-300 bg-opacity-20 hover:bg-opacity-0">
+              <Link to={"/register"} className="block py-1 px-8">
                 Explore App
               </Link>
             </button>

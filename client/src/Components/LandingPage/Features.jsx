@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
 import {
   ArrowUp,
@@ -90,13 +91,18 @@ export default function Features() {
                 {feature.title}
               </h3>
               <p className="text-tertiary text-sm">{feature.description}</p>
-              <button className="text-glow font-bold flex items-center space-x-2 w-max">
-                <span>{feature.action}</span>
-                <ArrowUp
-                  className={
-                    "h-8 w-8 rotate-90 text-white p-1 foreground-2nd bg-opacity-80 rounded-full border border-gray-300"
-                  }
-                />
+              <button className="text-glow font-bold w-max">
+                <Link
+                  to={"/register"}
+                  className="flex items-center space-x-2 hover:underline hover:decoration-2 hover:underline-offset-4 transition-all"
+                >
+                  <span>{feature.action}</span>
+                  <ArrowUp
+                    className={
+                      "h-6 w-6 rotate-90 text-white p-0.5 foreground-2nd bg-opacity-80 rounded-full border border-gray-300"
+                    }
+                  />
+                </Link>
               </button>
             </div>
           </div>
