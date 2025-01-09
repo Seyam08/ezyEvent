@@ -61,40 +61,46 @@ export default function LoginForm() {
         className={`${styles.form} bg-secondary box-shadow`}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className={styles.flex_column}>
-          <label className={`text-primary`}>Email</label>
+        {/* email */}
+        <div className="space-y-3">
+          <div className={styles.flex_column}>
+            <label className={`text-primary`}>Email</label>
+          </div>
+          <div className={`${styles.inputForm} bg-primary`}>
+            <AtIcon className="text-primary" />
+            <input
+              placeholder="Type here..."
+              className={`${styles.input} bg-primary`}
+              type="text"
+              {...formRegister("email")}
+            />
+          </div>
+          {errors.email && (
+            <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+              {errors.email.message}
+            </ErrorMsgBox>
+          )}
         </div>
-        <div className={`${styles.inputForm} bg-primary`}>
-          <AtIcon className="text-primary" />
-          <input
-            placeholder="Type here..."
-            className={`${styles.input} bg-primary`}
-            type="text"
-            {...formRegister("email")}
-          />
+        {/* password */}
+        <div className="space-y-3">
+          <div className={styles.flex_column}>
+            <label className={`text-primary`}>Password </label>
+          </div>
+          <div className={`${styles.inputForm} bg-primary`}>
+            <LockIcon className="text-primary" />
+            <input
+              placeholder="Type here..."
+              className={`${styles.input} bg-primary`}
+              type="password"
+              {...formRegister("password")}
+            />
+          </div>
+          {errors.password && (
+            <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+              {errors.password.message}
+            </ErrorMsgBox>
+          )}
         </div>
-        {errors.email && (
-          <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
-            {errors.email.message}
-          </ErrorMsgBox>
-        )}
-        <div className={styles.flex_column}>
-          <label className={`text-primary`}>Password </label>
-        </div>
-        <div className={`${styles.inputForm} bg-primary`}>
-          <LockIcon className="text-primary" />
-          <input
-            placeholder="Type here..."
-            className={`${styles.input} bg-primary`}
-            type="password"
-            {...formRegister("password")}
-          />
-        </div>
-        {errors.password && (
-          <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
-            {errors.password.message}
-          </ErrorMsgBox>
-        )}
 
         <div className={styles.flex_row}>
           <div className="flex">
@@ -143,7 +149,7 @@ export default function LoginForm() {
             Don&apos;t have an account?{" "}
             <Link
               to={"/register"}
-              className="text-sm ml-1.5 text-glow font-medium uppercase hover:underline hover:decoration-2 hover:underline-offset-2 transition-all"
+              className="ml-1.5 text-glow font-medium uppercase hover:underline hover:decoration-2 hover:underline-offset-2 transition-all"
             >
               Sign Up
             </Link>

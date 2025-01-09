@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import { regFormSchema } from "../../helper/registration/regFormSchema";
 import { regResErrorHandler } from "../../helper/registration/regResErrorHandler";
@@ -259,7 +260,7 @@ export default function RegistrationForm() {
             />
             <label
               htmlFor="avatar"
-              className="flex items-center justify-center max-w-max px-3 py-1 foreground bg-opacity-50 text-primary text-sm rounded-md shadow cursor-pointer hover:bg-opacity-100 transition-all mb-3"
+              className="flex items-center justify-center max-w-max px-3 py-1 foreground bg-opacity-50 text-primary rounded-md shadow cursor-pointer hover:bg-opacity-100 transition-all mb-3 text-sm 2xl:text-lg"
             >
               <FileAddIcon className="text-primary h-4 w-4 mr-2" />
               Add Avatar
@@ -282,7 +283,7 @@ export default function RegistrationForm() {
             <div className="flex my-3">
               <AnimatedCheckbox isChecked={agreed} setIsChecked={setAgreed} />
 
-              <label className={`text-secondary`}>
+              <label className="text-secondary text-sm 2xl:text-lg">
                 Agreed with the terms and condition
               </label>
             </div>
@@ -316,9 +317,15 @@ export default function RegistrationForm() {
           </div>
           <div className={styles.short_note_row}>
             <span className={styles.line} />
-            <a className={`${styles.note}  text-primary`} href="#">
-              Have an account? <span className={styles.span}>Log in</span>
-            </a>
+            <p className={`${styles.note}  text-primary`} href="#">
+              Have an account?{" "}
+              <Link
+                to={"/login"}
+                className="ml-1.5 text-glow font-medium uppercase hover:underline hover:decoration-2 hover:underline-offset-2 transition-all"
+              >
+                Log in
+              </Link>
+            </p>
             <span className={styles.line} />
           </div>
         </form>

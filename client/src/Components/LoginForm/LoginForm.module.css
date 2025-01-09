@@ -1,17 +1,17 @@
 .form {
-  @apply flex flex-col gap-4 p-8 sm:max-w-xl sm:mx-auto rounded-2xl;
+  @apply flex flex-col gap-4 2xl:gap-8 p-8 max-w-full md:max-w-2xl 2xl:max-w-4xl sm:mx-auto rounded-2xl;
 }
 .form button {
   @apply self-end;
 }
 .flex_column > label {
-  @apply font-medium tracking-wider;
+  @apply font-medium tracking-wider text-base 2xl:text-lg;
 }
 .inputForm {
   @apply border-2 border-solid border-transparent rounded-xl h-12 flex items-center pl-3 transition-all;
 }
 .input {
-  @apply ml-2.5 rounded-lg border-none w-full h-full text-glow caret-[#514cfe];
+  @apply ml-2.5 rounded-lg border-none w-full h-full text-glow caret-[#514cfe] text-base 2xl:text-xl;
 }
 .input:focus {
   @apply outline-none;
@@ -23,13 +23,13 @@
   @apply flex flex-row items-center gap-3 justify-between;
 }
 .flex_row > div > label {
-  @apply text-sm font-normal;
+  @apply font-normal 2xl:text-lg;
 }
 .button_submit {
-  @apply foreground mt-5 mb-2.5 border-none text-white text-base font-medium rounded-xl h-12 w-full cursor-pointer hover:opacity-75 transition-opacity;
+  @apply foreground mt-5 mb-2.5 border-none text-white text-base 2xl:text-lg font-medium rounded-xl h-12 w-full cursor-pointer hover:opacity-75 transition-opacity;
 }
 .p {
-  @apply text-desc-size text-center my-1;
+  @apply text-desc-size text-center my-1 2xl:text-lg;
 }
 .short_note_row {
   @apply flex items-center justify-between mt-4;
