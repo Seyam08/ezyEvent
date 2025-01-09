@@ -15,47 +15,11 @@ import Speakers from "../pages/Speakers/Speakers";
 const route = createBrowserRouter([
   {
     path: "/",
-    element: <Layout />,
-    children: [
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "/speakers",
-        element: <Speakers />,
-      },
-      {
-        path: "/users/:id",
-        element: <PublicProfile />,
-      },
-      {
-        path: "/all-users",
-        element: <AllUsers />,
-      },
-      {
-        path: "/accounts",
-        element: <AccountsPageLayout />,
-        children: [
-          {
-            path: "/accounts/my-profile",
-            element: <MyProfile />,
-          },
-          {
-            path: "/accounts/anything",
-            element: <Login />,
-          },
-        ],
-      },
-    ],
+    element: <LandingPage />,
   },
   {
     path: "/login",
     element: <Login />,
-  },
-  {
-    path: "/event/:id",
-    element: <EventPage />,
   },
   {
     path: "/register",
@@ -66,8 +30,40 @@ const route = createBrowserRouter([
     element: <ComingSoon />,
   },
   {
-    path: "/landing",
-    element: <LandingPage />,
+    path: "/event/:id",
+    element: <EventPage />, // under development
+  },
+  {
+    path: "/users/:id",
+    element: <PublicProfile />, // under development
+  },
+  {
+    path: "/dashboard",
+    element: <Layout />,
+    children: [
+      {
+        path: "/dashboard",
+        element: <Dashboard />,
+      },
+      {
+        path: "/dashboard/speakers",
+        element: <Speakers />,
+      },
+      {
+        path: "/dashboard/all-users",
+        element: <AllUsers />,
+      },
+      {
+        path: "/dashboard/accounts",
+        element: <AccountsPageLayout />,
+        children: [
+          {
+            path: "/dashboard/accounts/my-profile",
+            element: <MyProfile />,
+          },
+        ],
+      },
+    ],
   },
 ]);
 

@@ -1,5 +1,4 @@
 import logo from "../../assets/ezyTrans.svg";
-import LogoutBtn from "../../Components/subComponents/AuthButton/LogoutBtn";
 
 export default function ComingSoon() {
   return (
@@ -9,7 +8,6 @@ export default function ComingSoon() {
       <p className="text-xl">
         We&apos;re working hard to bring you something amazing. Stay tuned!
       </p>
-      <LogoutBtn />
     </div>
   );
 }

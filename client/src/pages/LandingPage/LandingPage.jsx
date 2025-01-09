@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import mac from "../../assets/mac_mockup.svg";
 import CTA from "../../Components/LandingPage/CTA";
 import Features from "../../Components/LandingPage/Features";
@@ -29,12 +31,18 @@ export default function LandingPage() {
                   tracking with our secure and scalable solution.
                 </p>
                 <div className="space-x-4">
-                  <button className="foreground-2nd text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
+                  <Link
+                    to={"/register"}
+                    className="foreground-2nd text-white font-semibold py-2 px-6 rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-down animate-duration-500"
+                  >
                     Get started
-                  </button>
-                  <button className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 border border-transparent transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
+                  </Link>
+                  <HashLink
+                    to={"#features"}
+                    className="foreground text-white font-semibold py-2 px-6 rounded-full shadow-lg hover:bg-gray-100 border border-transparent transition hover:text-[#514CFE] animate-fade-down animate-duration-500"
+                  >
                     Explore
-                  </button>
+                  </HashLink>
                 </div>
               </div>
               {/* space */}

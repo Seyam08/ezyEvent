@@ -2,12 +2,12 @@ import { CalendarIcon, Dashboard, UserStarIcon } from "../icons/icons";
 
 export const userProfileMenuItem = [
   {
-    href: "/",
+    href: "/dashboard",
     label: "Dashboard",
     icon: Dashboard,
   },
   {
-    href: "/accounts",
+    href: "/dashboard/accounts",
     label: "Accounts",
     icon: UserStarIcon,
   },

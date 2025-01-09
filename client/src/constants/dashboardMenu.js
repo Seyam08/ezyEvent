@@ -6,7 +6,7 @@ import {
   UserGroupIcon,
 } from "../icons/icons";
 
-export const menuItem = [
+export const DashboardMenu = [
   {
     href: "/dashboard",
     label: "Dashboard",
@@ -18,12 +18,12 @@ export const menuItem = [
     icon: TaskDaily,
   },
   {
-    href: "/speakers",
+    href: "/dashboard/speakers",
     label: "Speakers",
     icon: MicIcon,
   },
   {
-    href: "/all-users",
+    href: "/dashboard/all-users",
     label: "All users",
     icon: UserGroupIcon,
   },

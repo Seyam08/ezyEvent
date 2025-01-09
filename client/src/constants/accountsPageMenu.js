@@ -2,7 +2,7 @@ import { Profile, Settings } from "../icons/icons";
 
 export const accountsPageMenu = [
   {
-    href: "/accounts/my-profile",
+    href: "/dashboard/accounts/my-profile",
     label: "My Profile",
     icon: Profile,
   },
