@@ -60,7 +60,7 @@ export default function LoginForm() {
   useEffect(() => {
     if (loggedIn) {
       new Promise((resolve, reject) => {
-        const duration = 3000;
+        const duration = 1000;
         // Show the toast
         toast.success(data?.message, { duration: duration });
 
@@ -78,7 +78,7 @@ export default function LoginForm() {
             new Promise((resolve) => {
               setTimeout(() => {
                 resolve();
-              }, 2000);
+              }, 1000);
             }),
             {
               loading: "Redirecting...",

@@ -1,13 +1,55 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../features/auth/authApi";
+import useAuth from "../../../hooks/useAuth";
 
 export default function LogoutBtn() {
   const [logout, { data, isLoading, isError }] = useLogoutMutation();
+  const loggedIn = useAuth();
+  const navigate = useNavigate();
 
   const handleBtnClick = (e) => {
     e.prevent;
     e.preventDefault();
     logout();
   };
+
+  useEffect(() => {
+    if (!loggedIn) {
+      new Promise((resolve, reject) => {
+        const duration = 1000;
+        // Show the toast
+        toast.success(data?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (data?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
+            }),
+            {
+              loading: "Redirecting...",
+              success: () => {
+                navigate("/");
+              },
+              error: "Something went wrong",
+            }
+          );
+        })
+        .catch(() => {});
+    }
+  }, [loggedIn]);
 
   return (
     <button
