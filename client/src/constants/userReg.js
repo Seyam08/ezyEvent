@@ -30,9 +30,9 @@ export const dataTable = [
     status: "Unpaid",
   },
   {
-    idNo: "3290",
-    name: "Keny Dinen",
-    seminar: "Product & Interaction Design",
+    idNo: "3294",
+    name: "Edi Brock",
+    seminar: "Product Design",
     status: "Paid",
   },
 ];
