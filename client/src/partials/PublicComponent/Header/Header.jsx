@@ -59,7 +59,7 @@ export default function Header({ sticky = false }) {
           <div>
             <button className="foreground-2nd text-white font-semibold rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
               {loggedIn ? (
-                <Link to={"/"} className="block px-3 py-1 2xl:py-2">
+                <Link to={"/dashboard"} className="block px-3 py-1 2xl:py-2">
                   Dashboard
                 </Link>
               ) : (
