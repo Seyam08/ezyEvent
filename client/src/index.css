@@ -91,6 +91,16 @@
   .fadeIn {
     @apply opacity-0 translate-y-5 transition-all duration-500 ease-in;
   }
+  /* toast style  */
+  .notification {
+    @apply bg-gradient-to-br from-slate-800 to-slate-950 dark:from-slate-400 dark:to-slate-300 rounded-2xl text-[#EDEDED] dark:text-[#140C37] py-1 px-3 font-medium;
+  }
+  .notificationSuccess {
+    @apply bg-emerald-500 rounded-2xl text-[#EDEDED] py-1 px-3 font-medium;
+  }
+  .notificationError {
+    @apply bg-red-400 rounded-2xl text-[#EDEDED] py-1 px-3 font-medium;
+  }
   /* menu active item start */
   .sidebar-main-nav .active li {
     @apply bg-tertiary;
