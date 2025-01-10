@@ -1,11 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../features/auth/authApi";
 import { loginFormSchema } from "../../helper/login/loginFormSchema";
 import { loginErrorHandler } from "../../helper/login/loginResErrorHandler";
+import useAuth from "../../hooks/useAuth";
 import { AtIcon, LockIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
@@ -16,6 +18,8 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [resError, setResError] = useState({});
   const { error: authError } = useSelector((state) => state.auth);
+  const loggedIn = useAuth();
+  const navigate = useNavigate();
 
   // handling the form using react hook form
   const {
@@ -51,6 +55,43 @@ export default function LoginForm() {
       reset();
     }
   }, [data, responseError, reset]);
+
+  // push toast and redirect after successfully logged in
+  useEffect(() => {
+    if (loggedIn) {
+      new Promise((resolve, reject) => {
+        const duration = 3000;
+        // Show the toast
+        toast.success(data?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (data?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 2000);
+            }),
+            {
+              loading: "Redirecting...",
+              success: () => {
+                navigate("/dashboard");
+              },
+              error: "Something went wrong",
+            }
+          );
+        })
+        .catch(() => {});
+    }
+  }, [loggedIn]);
 
   return (
     <div>

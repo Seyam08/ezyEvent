@@ -1,3 +1,4 @@
+import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import route from "./Router/route";
 import useAuth from "./hooks/useAuth";
@@ -21,7 +22,27 @@ function App() {
           ></div>
         </div>
       )}
-
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          duration: 3000,
+          className: "notification",
+          success: {
+            className: "notificationSuccess",
+            iconTheme: {
+              primary: "#0d9488",
+              secondary: "#ffffff",
+            },
+          },
+          error: {
+            className: "notificationError",
+            iconTheme: {
+              primary: "#dc2626",
+              secondary: "#ffffff",
+            },
+          },
+        }}
+      />
       <RouterProvider router={route} />
     </>
   );
