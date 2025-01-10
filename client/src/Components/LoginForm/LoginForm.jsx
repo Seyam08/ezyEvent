@@ -20,6 +20,8 @@ export default function LoginForm() {
   const { error: authError } = useSelector((state) => state.auth);
   const loggedIn = useAuth();
   const navigate = useNavigate();
+  const loggedIn = useAuth();
+  const navigate = useNavigate();
 
   // handling the form using react hook form
   const {
