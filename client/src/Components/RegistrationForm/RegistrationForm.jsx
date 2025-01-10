@@ -30,23 +30,14 @@ export default function RegistrationForm() {
   const [register, { data, isLoading, error: responseError }] =
     useRegisterMutation();
 
-  useEffect(() => {
-    if (responseError) {
-      const extractError = regResErrorHandler(responseError);
-      setResError(extractError);
-    }
-    if (data) {
-      reset();
-    }
-  }, [data, responseError, reset]);
-
+  // form submit handler
   const onSubmit = (data) => {
     setResError({});
     // Prepare FormData
     const formData = new FormData();
     formData.append("username", data.username);
     formData.append("email", data.email);
-    formData.append("name", data.name);
+    formData.append("name", data.fullname);
     formData.append("password", data.password);
     if (data.avatar) {
       formData.append("avatar", data.avatar[0]);
@@ -59,6 +50,17 @@ export default function RegistrationForm() {
     // Set the value of "agreed" in React Hook Form manually
     setValue("agreed", agreed);
   }, [agreed, setValue]);
+
+  // handling the error and resetting the form after successful
+  useEffect(() => {
+    if (responseError) {
+      const extractError = regResErrorHandler(responseError);
+      setResError(extractError);
+    }
+    if (data) {
+      reset();
+    }
+  }, [data, responseError, reset]);
 
   return (
     <div className={styles.registration_form}>
