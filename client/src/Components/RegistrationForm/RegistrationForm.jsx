@@ -1,7 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../features/auth/authApi";
 import { regFormSchema } from "../../helper/registration/regFormSchema";
 import { regResErrorHandler } from "../../helper/registration/regResErrorHandler";
@@ -14,6 +15,7 @@ import styles from "./RegistrationForm.module.css";
 export default function RegistrationForm() {
   const [agreed, setAgreed] = useState(false);
   const [resError, setResError] = useState({});
+  const navigate = useNavigate();
   // react hook form
   const {
     register: formRegister,
@@ -58,9 +60,47 @@ export default function RegistrationForm() {
       setResError(extractError);
     }
     if (data) {
+      setAgreed(false);
       reset();
     }
   }, [data, responseError, reset]);
+
+  // redirect to login after successfully registered
+  useEffect(() => {
+    if (data) {
+      new Promise((resolve, reject) => {
+        const duration = 1000;
+        // Show the toast
+        toast.success(data?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (data?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 2000);
+            }),
+            {
+              loading: "Redirecting to login...",
+              success: () => {
+                navigate("/login");
+              },
+              error: "Something went wrong",
+            }
+          );
+        })
+        .catch(() => {});
+    }
+  }, [data]);
 
   return (
     <div className={styles.registration_form}>

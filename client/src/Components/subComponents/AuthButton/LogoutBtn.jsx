@@ -15,6 +15,7 @@ export default function LogoutBtn() {
     logout();
   };
 
+  // redirect to LandingPage after successfully logged out
   useEffect(() => {
     if (!loggedIn) {
       new Promise((resolve, reject) => {
