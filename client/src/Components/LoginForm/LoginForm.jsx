@@ -2,12 +2,12 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../features/auth/authApi";
+import { redirectHolder } from "../../features/auth/authSlice";
 import { loginFormSchema } from "../../helper/login/loginFormSchema";
 import { loginErrorHandler } from "../../helper/login/loginResErrorHandler";
-import useAuth from "../../hooks/useAuth";
 import { AtIcon, LockIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
@@ -18,8 +18,8 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [resError, setResError] = useState({});
   const { error: authError } = useSelector((state) => state.auth);
-  const loggedIn = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // handling the form using react hook form
   const {
@@ -43,6 +43,11 @@ export default function LoginForm() {
   const onSubmit = (data) => {
     setResError({});
     login({ username: data.email, password: data.password });
+    dispatch(
+      redirectHolder({
+        holder: true,
+      })
+    );
   };
 
   // useEffect to handle the response error and action after successful login
@@ -58,7 +63,7 @@ export default function LoginForm() {
 
   // push toast and redirect after successfully logged in
   useEffect(() => {
-    if (loggedIn) {
+    if (data) {
       new Promise((resolve, reject) => {
         const duration = 1000;
         // Show the toast
@@ -83,15 +88,33 @@ export default function LoginForm() {
             {
               loading: "Redirecting...",
               success: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
                 navigate("/dashboard");
               },
-              error: "Something went wrong",
+              error: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                return "Something went wrong!";
+              },
             }
           );
         })
-        .catch(() => {});
+        .catch(() => {
+          dispatch(
+            redirectHolder({
+              holder: false,
+            })
+          );
+        });
     }
-  }, [loggedIn, data]);
+  }, [data]);
 
   return (
     <div>

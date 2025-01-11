@@ -27,13 +27,6 @@ export const authApi = apiSlice.injectEndpoints({
             // Extract the profile from the result
             const profile = result?.data?.profile;
 
-            // Dispatch the userLoggedIn action with the profile
-            dispatch(
-              userLoggedIn({
-                profile: result?.data?.profile,
-              })
-            );
-
             try {
               // Convert the secret key to Uint8Array
 
@@ -62,6 +55,12 @@ export const authApi = apiSlice.injectEndpoints({
               dispatch(authApi.endpoints.logout.initiate());
               toast.error("Something went wrong! Unable to login");
             }
+            // Dispatch the userLoggedIn action with the profile
+            dispatch(
+              userLoggedIn({
+                profile: result?.data?.profile,
+              })
+            );
           }
         } catch (error) {
           const extractError = loginErrorHandler(error?.error);

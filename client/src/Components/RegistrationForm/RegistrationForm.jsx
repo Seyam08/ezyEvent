@@ -2,8 +2,10 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../features/auth/authApi";
+import { redirectHolder } from "../../features/auth/authSlice";
 import { regFormSchema } from "../../helper/registration/regFormSchema";
 import { regResErrorHandler } from "../../helper/registration/regResErrorHandler";
 import { FileAddIcon } from "../../icons/icons";
@@ -16,6 +18,7 @@ export default function RegistrationForm() {
   const [agreed, setAgreed] = useState(false);
   const [resError, setResError] = useState({});
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   // react hook form
   const {
     register: formRegister,
@@ -46,6 +49,11 @@ export default function RegistrationForm() {
     }
 
     register(formData);
+    dispatch(
+      redirectHolder({
+        holder: true,
+      })
+    );
   };
 
   useEffect(() => {
@@ -92,13 +100,31 @@ export default function RegistrationForm() {
             {
               loading: "Redirecting to login...",
               success: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
                 navigate("/login");
               },
-              error: "Something went wrong",
+              error: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                return "Something went wrong!";
+              },
             }
           );
         })
-        .catch(() => {});
+        .catch(() => {
+          dispatch(
+            redirectHolder({
+              holder: false,
+            })
+          );
+        });
     }
   }, [data]);
 

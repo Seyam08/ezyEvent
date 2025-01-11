@@ -11,7 +11,7 @@ function App() {
   const authChecked = useAuthCheck();
   const [theme, setTheme] = useColorMode();
   const loggedIn = useAuth();
-  console.log(authChecked);
+
   return (
     <>
       {import.meta.env.MODE === "development" && (

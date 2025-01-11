@@ -1,23 +1,29 @@
 import { useEffect } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../features/auth/authApi";
-import useAuth from "../../../hooks/useAuth";
+import { redirectHolder } from "../../../features/auth/authSlice";
 
 export default function LogoutBtn() {
   const [logout, { data, isLoading, isError }] = useLogoutMutation();
-  const loggedIn = useAuth();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleBtnClick = (e) => {
     e.prevent;
     e.preventDefault();
     logout();
+    dispatch(
+      redirectHolder({
+        holder: true,
+      })
+    );
   };
 
   // redirect to LandingPage after successfully logged out
   useEffect(() => {
-    if (!loggedIn) {
+    if (data) {
       new Promise((resolve, reject) => {
         const duration = 1000;
         // Show the toast
@@ -42,15 +48,33 @@ export default function LogoutBtn() {
             {
               loading: "Redirecting...",
               success: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
                 navigate("/");
               },
-              error: "Something went wrong",
+              error: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                return "Something went wrong!";
+              },
             }
           );
         })
-        .catch(() => {});
+        .catch(() => {
+          dispatch(
+            redirectHolder({
+              holder: false,
+            })
+          );
+        });
     }
-  }, [loggedIn]);
+  }, [data]);
 
   return (
     <button

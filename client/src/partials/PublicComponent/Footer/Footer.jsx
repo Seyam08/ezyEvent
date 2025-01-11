@@ -16,7 +16,6 @@ const email = import.meta.env.VITE_DEVELOPERS_MAIL;
 const github = import.meta.env.VITE_DEVELOPERS_GITHUB;
 const webLink = import.meta.env.VITE_DEVELOPERS_WEBSITE;
 
-// console.log(facebook, linkedin, email, github);
 export default function Footer() {
   return (
     <footer className="gradient-bg-2nd">
