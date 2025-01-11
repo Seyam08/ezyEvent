@@ -1,5 +1,6 @@
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
+import FullScreenLoader from "./Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import route from "./Router/route";
 import useAuth from "./hooks/useAuth";
 import useAuthCheck from "./hooks/useAuthCheck";
@@ -10,7 +11,7 @@ function App() {
   const authChecked = useAuthCheck();
   const [theme, setTheme] = useColorMode();
   const loggedIn = useAuth();
-
+  console.log(authChecked);
   return (
     <>
       {import.meta.env.MODE === "development" && (
@@ -43,7 +44,7 @@ function App() {
           },
         }}
       />
-      <RouterProvider router={route} />
+      {authChecked ? <RouterProvider router={route} /> : <FullScreenLoader />}
     </>
   );
 }

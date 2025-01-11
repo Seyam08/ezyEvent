@@ -57,7 +57,7 @@ export default function Header({ sticky = false }) {
 
         <div className="flex space-x-2 ml-auto md:ml-0">
           <div>
-            <button className="foreground-2nd text-white font-semibold rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE] animate-fade-down animate-duration-500">
+            <button className="foreground-2nd text-white font-semibold rounded-full hover:bg-gray-100 bg-opacity-20 border border-gray-300 transition hover:text-[#514CFE]">
               {loggedIn ? (
                 <Link to={"/dashboard"} className="block px-3 py-1 2xl:py-2">
                   Dashboard

@@ -26,15 +26,17 @@ export default function useAuthCheck() {
                 profile: payload,
               })
             );
+            setAuthChecked(true);
           }
         })
         .catch(() => {
           localStorage.removeItem("auth");
           logout();
+          setAuthChecked(true);
         });
+    } else {
+      setAuthChecked(true);
     }
-
-    setAuthChecked(true);
   }, [dispatch, logout, setAuthChecked]);
 
   return authChecked;
