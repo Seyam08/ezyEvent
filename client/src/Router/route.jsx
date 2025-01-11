@@ -1,4 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
+import PrivateRoute from "../Components/AuthCheck/PrivetRoute";
+import PublicRoute from "../Components/AuthCheck/PublicRoute";
 import AccountsPageLayout from "../layouts/AccountsPageLayout";
 import Layout from "../layouts/Layout";
 import MyProfile from "../pages/Accounts/MyProfile";
@@ -19,11 +21,19 @@ const route = createBrowserRouter([
   },
   {
     path: "/login",
-    element: <Login />,
+    element: (
+      <PublicRoute>
+        <Login />
+      </PublicRoute>
+    ),
   },
   {
     path: "/register",
-    element: <Register />,
+    element: (
+      <PublicRoute>
+        <Register />
+      </PublicRoute>
+    ),
   },
   {
     path: "/coming-soon",
@@ -39,7 +49,11 @@ const route = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <Layout />,
+    element: (
+      <PrivateRoute>
+        <Layout />
+      </PrivateRoute>
+    ),
     children: [
       {
         path: "/dashboard",

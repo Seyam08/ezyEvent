@@ -91,7 +91,7 @@ export default function LoginForm() {
         })
         .catch(() => {});
     }
-  }, [loggedIn]);
+  }, [loggedIn, data]);
 
   return (
     <div>
