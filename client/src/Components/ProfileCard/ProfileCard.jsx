@@ -8,7 +8,7 @@ export default function ProfileCard({
   designation,
   avatar,
   facebook,
-  linkdin,
+  linkedIn,
   X,
   customClass,
 }) {
@@ -29,12 +29,10 @@ export default function ProfileCard({
         {facebook ? (
           <TooltipIcon text="Facebook" icon={FacebookIcon} link={facebook} />
         ) : null}
-        {linkdin ? (
-          <TooltipIcon text="Linkdin" icon={LinkedinIcon} link={linkdin} />
+        {linkedIn ? (
+          <TooltipIcon text="LinkedIn" icon={LinkedinIcon} link={linkedIn} />
         ) : null}
-        {X ? (
-          <TooltipIcon text="Linkdin" icon={NewTwitterIcon} link={X} />
-        ) : null}
+        {X ? <TooltipIcon text="X" icon={NewTwitterIcon} link={X} /> : null}
       </div>
     </div>
   );
