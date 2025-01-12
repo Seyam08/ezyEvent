@@ -116,15 +116,15 @@ export async function getEvent(req, res) {
       .populate([
         {
           path: 'hostId',
-          select: 'username avatar',
+          select: 'username avatar name',
         },
         {
           path: 'speakerId',
-          select: 'username avatar',
+          select: 'username avatar name',
         },
         {
           path: 'attendeesId',
-          select: 'username avatar',
+          select: 'username avatar name',
         },
       ]);
     if (event) {
