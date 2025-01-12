@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import defaultImage from "../../assets/avatar.svg";
 import ItemHeading from "../../Components/subComponents/Heading/ItemHeading";
 import { FacebookIcon, LinkedinIcon, NewTwitterIcon } from "../../icons/icons";
 import TooltipIcon from "../subComponents/AnimatedIcons/TooltipIcon";
@@ -12,6 +13,9 @@ export default function ProfileCard({
   X,
   customClass,
 }) {
+  const handleImageError = (event) => {
+    event.target.src = defaultImage;
+  };
   return (
     <div
       className={`rounded-lg px-4 py-6 flex flex-col gap-3 items-center text-center ${customClass}`}
@@ -19,6 +23,7 @@ export default function ProfileCard({
       <div className="w-20 h-20 cursor-pointer">
         <img
           src={avatar}
+          onError={handleImageError}
           alt="Avatar"
           className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
         />
