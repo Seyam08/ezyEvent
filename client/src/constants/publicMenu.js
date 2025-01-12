@@ -2,17 +2,17 @@ import { CalendarCheckOutIcon, Dashboard, TaskDaily } from "../icons/icons";
 
 export const publicMenu = [
   {
-    href: "#hero",
+    href: "/#hero",
     label: "Home",
     icon: Dashboard,
   },
   {
-    href: "#features",
+    href: "/#features",
     label: "Features",
     icon: TaskDaily,
   },
   {
-    href: "#uses",
+    href: "/#uses",
     label: "Uses",
     icon: CalendarCheckOutIcon,
   },
