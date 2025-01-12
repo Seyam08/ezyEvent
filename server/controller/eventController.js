@@ -142,7 +142,7 @@ export async function getEvent(req, res) {
     res.status(500).json({
       errors: {
         common: {
-          msg: 'Internal server error!',
+          msg: "Event doesn't exist!",
         },
       },
     });
