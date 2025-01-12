@@ -6,7 +6,6 @@ import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
 
 export default function AllUsers() {
   const { data, isLoading, error } = useGetAllUsersQuery();
-  // console.log(data, isLoading, error);
 
   if (isLoading) {
     return <FullScreenLoader />;
