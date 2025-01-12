@@ -46,7 +46,7 @@ export default function Header({ sticky = false }) {
                   className="text-white font-semibold hover:text-gray-800 hover:bg-gray-100 transition-colors rounded-lg text-base 2xl:text-lg"
                   key={key}
                 >
-                  <HashLink to={href} className="block px-3 py-1">
+                  <HashLink smooth={true} to={href} className="block px-3 py-1">
                     {label}
                   </HashLink>
                 </li>
