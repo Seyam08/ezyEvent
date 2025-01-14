@@ -29,7 +29,7 @@ export default function EventPage() {
 
   useEffect(() => {
     if (data) {
-      // setHosts after getting the data
+      // Map host information and set it in state
       const hostInfo = map(data?.hostId, ({ name, username, avatar }) => ({
         name,
         username,
@@ -37,6 +37,7 @@ export default function EventPage() {
       }));
       setHosts(hostInfo);
 
+      // Map speaker information and set it in state
       const speakersInfo = map(
         data?.speakerId,
         ({ name, username, avatar }) => ({
@@ -48,7 +49,7 @@ export default function EventPage() {
       );
       setSpeakers(speakersInfo);
 
-      // Convert to readable format
+      // Convert event date from the response data and convert it to a readable format
       const readableDate = new Date(data?.eventDate).toLocaleDateString(
         "en-US",
         {
@@ -59,10 +60,10 @@ export default function EventPage() {
       );
       setDate(readableDate);
 
+      // Set event status
       setStatus(data?.status);
 
-      // attendanceInfo calculation
-
+      // Calculate attendance information
       const limit = data?.attendanceLimit;
       const attend = data?.attendeesId.length;
       const seatLeft = limit - attend > 0 ? limit - attend : "full";
@@ -73,6 +74,7 @@ export default function EventPage() {
         left: seatLeft,
       });
 
+      // Map attendees' information and set it in state
       const attendeesInfo = map(
         data?.attendeesId,
         ({ name, username, avatar }) => ({
@@ -97,7 +99,6 @@ export default function EventPage() {
         return "";
     }
   };
-  console.log(attendees);
 
   return (
     <div className="bg-primary">

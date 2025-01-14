@@ -8,7 +8,23 @@ export const profileApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted() {},
     }),
+    attendEvent: builder.mutation({
+      query: (id) => ({
+        url: `/event/attend/${id}`,
+        method: "POST",
+      }),
+    }),
+    removeAttendance: builder.mutation({
+      query: (id) => ({
+        url: `/event/removeattend/${id}`,
+        method: "DELETE",
+      }),
+    }),
   }),
 });
 
-export const { useGetEventQuery } = profileApi;
+export const {
+  useGetEventQuery,
+  useAttendEventMutation,
+  useRemoveAttendanceMutation,
+} = profileApi;
