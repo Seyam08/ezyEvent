@@ -1,4 +1,7 @@
+import toast from "react-hot-toast";
 import { apiSlice } from "../api/apiSlice";
+import { userLoggedOut } from "../auth/authSlice";
+import { accountInfo } from "./profileSlice";
 
 export const profileApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -6,18 +9,20 @@ export const profileApi = apiSlice.injectEndpoints({
       query: () => ({
         url: "/profile",
       }),
+      extraOptions() {},
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
-          // if (result?.data) {
-          //   dispatch(
-          //     userLoggedIn({
-          //       profile: result?.data?.profile,
-          //     })
-          //   );
-          // }
+          if (result?.data) {
+            dispatch(
+              accountInfo({
+                profile: result?.data?.profile,
+              })
+            );
+          }
         } catch {
-          // do nothing
+          toast.error("Something went wrong!");
+          dispatch(userLoggedOut);
         }
       },
     }),
