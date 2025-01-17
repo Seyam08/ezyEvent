@@ -6,6 +6,7 @@ export const profileApi = apiSlice.injectEndpoints({
       query: (id) => ({
         url: `/event/${id}`,
       }),
+      providesTags: ["singleEvent"],
       async onQueryStarted() {},
     }),
     attendEvent: builder.mutation({
@@ -13,12 +14,14 @@ export const profileApi = apiSlice.injectEndpoints({
         url: `/event/attend/${id}`,
         method: "POST",
       }),
+      invalidatesTags: ["singleEvent"],
     }),
     removeAttendance: builder.mutation({
       query: (id) => ({
         url: `/event/removeattend/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["singleEvent"],
     }),
   }),
 });

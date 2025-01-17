@@ -1,17 +1,22 @@
-import { map } from "lodash";
+import { includes, map } from "lodash";
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
+import AttendEventBtn from "../../Components/subComponents/EventBtn/AttendEventBtn";
+import RemoveAttendEventBtn from "../../Components/subComponents/EventBtn/RemoveAttendEventBtn";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import { useGetEventQuery } from "../../features/Events/eventApi";
 import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
 import { getRandomDesignation } from "../../helper/static data/getRandomDesignation";
+import useAuth from "../../hooks/useAuth";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
 import Header from "../../partials/PublicComponent/Header/Header";
 
 export default function EventPage() {
+  const loggedIn = useAuth();
   const { id } = useParams();
   const [hosts, setHosts] = useState([]);
   const [speakers, setSpeakers] = useState([]);
@@ -23,6 +28,8 @@ export default function EventPage() {
     left: null,
     attend: null,
   });
+  const [attended, setAttended] = useState(false);
+  const { myAccount } = useSelector((state) => state.account);
 
   // running query for getting event
   const { data, error, isLoading } = useGetEventQuery(id);
@@ -44,7 +51,7 @@ export default function EventPage() {
           name,
           username,
           avatar,
-          designation: getRandomDesignation(),
+          designation: getRandomDesignation(2),
         })
       );
       setSpeakers(speakersInfo);
@@ -87,6 +94,18 @@ export default function EventPage() {
     }
   }, [data]);
 
+  useEffect(() => {
+    if (loggedIn) {
+      const attendeesUsername = map(attendees, "username");
+      const has = includes(attendeesUsername, myAccount?.username);
+      if (has) {
+        setAttended(true);
+      } else {
+        setAttended(false);
+      }
+    }
+  }, [attendees]);
+
   const getStatusClass = (status) => {
     switch (status) {
       case "Upcoming":
@@ -117,7 +136,7 @@ export default function EventPage() {
             desc={
               resErrorHandler(error).message === "Unauthorized URL!"
                 ? "You are not allowed to view this page"
-                : ""
+                : "Something went wrong!"
             }
           />
         </div>
@@ -201,42 +220,50 @@ export default function EventPage() {
                     </Link> */}
                     </div>
                     <ul className="space-y-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-                      {attendees.map((attend, index) => {
-                        const { name, username, avatar } = attend;
-                        const image = `${
-                          import.meta.env.VITE_SERVER_URL
-                        }/avatars/${avatar}`;
+                      {attendees.length > 0 ? (
+                        attendees.map((attend, index) => {
+                          const { name, username, avatar } = attend;
+                          const image = `${
+                            import.meta.env.VITE_SERVER_URL
+                          }/avatars/${avatar}`;
 
-                        return (
-                          <li
-                            key={index}
-                            className="flex items-center space-x-4 border-b border-gray-300 dark:border-gray-700 pb-4 last:border-b-0 "
-                          >
-                            <div className="w-9 h-9 cursor-pointer">
-                              <img
-                                src={image}
-                                alt={name}
-                                className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
-                              />
-                            </div>
+                          return (
+                            <li
+                              key={index}
+                              className="flex items-center space-x-4 border-b border-gray-300 dark:border-gray-700 pb-4 last:border-b-0"
+                            >
+                              <div className="w-9 h-9 cursor-pointer">
+                                <img
+                                  src={image}
+                                  alt={name}
+                                  className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
+                                />
+                              </div>
 
-                            <div className="flex-1">
-                              <h3 className="text-base font-semibold text-secondary">
-                                <Link
-                                  to={`/users/${username}`}
-                                  target="blank"
-                                  className="text-glow"
-                                >
-                                  {name}
-                                </Link>
-                              </h3>
-                              <h3 className="text-sm font-semibold text-tertiary">
-                                {username}
-                              </h3>
-                            </div>
-                          </li>
-                        );
-                      })}
+                              <div className="flex-1">
+                                <h3 className="text-base font-semibold text-secondary">
+                                  <Link
+                                    to={`/users/${username}`}
+                                    target="blank"
+                                    className="text-glow"
+                                  >
+                                    {name}
+                                  </Link>
+                                </h3>
+                                <h3 className="text-sm font-semibold text-tertiary">
+                                  {username}
+                                </h3>
+                              </div>
+                            </li>
+                          );
+                        })
+                      ) : (
+                        <li className="flex items-center space-x-4 border-b border-gray-300 dark:border-gray-700 pb-4 last:border-b-0">
+                          <h3 className="text-base font-semibold text-secondary">
+                            Be the first to participant for this event!
+                          </h3>
+                        </li>
+                      )}
                     </ul>
                   </div>
                 </div>
@@ -249,9 +276,12 @@ export default function EventPage() {
                     Date & Time
                   </h2>
                   <p className="text-tertiary font-medium">{date}</p>
-                  <button className="mt-4 w-full bg-purple-600 text-white py-2 px-4 rounded-md hover:foreground transition-all">
-                    Attend Now (Free)
-                  </button>
+
+                  {attended ? (
+                    <RemoveAttendEventBtn eventId={id} />
+                  ) : (
+                    <AttendEventBtn eventId={id} />
+                  )}
                 </div>
 
                 <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
