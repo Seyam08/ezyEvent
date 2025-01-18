@@ -1,4 +1,4 @@
-import { jwtVerify } from "jose";
+import { errors, jwtVerify } from "jose";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useLogoutMutation } from "../features/auth/authApi";
@@ -29,10 +29,19 @@ export default function useAuthCheck() {
             setAuthChecked(true);
           }
         })
-        .catch(() => {
-          localStorage.removeItem("auth");
-          logout();
-          setAuthChecked(true);
+        .catch((err) => {
+          if (err instanceof errors.JWTExpired) {
+            localStorage.removeItem("auth");
+            setAuthChecked(true);
+          } else if (err instanceof errors.JWSSignatureVerificationFailed) {
+            localStorage.removeItem("auth");
+            logout();
+            setAuthChecked(true);
+          } else {
+            localStorage.removeItem("auth");
+            logout();
+            setAuthChecked(true);
+          }
         });
     } else {
       setAuthChecked(true);
