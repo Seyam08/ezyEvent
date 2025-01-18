@@ -41,7 +41,7 @@ const route = createBrowserRouter([
   },
   {
     path: "/event/:id",
-    element: <EventPage />, // under development
+    element: <EventPage />,
   },
   {
     path: "/users/:id",

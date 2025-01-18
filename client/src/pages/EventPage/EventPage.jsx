@@ -250,7 +250,7 @@ export default function EventPage() {
                                     {name}
                                   </Link>
                                 </h3>
-                                <h3 className="text-sm font-semibold text-tertiary">
+                                <h3 className="text-sm text-tertiary">
                                   {username}
                                 </h3>
                               </div>
