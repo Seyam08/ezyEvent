@@ -79,6 +79,16 @@ export async function getUserByUsername(req, res) {
         password: 0,
         __v: 0,
       })
+      .populate([
+        {
+          path: 'eventsHosted',
+          select: 'eventName eventDate attendeesId status',
+        },
+        {
+          path: 'eventsSpeaking',
+          select: 'eventName eventDate attendeesId status',
+        },
+      ])
       .lean();
     if (user) {
       const updatedUsers = {
