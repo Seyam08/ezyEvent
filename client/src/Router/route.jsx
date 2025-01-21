@@ -45,7 +45,7 @@ const route = createBrowserRouter([
   },
   {
     path: "/users/:id",
-    element: <PublicProfile />, // under development
+    element: <PublicProfile />,
   },
   {
     path: "/dashboard",
