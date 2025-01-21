@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 // import { FacebookIcon, LinkedinIcon, NewTwitterIcon } from "../../icons/icons";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import defaultImage from "../../assets/avatar.svg";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
@@ -15,7 +16,7 @@ export default function PublicProfile() {
   // const X = "facebook.com";
   const { id } = useParams();
   const { data, error, isLoading } = useGetUserQuery(id);
-  const [image, setImage] = useState("");
+  const [image, setImage] = useState(defaultImage);
   const [name, setName] = useState("");
   const [role, setRole] = useState([]);
   const [email, setEmail] = useState("");
@@ -90,9 +91,9 @@ export default function PublicProfile() {
       ) : data ? (
         <>
           <div className="h-20 bg-secondary"></div>
-          <div className="bg-secondary min-h-screen flex items-center justify-center">
+          <div className="bg-secondary min-h-screen pb-10 flex items-center justify-center">
             <div className="width-holder px-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-              <div className="bg-tertiary rounded-lg p-6 flex flex-col items-center justify-between md:items-start">
+              <div className="bg-tertiary rounded-lg p-4 flex flex-col items-center justify-between md:items-start">
                 <div className="w-24 h-24 cursor-pointer">
                   <img
                     src={image}
@@ -149,7 +150,7 @@ export default function PublicProfile() {
                 </div>
               </div>
 
-              <div className="bg-tertiary rounded-lg p-6 md:col-span-2 flex flex-col justify-between">
+              <div className="bg-tertiary rounded-lg p-4 md:col-span-2 flex flex-col justify-between">
                 <div className="text-lg font-semibold mb-4 text-primary">
                   Records:
                 </div>
@@ -210,29 +211,134 @@ export default function PublicProfile() {
           </div> */}
               </div>
 
-              <div className="bg-tertiary rounded-lg p-6 md:col-span-2">
+              {/* upcoming events info  */}
+              <div className="bg-tertiary rounded-lg p-4 md:col-span-2 space-y-2">
+                {/* host events  */}
                 <div className="text-lg font-semibold mb-4 text-primary">
-                  UpComing Events
+                  Events I've Hosted and Will Host
                 </div>
-                <div className="flex justify-between items-center bg-primary p-4 rounded-lg">
-                  <div>
-                    <p className="text-sm text-tertiary">Leave Type</p>
-                    <p className="font-semibold text-secondary">Vacation</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-tertiary">Duration</p>
-                    <p className="font-semibold text-secondary">
-                      03 Dec 2023 - 12 Dec 2023
-                    </p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-tertiary">Status</p>
-                    <p className="text-green-500 font-semibold">Approved</p>
-                  </div>
-                  <button className="text-glow font-semibold hover:underline">
-                    View
-                  </button>
+                {eventsHosted.length > 0 ? (
+                  eventsHosted.map((event, index) => {
+                    // get readable date
+                    const readableDate = new Date(
+                      event?.eventDate
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    });
+
+                    // get separate color for each status
+                    const statusColor =
+                      event?.status === "Upcoming"
+                        ? "text-cyan-500"
+                        : event?.status === "Ongoing"
+                        ? "text-yellow-500"
+                        : event?.status === "Completed"
+                        ? "text-green-500"
+                        : "text-primary";
+                    // get event link
+                    const eventLink = `/event/${event._id}`;
+
+                    return (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center bg-primary p-4 rounded-lg"
+                      >
+                        <div>
+                          <p className="text-xs md:text-sm text-tertiary">
+                            Event's name
+                          </p>
+                          <p className="font-semibold text-secondary text-sm md:text-base text-glow">
+                            {event.eventName}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs md:text-sm text-tertiary">
+                            Date
+                          </p>
+                          <p className="font-semibold text-secondary text-sm md:text-base">
+                            {readableDate}
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs md:text-sm text-tertiary">
+                            Status
+                          </p>
+                          <p
+                            className={`${statusColor} font-semibold text-sm md:text-base`}
+                          >
+                            {event.status}
+                          </p>
+                        </div>
+                        <Link
+                          to={eventLink}
+                          className="block text-glow text-sm md:text-base font-semibold hover:underline"
+                        >
+                          View
+                        </Link>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p className="text-base text-tertiary">
+                    I haven't had the opportunity to host any events yet.
+                  </p>
+                )}
+              </div>
+              {/* speaking events  */}
+              <div className="bg-tertiary rounded-lg p-4 space-y-2">
+                {/* host events  */}
+                <div className="text-lg font-semibold mb-4 text-primary">
+                  Events I've Spoked and Will Speak
                 </div>
+                {eventsSpeaking.length > 0 ? (
+                  eventsSpeaking.map((event, index) => {
+                    // get readable date
+                    const readableDate = new Date(
+                      event?.eventDate
+                    ).toLocaleDateString("en-US", {
+                      year: "numeric",
+                      month: "long",
+                      day: "numeric",
+                    });
+
+                    // get event link
+                    const eventLink = `/event/${event._id}`;
+                    return (
+                      <div
+                        key={index}
+                        className="flex justify-between items-center bg-primary p-4 rounded-lg"
+                      >
+                        <div>
+                          <p className="text-xs md:text-sm text-tertiary">
+                            Event's name
+                          </p>
+                          <p className="font-semibold text-secondary text-sm md:text-base text-glow">
+                            <Link
+                              to={eventLink}
+                              className="block text-glow text-sm md:text-base font-semibold hover:underline"
+                            >
+                              {event.eventName}
+                            </Link>
+                          </p>
+                        </div>
+                        <div>
+                          <p className="text-xs md:text-sm text-tertiary">
+                            Date
+                          </p>
+                          <p className="font-semibold text-secondary text-sm md:text-base">
+                            {readableDate}
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <p className="text-base text-tertiary">
+                    I haven't had the opportunity to speak at any events yet.
+                  </p>
+                )}
               </div>
             </div>
           </div>
