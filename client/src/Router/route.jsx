@@ -68,7 +68,7 @@ const route = createBrowserRouter([
         element: <AllUsers />,
       },
       {
-        path: "/dashboard/accounts",
+        path: "/dashboard/accounts/my-profile",
         element: <AccountsPageLayout />,
         children: [
           {

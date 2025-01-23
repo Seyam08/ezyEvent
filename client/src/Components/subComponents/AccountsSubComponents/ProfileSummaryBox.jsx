@@ -1,15 +1,28 @@
 import PropTypes from "prop-types";
-import image from "../../../assets/user.svg";
+import { useEffect, useState } from "react";
+import defaultImage from "../../../assets/user.svg";
 import { EditIcon } from "../../../icons/icons";
 import TooltipIcon from "../AnimatedIcons/TooltipIcon";
 
-export default function ProfileSummaryBox({ name, role, designation }) {
+export default function ProfileSummaryBox({ name, role, designation, avatar }) {
+  const [image, setImage] = useState(defaultImage);
+
+  useEffect(() => {
+    const imageUrl = `${import.meta.env.VITE_SERVER_URL}/${avatar}`;
+    setImage(imageUrl);
+  }, [avatar]);
+
+  const handleImageError = (event) => {
+    event.target.src = defaultImage;
+  };
+
   return (
     <div className="flex items-center py-3 max-w-full h-max relative">
       <div className="w-20 h-20 cursor-pointer">
         <img
           src={image}
           alt="Avatar"
+          onError={handleImageError}
           className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
         />
       </div>
@@ -18,7 +31,15 @@ export default function ProfileSummaryBox({ name, role, designation }) {
           <h3 className="text-primary text-subHeading-size font-bold">
             {name}
           </h3>
-          <h3 className="text-secondary font-semibold text-sm">{role}</h3>
+          {Array.isArray(role) && role.length > 0 ? (
+            role.map((item, index) => (
+              <h3 key={index} className="text-secondary font-semibold text-sm">
+                {item}
+              </h3>
+            ))
+          ) : (
+            <h3 className="text-secondary font-semibold text-sm">{role}</h3>
+          )}
         </div>
         <div className="flex gap-3 pt-2 pl-3">
           <h5 className="text-secondary text-desc-size">{designation}</h5>
@@ -33,6 +54,7 @@ export default function ProfileSummaryBox({ name, role, designation }) {
 }
 ProfileSummaryBox.propTypes = {
   name: PropTypes.string,
-  role: PropTypes.string,
+  role: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   designation: PropTypes.string,
+  avatar: PropTypes.string,
 };

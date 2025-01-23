@@ -1,17 +1,24 @@
+import { useSelector } from "react-redux";
 import ProfileInfo from "../../Components/subComponents/AccountsSubComponents/ProfileInfo";
 import ProfileSummaryBox from "../../Components/subComponents/AccountsSubComponents/ProfileSummaryBox";
 import TooltipIcon from "../../Components/subComponents/AnimatedIcons/TooltipIcon";
 import PageHeading from "../../Components/subComponents/Heading/PageHeading";
+import { getRandomDesignation } from "../../helper/static data/getRandomDesignation";
 import { EditIcon } from "../../icons/icons";
 
 export default function MyProfile() {
+  const { myAccount } = useSelector((state) => state.account);
+  const { avatar, email, name, role, username } = myAccount || {};
+  // console.log(avatar, email, name, role, username);
+  const designation = getRandomDesignation();
   return (
     <>
       <PageHeading customClass="mb-3">My Profile</PageHeading>
       <ProfileSummaryBox
-        name={"Eddie Brock"}
-        role={"Speaker"}
-        designation={"Writer, Researcher and Author"}
+        name={name}
+        role={role}
+        designation={designation}
+        avatar={avatar}
       />
       <div className="py-3 relative">
         <div className="flex justify-between items-center mb-4">
@@ -24,11 +31,10 @@ export default function MyProfile() {
         </div>
 
         <div className="grid grid-cols-2 gap-y-4 text-sm text-secondary">
-          <ProfileInfo title={"First Name"} info={"Jhon"} />
-          <ProfileInfo title={"Last Name"} info={"Doe"} />
-          <ProfileInfo title={"Email address"} info={"jackadams@gmail.com"} />
+          <ProfileInfo title={"Full Name"} info={name} />
+          <ProfileInfo title={"Username"} info={username} />
+          <ProfileInfo title={"Email address"} info={email} />
           <ProfileInfo title={"Phone"} info={"(213) 555-1234"} />
-          <ProfileInfo title={"Bio"} info={"Product Designer"} />
         </div>
       </div>
     </>
