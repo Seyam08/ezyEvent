@@ -5,7 +5,7 @@
   @apply my-0.5 md:basis-auto w-full basis-36;
 }
 .item {
-  @apply bg-transparent flex relative gap-1 max-w-full cursor-pointer rounded px-4 py-2.5 border-none after:content-[''] after:absolute after:w-1 after:h-4/5 after:bg-[#514cfe] after:opacity-0 after:rounded-md after:right-1 after:top-1 transition;
+  @apply bg-transparent flex items-center relative gap-1 max-w-full text-xs lg:text-sm 2xl:text-base cursor-pointer rounded px-2 md:px-4 py-2.5 border-none after:content-[''] after:absolute after:w-1 after:h-4/5 after:bg-[#514cfe] after:opacity-0 after:rounded-md after:right-1 after:top-1 transition;
 }
 
 .item:focus,

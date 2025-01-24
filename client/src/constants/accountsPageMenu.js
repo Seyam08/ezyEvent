@@ -1,4 +1,9 @@
-import { Profile, Settings } from "../icons/icons";
+import {
+  CalendarFavorite01Icon,
+  LeftToRightListStarIcon,
+  MicIcon,
+  Profile,
+} from "../icons/icons";
 
 export const accountsPageMenu = [
   {
@@ -8,22 +13,17 @@ export const accountsPageMenu = [
   },
   {
     href: "/accounts/anything",
-    label: "Settings",
-    icon: Settings,
+    label: "Hosted Events",
+    icon: CalendarFavorite01Icon,
   },
   {
     href: "/some",
-    label: "Settings",
-    icon: Settings,
+    label: "Attended Events",
+    icon: LeftToRightListStarIcon,
   },
   {
     href: "/others",
-    label: "Settings",
-    icon: Settings,
-  },
-  {
-    href: "/some",
-    label: "Settings",
-    icon: Settings,
+    label: "As Speaker",
+    icon: MicIcon,
   },
 ];
