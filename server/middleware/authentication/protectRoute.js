@@ -23,6 +23,20 @@ export async function protectedRoute(req, res, next) {
             password: 0,
             __v: 0,
           })
+          .populate([
+            {
+              path: 'eventsHosted',
+              select: 'eventName eventDate attendeesId status',
+            },
+            {
+              path: 'eventsSpeaking',
+              select: 'eventName eventDate attendeesId status',
+            },
+            {
+              path: 'eventsAttended',
+              select: 'eventName eventDate attendeesId status',
+            },
+          ])
           .lean();
         // decoded info is valid then call the next function
         if (Object.keys(user).length > 0) {
