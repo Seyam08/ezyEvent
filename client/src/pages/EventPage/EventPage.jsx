@@ -155,7 +155,7 @@ export default function EventPage() {
                   {data?.eventName}
                 </h1>
                 <p className="text-[#EDEDED] md:text-xl text-secondary">
-                  By
+                  By{" - "}
                   {hosts.map((host, index) => (
                     <Link
                       key={index}
@@ -163,8 +163,12 @@ export default function EventPage() {
                       to={`/users/${host?.username}`}
                       className="text-glow font-medium"
                     >
-                      {" "}
                       {host?.name}
+                      {index < hosts.length - 1 ? (
+                        <span className="text-white">{", "}</span>
+                      ) : (
+                        ""
+                      )}
                     </Link>
                   ))}
                 </p>
