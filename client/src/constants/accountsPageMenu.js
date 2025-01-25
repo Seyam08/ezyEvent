@@ -7,12 +7,12 @@ import {
 
 export const accountsPageMenu = [
   {
-    href: "/dashboard/accounts/my-profile",
+    href: "/dashboard/accounts",
     label: "My Profile",
     icon: Profile,
   },
   {
-    href: "/accounts/anything",
+    href: "/dashboard/accounts/hosted-events",
     label: "Hosted Events",
     icon: CalendarFavorite01Icon,
   },

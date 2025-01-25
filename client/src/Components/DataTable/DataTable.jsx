@@ -48,11 +48,13 @@ export default function DataTable({ dataArray, customClass, link }) {
           </thead>
           <tbody>
             {dataArray.map((item) => {
-              const { idNo, name, seminar, status } = item;
+              const { idNo, date, seminar, status, link } = item;
               return (
                 <tr key={item.idNo} className="odd:bg-tertiary">
                   <td className={`${styles.table_d} text-secondary`}>{idNo}</td>
-                  <td className={`${styles.table_d} text-primary`}>{name}</td>
+                  <td className={`${styles.table_d} text-secondary text-xs`}>
+                    {date}
+                  </td>
                   <td className={`${styles.table_d} text-primary`}>
                     {seminar}
                   </td>
@@ -66,7 +68,7 @@ export default function DataTable({ dataArray, customClass, link }) {
                     </div>
                   </td>
                   <td className={`${styles.table_d} relative`}>
-                    <ClickToAction />
+                    <ClickToAction link={link} />
                   </td>
                 </tr>
               );

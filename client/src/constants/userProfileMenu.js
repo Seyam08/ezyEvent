@@ -7,7 +7,7 @@ export const userProfileMenuItem = [
     icon: Dashboard,
   },
   {
-    href: "/dashboard/accounts/my-profile",
+    href: "/dashboard/accounts",
     label: "Accounts",
     icon: UserStarIcon,
   },
