@@ -5,7 +5,7 @@ import PageHeading from "../../Components/subComponents/Heading/PageHeading";
 
 export default function HostedEvents() {
   const { myAccount } = useSelector((state) => state.account);
-  const { eventsHosted, eventsAttended, eventsSpeaking } = myAccount || {};
+  const { eventsHosted } = myAccount || {};
   const [hostedEventArray, setHostedEventArray] = useState([]);
 
   useEffect(() => {
