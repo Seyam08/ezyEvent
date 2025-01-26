@@ -33,6 +33,8 @@ export default function HostedEvents() {
     }
   }, [eventsHosted]);
 
+  // console.log(hostedEventArray);
+
   return (
     <>
       <PageHeading>Event's Those I've been Hosted</PageHeading>
