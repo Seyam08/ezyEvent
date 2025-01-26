@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import DataTable from "../../Components/DataTable/DataTable";
 import PageHeading from "../../Components/subComponents/Heading/PageHeading";
 
-export default function HostedEvents() {
+export default function AsSpeaker() {
   const { myAccount } = useSelector((state) => state.account);
-  const { eventsHosted } = myAccount || {};
-  const [hostedEventArray, setHostedEventArray] = useState([]);
+  const { eventsSpeaking } = myAccount || {};
+  const [speakingEventArray, setSpeakingEventArray] = useState([]);
 
   useEffect(() => {
-    if (eventsHosted) {
-      const modifiedData = eventsHosted?.map((item) => {
+    if (eventsSpeaking) {
+      const modifiedData = eventsSpeaking?.map((item) => {
         const readableDate = new Date(item?.eventDate).toLocaleDateString(
           "en-US",
           {
@@ -29,16 +29,16 @@ export default function HostedEvents() {
           link: `/event/${item?._id}`,
         };
       });
-      setHostedEventArray(modifiedData);
+      setSpeakingEventArray(modifiedData);
     }
-  }, [eventsHosted]);
+  }, [eventsSpeaking]);
 
   return (
     <>
-      <PageHeading>Event's Those I've been Hosted</PageHeading>
+      <PageHeading>Event's where I spoked and will be speaking</PageHeading>
       <DataTable
-        title={"Events as Host"}
-        dataArray={hostedEventArray}
+        title={"Events as speaker"}
+        dataArray={speakingEventArray}
         link="/"
       />
     </>

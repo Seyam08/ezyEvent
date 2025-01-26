@@ -22,7 +22,7 @@ export const accountsPageMenu = [
     icon: LeftToRightListStarIcon,
   },
   {
-    href: "/others",
+    href: "/dashboard/accounts/as-speaker",
     label: "As Speaker",
     icon: MicIcon,
   },

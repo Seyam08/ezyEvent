@@ -3,6 +3,7 @@ import PrivateRoute from "../Components/AuthCheck/PrivetRoute";
 import PublicRoute from "../Components/AuthCheck/PublicRoute";
 import AccountsPageLayout from "../layouts/AccountsPageLayout";
 import Layout from "../layouts/Layout";
+import AsSpeaker from "../pages/Accounts/AsSpeaker";
 import AttendedEvents from "../pages/Accounts/AttendedEvents";
 import HostedEvents from "../pages/Accounts/HostedEvents";
 import MyProfile from "../pages/Accounts/MyProfile";
@@ -84,6 +85,10 @@ const route = createBrowserRouter([
           {
             path: "/dashboard/accounts/attended-events",
             element: <AttendedEvents />,
+          },
+          {
+            path: "/dashboard/accounts/as-speaker",
+            element: <AsSpeaker />,
           },
         ],
       },

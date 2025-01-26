@@ -37,7 +37,7 @@ export default function AttendedEvents() {
     <>
       <PageHeading>Event's Those I've been Attended</PageHeading>
       <DataTable
-        title={"Hosted Events"}
+        title={"Events as Attendees"}
         dataArray={attendedEventArray}
         link="/"
       />
