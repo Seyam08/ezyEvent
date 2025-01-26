@@ -31,15 +31,22 @@ export default function ProfileSummaryBox({ name, role, designation, avatar }) {
           <h3 className="text-primary text-subHeading-size font-bold">
             {name}
           </h3>
-          {Array.isArray(role) && role.length > 0 ? (
-            role.map((item, index) => (
-              <h3 key={index} className="text-secondary font-semibold text-sm">
-                {item}
-              </h3>
-            ))
-          ) : (
-            <h3 className="text-secondary font-semibold text-sm">{role}</h3>
-          )}
+          <div className="space-x-1">
+            {Array.isArray(role) && role.length > 0 ? (
+              role.map((item, index) => (
+                <span
+                  key={index}
+                  className="text-primary font-medium text-sm rounded-lg px-2 py-1 bg-emerald-600 bg-opacity-25"
+                >
+                  {item}
+                </span>
+              ))
+            ) : (
+              <span className="text-primary font-medium text-sm rounded-lg px-2 py-1 bg-emerald-600 bg-opacity-25">
+                {role}
+              </span>
+            )}
+          </div>
         </div>
         <div className="flex gap-3 pt-2 pl-3">
           <h5 className="text-secondary text-desc-size">{designation}</h5>
