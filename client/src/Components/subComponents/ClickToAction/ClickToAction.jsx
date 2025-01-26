@@ -18,7 +18,7 @@ export default function ClickToAction({ link }) {
         } w-24 absolute top-7 right-1 justify-center bg-primary text-primary z-50 text-desc-size  border-thin rounded-full drop-shadow-xl transition animate-fade animate-duration-100 animate-ease-in-out hover:foreground hover:text-white`}
       >
         <Link to={link ? link : "#"} className="block py-1 px-5">
-          See All
+          Details
         </Link>
       </div>
     </div>
