@@ -17,7 +17,7 @@ export const accountsPageMenu = [
     icon: CalendarFavorite01Icon,
   },
   {
-    href: "/some",
+    href: "/dashboard/accounts/attended-events",
     label: "Attended Events",
     icon: LeftToRightListStarIcon,
   },
