@@ -61,7 +61,7 @@ export default function EventPage() {
         "en-US",
         {
           year: "numeric",
-          month: "long",
+          month: "short",
           day: "numeric",
         }
       );

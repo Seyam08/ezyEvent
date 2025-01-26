@@ -4,17 +4,15 @@ import ClickToAction from "../subComponents/ClickToAction/ClickToAction";
 import ItemHeading from "../subComponents/Heading/ItemHeading";
 import styles from "./DataTable.module.css";
 
-export default function DataTable({ dataArray, customClass, link }) {
+export default function DataTable({ title, dataArray, customClass, link }) {
   const getStatusClass = (status) => {
     switch (status) {
-      case "Approved":
+      case "Ongoing":
         return "bg-green-500 bg-opacity-25 text-green-500";
-      case "Pending":
+      case "Upcoming":
         return "bg-yellow-500 bg-opacity-25 text-yellow-500";
-      case "Paid":
+      case "Completed":
         return "bg-blue-500 bg-opacity-25 text-blue-500";
-      case "Unpaid":
-        return "bg-red-500 bg-opacity-25 text-red-500";
       default:
         return "";
     }
@@ -27,35 +25,35 @@ export default function DataTable({ dataArray, customClass, link }) {
           <thead>
             <tr className={styles.table_h_row}>
               <th className={styles.table_h} colSpan={3}>
-                <ItemHeading>Event Registration User list</ItemHeading>
+                <ItemHeading>{title}</ItemHeading>
               </th>
               <th className={`!text-end ${styles.table_h}`} colSpan={2}>
                 <Link
                   to={link}
-                  className="text-secondary font-medium text-base bg-tertiary rounded-full px-4 py-1 hover:foreground hover:text-[#EDEDED] transition"
+                  className="text-secondary font-medium text-sm md:text-base bg-tertiary rounded-full px-4 py-1 hover:foreground hover:text-[#EDEDED] transition"
                 >
                   View All
                 </Link>
               </th>
             </tr>
             <tr className={`${styles.table_h_row} text-secondary`}>
-              <th className={styles.table_h}>ID No</th>
-              <th className={styles.table_h}>Name</th>
-              <th className={styles.table_h}>Seminar</th>
+              <th className={styles.table_h}>ID</th>
+              <th className={styles.table_h}>Date</th>
+              <th className={styles.table_h}>Event</th>
               <th className={styles.table_h}>Status</th>
               <th className={styles.table_h}>Action</th>
             </tr>
           </thead>
           <tbody>
-            {dataArray.map((item) => {
+            {dataArray?.map((item) => {
               const { idNo, date, seminar, status, link } = item;
               return (
                 <tr key={item.idNo} className="odd:bg-tertiary">
                   <td className={`${styles.table_d} text-secondary`}>{idNo}</td>
-                  <td className={`${styles.table_d} text-secondary text-xs`}>
-                    {date}
-                  </td>
-                  <td className={`${styles.table_d} text-primary`}>
+                  <td className={`${styles.table_date}`}>{date}</td>
+                  <td
+                    className={`${styles.table_d} text-primary font-semibold`}
+                  >
                     {seminar}
                   </td>
                   <td className={`${styles.table_d} text-secondary`}>
@@ -81,6 +79,7 @@ export default function DataTable({ dataArray, customClass, link }) {
 }
 
 DataTable.propTypes = {
+  title: PropTypes.string.isRequired,
   dataArray: PropTypes.array.isRequired,
   customClass: PropTypes.string,
   link: PropTypes.string.isRequired,
