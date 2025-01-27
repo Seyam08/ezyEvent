@@ -80,10 +80,59 @@ export async function login(req, res) {
 //logged In User Info
 export async function loggedInUserInfo(req, res) {
   const userInfo = req.userInfo;
+  const { username, name, email } = userInfo;
 
-  res.status(200).json({
-    profile: userInfo,
-  });
+  try {
+    const user = await Client.findOne({
+      $and: [{ username }, { email }, { name }],
+    })
+      .select({
+        password: 0,
+        __v: 0,
+      })
+      .populate([
+        {
+          path: 'eventsHosted',
+          select: 'eventName eventDate attendeesId status',
+        },
+        {
+          path: 'eventsSpeaking',
+          select: 'eventName eventDate attendeesId status',
+        },
+        {
+          path: 'eventsAttended',
+          select: 'eventName eventDate attendeesId status',
+        },
+      ])
+      .lean();
+    // decoded info is valid then call the next function
+    if (Object.keys(user).length > 0) {
+      const resUser = {
+        ...user,
+        avatar: `avatars/${user.avatar}`,
+      };
+
+      res.status(200).json({
+        profile: resUser,
+      });
+    } else {
+      res.status(404).json({
+        errors: {
+          common: {
+            msg: 'User not found!',
+          },
+        },
+      });
+    }
+  } catch (error) {
+    res.status(500).json({
+      errors: {
+        common: {
+          msg: 'Something went wrong while getting profile!',
+        },
+      },
+    });
+  }
 }
 
 // logout function
@@ -91,3 +140,18 @@ export function logout(req, res) {
   res.clearCookie(process.env.COOKIE_NAME);
   res.status(200).json({ message: 'logged out' });
 }
+
+// .populate([
+//             {
+//               path: 'eventsHosted',
+//               select: 'eventName eventDate attendeesId status',
+//             },
+//             {
+//               path: 'eventsSpeaking',
+//               select: 'eventName eventDate attendeesId status',
+//             },
+//             {
+//               path: 'eventsAttended',
+//               select: 'eventName eventDate attendeesId status',
+//             },
+//           ])
