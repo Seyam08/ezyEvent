@@ -20,13 +20,13 @@ export const profileApi = apiSlice.injectEndpoints({
               })
             );
           }
-        } catch {
+        } catch (error) {
           toast.error("Something went wrong!");
-          dispatch(userLoggedOut);
+          dispatch(userLoggedOut());
         }
       },
     }),
   }),
 });
 
-export const { useGetProfileQuery } = profileApi;
+export const { useGetProfileQuery, useLazyGetProfileQuery } = profileApi;

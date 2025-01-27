@@ -75,7 +75,6 @@ export const authApi = apiSlice.injectEndpoints({
         url: "/logout",
         method: "DELETE",
       }),
-      invalidatesTags: ["myProfile"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           // Await the result of the query

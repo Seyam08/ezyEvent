@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import FullScreenLoader from "./Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import route from "./Router/route";
-import { useGetProfileQuery } from "./features/Profile/profileApi";
+import { useLazyGetProfileQuery } from "./features/Profile/profileApi";
 import useAuth from "./hooks/useAuth";
 import useAuthCheck from "./hooks/useAuthCheck";
 import useColorMode from "./hooks/useColorMode";
@@ -12,9 +13,12 @@ function App() {
   const authChecked = useAuthCheck();
   const [theme, setTheme] = useColorMode();
   const loggedIn = useAuth();
-  useGetProfileQuery(undefined, {
-    skip: !loggedIn,
-  });
+  const [getProfile, { data }] = useLazyGetProfileQuery();
+  useEffect(() => {
+    if (loggedIn) {
+      getProfile();
+    }
+  }, [loggedIn]);
 
   return (
     <>
