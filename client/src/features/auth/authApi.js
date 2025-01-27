@@ -19,6 +19,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["myProfile"],
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           // Await the result of the query
@@ -74,6 +75,7 @@ export const authApi = apiSlice.injectEndpoints({
         url: "/logout",
         method: "DELETE",
       }),
+      invalidatesTags: ["myProfile"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           // Await the result of the query

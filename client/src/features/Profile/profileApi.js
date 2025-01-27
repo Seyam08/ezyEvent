@@ -9,7 +9,7 @@ export const profileApi = apiSlice.injectEndpoints({
       query: () => ({
         url: "/profile",
       }),
-      extraOptions() {},
+      providesTags: ["myProfile"],
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
           const result = await queryFulfilled;
