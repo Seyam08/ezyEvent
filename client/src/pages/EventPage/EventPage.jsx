@@ -104,7 +104,7 @@ export default function EventPage() {
         setAttended(false);
       }
     }
-  }, [attendees]);
+  }, [attendees, data]);
 
   const getStatusClass = (status) => {
     switch (status) {
