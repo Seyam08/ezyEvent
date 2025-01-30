@@ -7,6 +7,7 @@ import AsSpeaker from "../pages/Accounts/AsSpeaker";
 import AttendedEvents from "../pages/Accounts/AttendedEvents";
 import HostedEvents from "../pages/Accounts/HostedEvents";
 import MyProfile from "../pages/Accounts/MyProfile";
+import AllEvents from "../pages/AllEvents/AllEvents";
 import AllUsers from "../pages/AllUsers/AllUsers";
 import ComingSoon from "../pages/ComingSoon/ComingSoon";
 import Dashboard from "../pages/Dashboard/Dashboard";
@@ -65,6 +66,10 @@ const route = createBrowserRouter([
       {
         path: "/dashboard/speakers",
         element: <Speakers />,
+      },
+      {
+        path: "/dashboard/all-events",
+        element: <AllEvents />,
       },
       {
         path: "/dashboard/all-users",

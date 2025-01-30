@@ -12,7 +12,7 @@ export const userProfileMenuItem = [
     icon: UserStarIcon,
   },
   {
-    href: "/",
+    href: "/dashboard/accounts/hosted-events",
     label: "My Events",
     icon: CalendarIcon,
   },

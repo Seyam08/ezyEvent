@@ -2,6 +2,11 @@ import { apiSlice } from "../api/apiSlice";
 
 export const profileApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getAllEvents: builder.query({
+      query: () => "/events",
+      providesTags: ["AllEvent"],
+      async onQueryStarted() {},
+    }),
     getEvent: builder.query({
       query: (id) => ({
         url: `/event/${id}`,
@@ -30,4 +35,5 @@ export const {
   useGetEventQuery,
   useAttendEventMutation,
   useRemoveAttendanceMutation,
+  useGetAllEventsQuery,
 } = profileApi;

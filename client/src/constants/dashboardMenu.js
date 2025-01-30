@@ -13,7 +13,7 @@ export const DashboardMenu = [
     icon: Dashboard,
   },
   {
-    href: "/",
+    href: "/dashboard/all-events",
     label: "Event List",
     icon: TaskDaily,
   },
