@@ -6,7 +6,7 @@ import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
 
 export default function AllEvents() {
   const { data, isLoading, error } = useGetAllEventsQuery();
-  console.log({ data, isLoading, error });
+
   if (isLoading) {
     return <FullScreenLoader />;
   }

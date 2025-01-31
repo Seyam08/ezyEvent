@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import defaultImage from "../../assets/avatar.svg";
 
 export default function AllEventsTable({ events }) {
   const getStatusClass = (status) => {
@@ -15,12 +14,6 @@ export default function AllEventsTable({ events }) {
         return "bg-blue-500 bg-opacity-25 text-blue-700 dark:text-blue-200";
     }
   };
-
-  const handleImageError = (event) => {
-    event.target.src = defaultImage;
-  };
-
-  console.log(events);
 
   return (
     <div className="bg-secondary shadow rounded-lg p-6">
