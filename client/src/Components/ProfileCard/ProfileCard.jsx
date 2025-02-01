@@ -31,7 +31,7 @@ export default function ProfileCard({
         />
       </div>
       <ItemHeading>
-        <Link to={link} className="text-glow">
+        <Link to={link} target="blank" className="text-glow">
           {name}
         </Link>
       </ItemHeading>
