@@ -17,6 +17,7 @@ import Login from "../pages/Login/Login";
 import PublicProfile from "../pages/PublicProfile/PublicProfile";
 import Register from "../pages/Registration/Registration";
 import Speakers from "../pages/Speakers/Speakers";
+import UpcomingEvents from "../pages/UpcomingEvents/UpcomingEvents";
 
 const route = createBrowserRouter([
   {
@@ -74,6 +75,10 @@ const route = createBrowserRouter([
       {
         path: "/dashboard/all-users",
         element: <AllUsers />,
+      },
+      {
+        path: "/dashboard/upcoming-events",
+        element: <UpcomingEvents />,
       },
       {
         path: "/dashboard/accounts",

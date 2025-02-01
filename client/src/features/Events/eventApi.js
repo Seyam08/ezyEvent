@@ -1,11 +1,26 @@
 import { apiSlice } from "../api/apiSlice";
+import { getAllEvents } from "./eventSlice";
 
 export const profileApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllEvents: builder.query({
       query: () => "/events",
       providesTags: ["AllEvent"],
-      async onQueryStarted() {},
+      async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+        try {
+          const result = await queryFulfilled;
+
+          if (result?.data?.events) {
+            dispatch(
+              getAllEvents({
+                events: result?.data?.events,
+              })
+            );
+          }
+        } catch (error) {
+          toast.error("Something went wrong!");
+        }
+      },
     }),
     getEvent: builder.query({
       query: (id) => ({

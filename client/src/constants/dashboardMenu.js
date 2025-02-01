@@ -28,7 +28,7 @@ export const DashboardMenu = [
     icon: UserGroupIcon,
   },
   {
-    href: "/",
+    href: "/dashboard/upcoming-events",
     label: "Upcoming Events",
     icon: CalendarCheckOutIcon,
   },
