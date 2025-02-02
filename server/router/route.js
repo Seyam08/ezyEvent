@@ -31,7 +31,6 @@ router
   .get(userController.getUserByUsername)
   .put(
     protectRoute.protectedRoute,
-    avatarUpload,
     editUserValidator.editUserValidators,
     editUserValidator.editUserValidationHandler,
     userController.editUser,
