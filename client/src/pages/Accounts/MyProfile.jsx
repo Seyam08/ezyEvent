@@ -9,7 +9,7 @@ import { EditIcon } from "../../icons/icons";
 export default function MyProfile() {
   const { myAccount } = useSelector((state) => state.account);
   const { avatar, email, name, role, username } = myAccount || {};
-  // console.log(avatar, email, name, role, username);
+
   const designation = getRandomDesignation();
   return (
     <>
