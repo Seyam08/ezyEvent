@@ -3,9 +3,19 @@ import { useEffect, useState } from "react";
 import defaultImage from "../../../assets/user.svg";
 import { EditIcon } from "../../../icons/icons";
 import TooltipIcon from "../AnimatedIcons/TooltipIcon";
+import EditAvatar from "../EditAvatar/EditAvatar";
 
 export default function ProfileSummaryBox({ name, role, designation, avatar }) {
   const [image, setImage] = useState(defaultImage);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   useEffect(() => {
     const imageUrl = `${import.meta.env.VITE_SERVER_URL}/${avatar}`;
@@ -18,13 +28,21 @@ export default function ProfileSummaryBox({ name, role, designation, avatar }) {
 
   return (
     <div className="flex items-center py-3 max-w-full h-max relative">
-      <div className="w-20 h-20 cursor-pointer">
+      <div className="w-20 h-20 cursor-pointer rounded-full relative group">
         <img
           src={image}
           alt="Avatar"
           onError={handleImageError}
-          className="p-1 rounded-full ring-1 ring-[#514cfe] h-full w-full"
+          className="p-1 ring-1 ring-[#514cfe] h-full w-full rounded-full"
         />
+        <div
+          className="hidden group-hover:flex absolute top-0 left-0 h-full w-full bg-gray-700 bg-opacity-30 rounded-full p-1 items-center justify-center cursor-pointer transition-all duration-500"
+          onClick={openModal}
+        >
+          <EditIcon className="text-white" />
+        </div>
+
+        <EditAvatar modalIsOpen={modalIsOpen} closeModal={closeModal} />
       </div>
       <section className="block border-l border-gray-400 m-3">
         <div className="pl-3">
