@@ -143,14 +143,13 @@ export async function editUser(req, res) {
           { runValidators: true },
         );
 
-        if (req.files?.length > 0) {
+        if (result?.acknowledged) {
+          console.log('object');
           // remove the previous file
           const dirName = dirname(fileURLToPath(import.meta.url));
-          await unlink(
-            `${dirName}/../public/uploads/avatars/${req.userInfo.avatar}`,
-          );
+          await unlink(`${dirName}/../public/uploads/${req.userInfo.avatar}`);
         }
-        res.status(201).json({ message: 'Sucessfully edited!' });
+        res.status(201).json({ message: 'Successfully edited!' });
       } else {
         // remove uploaded files
         if (req.files?.length > 0) {
@@ -166,6 +165,81 @@ export async function editUser(req, res) {
           errors: {
             common: {
               msg: 'ONly name, email, password and avatar are editable!',
+            },
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+      // remove uploaded files
+      if (req.files?.length > 0) {
+        const { filename } = req.files[0];
+        const dirName = dirname(fileURLToPath(import.meta.url));
+        unlink(`${dirName}/../public/uploads/avatars/${filename}`, (err) => {
+          if (err) {
+            throw createError('Something wrong while uploading file!');
+          }
+        });
+      }
+      res.status(500).json({
+        errors: {
+          common: {
+            msg: 'Internal server error!',
+          },
+        },
+      });
+    }
+  } else {
+    // remove uploaded files
+    if (req.files?.length > 0) {
+      const { filename } = req.files[0];
+      const dirName = dirname(fileURLToPath(import.meta.url));
+      unlink(`${dirName}/../public/uploads/avatars/${filename}`, (err) => {
+        if (err) {
+          throw createError('Something wrong while uploading file!');
+        }
+      });
+    }
+    res.status(400).json({
+      errors: {
+        common: {
+          msg: 'you are not eligible',
+        },
+      },
+    });
+  }
+}
+
+export async function editAvatar(req, res) {
+  const loggedInUser = req.userInfo.username;
+  const paramUser = req.params.username;
+
+  if (loggedInUser === paramUser) {
+    const avatarName =
+      req.files?.length > 0 ? req.files[0].filename : undefined;
+
+    try {
+      if (avatarName) {
+        const result = await Client.updateOne(
+          { username: loggedInUser },
+          { $set: { avatar: avatarName } },
+          { runValidators: true },
+        );
+
+        if (result?.acknowledged) {
+          // remove the previous file
+          const dirName = dirname(fileURLToPath(import.meta.url));
+
+          await unlink(`${dirName}/../public/uploads/${req.userInfo.avatar}`);
+        } else {
+          throw createError('Something wrong while changing avatar!');
+        }
+        res.status(201).json({ message: 'Avatar Changed!' });
+      } else {
+        res.status(400).json({
+          errors: {
+            common: {
+              msg: 'There is no file to upload!',
             },
           },
         });
