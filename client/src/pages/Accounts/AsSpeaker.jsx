@@ -39,7 +39,7 @@ export default function AsSpeaker() {
       <DataTable
         title={"Events as speaker"}
         dataArray={speakingEventArray}
-        link="/"
+        link="/dashboard/all-events"
       />
     </>
   );

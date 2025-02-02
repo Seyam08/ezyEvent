@@ -39,7 +39,7 @@ export default function AttendedEvents() {
       <DataTable
         title={"Events as Attendees"}
         dataArray={attendedEventArray}
-        link="/"
+        link="/dashboard/all-events"
       />
     </>
   );

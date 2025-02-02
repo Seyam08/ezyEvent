@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 
-export default function AllEventsTable({ events }) {
+export default function AllEventsTable({ events, filter = true }) {
   const getStatusClass = (status) => {
     switch (status) {
       case "Upcoming":
@@ -28,34 +28,36 @@ export default function AllEventsTable({ events }) {
         />
       </div>
 
-      <div className="flex flex-wrap gap-2 mb-4">
-        <button
-          className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass()}`}
-        >
-          View all
-        </button>
-        <button
-          className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
-            "Upcoming"
-          )}`}
-        >
-          Upcoming
-        </button>
-        <button
-          className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
-            "Ongoing"
-          )}`}
-        >
-          Ongoing
-        </button>
-        <button
-          className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
-            "Completed"
-          )}`}
-        >
-          Completed
-        </button>
-      </div>
+      {filter ? (
+        <div className="flex flex-wrap gap-2 mb-4">
+          <button
+            className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass()}`}
+          >
+            View all
+          </button>
+          <button
+            className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
+              "Upcoming"
+            )}`}
+          >
+            Upcoming
+          </button>
+          <button
+            className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
+              "Ongoing"
+            )}`}
+          >
+            Ongoing
+          </button>
+          <button
+            className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
+              "Completed"
+            )}`}
+          >
+            Completed
+          </button>
+        </div>
+      ) : null}
 
       <div className="overflow-x-auto">
         <table className="w-full">
@@ -165,4 +167,5 @@ export default function AllEventsTable({ events }) {
 
 AllEventsTable.propTypes = {
   events: PropTypes.array.isRequired,
+  filter: PropTypes.bool,
 };

@@ -29,6 +29,6 @@ export default function UpcomingEvents() {
     );
   }
   if (data?.events) {
-    return <AllEventsTable events={upcomingEvents} />;
+    return <AllEventsTable events={upcomingEvents} filter={false} />;
   }
 }

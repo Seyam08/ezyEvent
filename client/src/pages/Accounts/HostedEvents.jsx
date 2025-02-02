@@ -39,7 +39,7 @@ export default function HostedEvents() {
       <DataTable
         title={"Events as Host"}
         dataArray={hostedEventArray}
-        link="/"
+        link="/dashboard/all-events"
       />
     </>
   );
