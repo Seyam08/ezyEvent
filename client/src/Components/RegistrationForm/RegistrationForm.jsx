@@ -1,7 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { useRegisterMutation } from "../../features/auth/authApi";
+import { redirectHolder } from "../../features/auth/authSlice";
 import { regFormSchema } from "../../helper/registration/regFormSchema";
 import { regResErrorHandler } from "../../helper/registration/regResErrorHandler";
 import { FileAddIcon } from "../../icons/icons";
@@ -13,6 +17,8 @@ import styles from "./RegistrationForm.module.css";
 export default function RegistrationForm() {
   const [agreed, setAgreed] = useState(false);
   const [resError, setResError] = useState({});
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   // react hook form
   const {
     register: formRegister,
@@ -29,29 +35,25 @@ export default function RegistrationForm() {
   const [register, { data, isLoading, error: responseError }] =
     useRegisterMutation();
 
-  useEffect(() => {
-    if (responseError) {
-      const extractError = regResErrorHandler(responseError);
-      setResError(extractError);
-    }
-    if (data) {
-      reset();
-    }
-  }, [data, responseError, reset]);
-
+  // form submit handler
   const onSubmit = (data) => {
     setResError({});
     // Prepare FormData
     const formData = new FormData();
     formData.append("username", data.username);
     formData.append("email", data.email);
-    formData.append("name", data.name);
+    formData.append("name", data.fullname);
     formData.append("password", data.password);
     if (data.avatar) {
       formData.append("avatar", data.avatar[0]);
     }
 
     register(formData);
+    dispatch(
+      redirectHolder({
+        holder: true,
+      })
+    );
   };
 
   useEffect(() => {
@@ -59,10 +61,77 @@ export default function RegistrationForm() {
     setValue("agreed", agreed);
   }, [agreed, setValue]);
 
+  // handling the error and resetting the form after successful
+  useEffect(() => {
+    if (responseError) {
+      const extractError = regResErrorHandler(responseError);
+      setResError(extractError);
+    }
+    if (data) {
+      setAgreed(false);
+      reset();
+    }
+  }, [data, responseError, reset]);
+
+  // redirect to login after successfully registered
+  useEffect(() => {
+    if (data) {
+      new Promise((resolve, reject) => {
+        const duration = 1000;
+        // Show the toast
+        toast.success(data?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (data?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 2000);
+            }),
+            {
+              loading: "Redirecting to login...",
+              success: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                navigate("/login");
+              },
+              error: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                return "Something went wrong!";
+              },
+            }
+          );
+        })
+        .catch(() => {
+          dispatch(
+            redirectHolder({
+              holder: false,
+            })
+          );
+        });
+    }
+  }, [data]);
+
   return (
     <div className={styles.registration_form}>
       <div className={`${styles.form_box} bg-secondary box-shadow`}>
-        {isLoading ? <FullScreenLoader color="bg-[#8C5BFE]" /> : null}
+        {isLoading ? <FullScreenLoader color="bg-[#514cfe]" /> : null}
 
         <form className={styles.inner_box} onSubmit={handleSubmit(onSubmit)}>
           <div className={styles.two_col_inp_fild}>
@@ -259,7 +328,7 @@ export default function RegistrationForm() {
             />
             <label
               htmlFor="avatar"
-              className="flex items-center justify-center max-w-max px-3 py-1 foreground bg-opacity-50 text-primary text-sm rounded-md shadow cursor-pointer hover:bg-opacity-100 transition-all mb-3"
+              className="flex items-center justify-center max-w-max px-3 py-1 foreground bg-opacity-50 text-primary rounded-md shadow cursor-pointer hover:bg-opacity-100 transition-all mb-3 text-sm 2xl:text-lg"
             >
               <FileAddIcon className="text-primary h-4 w-4 mr-2" />
               Add Avatar
@@ -282,7 +351,7 @@ export default function RegistrationForm() {
             <div className="flex my-3">
               <AnimatedCheckbox isChecked={agreed} setIsChecked={setAgreed} />
 
-              <label className={`text-secondary`}>
+              <label className="text-secondary text-sm 2xl:text-lg">
                 Agreed with the terms and condition
               </label>
             </div>
@@ -316,9 +385,15 @@ export default function RegistrationForm() {
           </div>
           <div className={styles.short_note_row}>
             <span className={styles.line} />
-            <a className={`${styles.note}  text-primary`} href="#">
-              Have an account? <span className={styles.span}>Log in</span>
-            </a>
+            <p className={`${styles.note}  text-primary`} href="#">
+              Have an account?{" "}
+              <Link
+                to={"/login"}
+                className="ml-1.5 text-glow font-medium uppercase hover:underline hover:decoration-2 hover:underline-offset-2 transition-all"
+              >
+                Log in
+              </Link>
+            </p>
             <span className={styles.line} />
           </div>
         </form>

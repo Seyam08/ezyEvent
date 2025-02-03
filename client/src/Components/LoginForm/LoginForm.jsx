@@ -1,8 +1,11 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../features/auth/authApi";
+import { redirectHolder } from "../../features/auth/authSlice";
 import { loginFormSchema } from "../../helper/login/loginFormSchema";
 import { loginErrorHandler } from "../../helper/login/loginResErrorHandler";
 import { AtIcon, LockIcon } from "../../icons/icons";
@@ -15,6 +18,8 @@ export default function LoginForm() {
   const [rememberMe, setRememberMe] = useState(false);
   const [resError, setResError] = useState({});
   const { error: authError } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // handling the form using react hook form
   const {
@@ -38,6 +43,11 @@ export default function LoginForm() {
   const onSubmit = (data) => {
     setResError({});
     login({ username: data.email, password: data.password });
+    dispatch(
+      redirectHolder({
+        holder: true,
+      })
+    );
   };
 
   // useEffect to handle the response error and action after successful login
@@ -51,49 +61,110 @@ export default function LoginForm() {
     }
   }, [data, responseError, reset]);
 
+  // push toast and redirect after successfully logged in
+  useEffect(() => {
+    if (data) {
+      new Promise((resolve, reject) => {
+        const duration = 1000;
+        // Show the toast
+        toast.success(data?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (data?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
+            }),
+            {
+              loading: "Redirecting...",
+              success: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                navigate("/dashboard");
+              },
+              error: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                return "Something went wrong!";
+              },
+            }
+          );
+        })
+        .catch(() => {
+          dispatch(
+            redirectHolder({
+              holder: false,
+            })
+          );
+        });
+    }
+  }, [data]);
+
   return (
     <div>
       {/* Loader component to show loading state */}
-      {isLoading ? <FullScreenLoader color="bg-[#8C5BFE]" /> : null}
+      {isLoading ? <FullScreenLoader color="bg-[#514cfe]" /> : null}
 
       <form
         className={`${styles.form} bg-secondary box-shadow`}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <div className={styles.flex_column}>
-          <label className={`text-primary`}>Email</label>
+        {/* email */}
+        <div className="space-y-3">
+          <div className={styles.flex_column}>
+            <label className={`text-primary`}>Email</label>
+          </div>
+          <div className={`${styles.inputForm} bg-primary`}>
+            <AtIcon className="text-primary" />
+            <input
+              placeholder="Type here..."
+              className={`${styles.input} bg-primary`}
+              type="text"
+              {...formRegister("email")}
+            />
+          </div>
+          {errors.email && (
+            <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+              {errors.email.message}
+            </ErrorMsgBox>
+          )}
         </div>
-        <div className={`${styles.inputForm} bg-primary`}>
-          <AtIcon className="fill-[#333839] dark:fill-[#e7e7e7]" />
-          <input
-            placeholder="Enter your Email"
-            className={`${styles.input} bg-primary`}
-            type="text"
-            {...formRegister("email")}
-          />
+        {/* password */}
+        <div className="space-y-3">
+          <div className={styles.flex_column}>
+            <label className={`text-primary`}>Password </label>
+          </div>
+          <div className={`${styles.inputForm} bg-primary`}>
+            <LockIcon className="text-primary" />
+            <input
+              placeholder="Type here..."
+              className={`${styles.input} bg-primary`}
+              type="password"
+              {...formRegister("password")}
+            />
+          </div>
+          {errors.password && (
+            <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+              {errors.password.message}
+            </ErrorMsgBox>
+          )}
         </div>
-        {errors.email && (
-          <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
-            {errors.email.message}
-          </ErrorMsgBox>
-        )}
-        <div className={styles.flex_column}>
-          <label className={`text-primary`}>Password </label>
-        </div>
-        <div className={`${styles.inputForm} bg-primary`}>
-          <LockIcon className="fill-[#333839] dark:fill-[#e7e7e7]" />
-          <input
-            placeholder="Enter your Password"
-            className={`${styles.input} bg-primary`}
-            type="password"
-            {...formRegister("password")}
-          />
-        </div>
-        {errors.password && (
-          <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
-            {errors.password.message}
-          </ErrorMsgBox>
-        )}
 
         <div className={styles.flex_row}>
           <div className="flex">
@@ -140,7 +211,12 @@ export default function LoginForm() {
           <span className={styles.line} />
           <p className={`${styles.p} text-primary`}>
             Don&apos;t have an account?{" "}
-            <span className={styles.span}>Sign Up</span>
+            <Link
+              to={"/register"}
+              className="ml-1.5 text-glow font-medium uppercase hover:underline hover:decoration-2 hover:underline-offset-2 transition-all"
+            >
+              Sign Up
+            </Link>
           </p>
           <span className={styles.line} />
         </div>

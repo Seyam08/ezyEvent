@@ -4,6 +4,7 @@ const initialState = {
   isAuthenticated: false,
   profile: null,
   error: null,
+  holder: false,
 };
 
 const authSlice = createSlice({
@@ -38,9 +39,13 @@ const authSlice = createSlice({
         state.profile = null;
       }
     },
+    redirectHolder: (state, action) => {
+      state.holder = action?.payload?.holder;
+    },
   },
 });
 
-export const { userLoggedIn, userLoggedOut } = authSlice.actions;
+export const { userLoggedIn, userLoggedOut, redirectHolder } =
+  authSlice.actions;
 const authSliceReducer = authSlice.reducer;
 export default authSliceReducer;

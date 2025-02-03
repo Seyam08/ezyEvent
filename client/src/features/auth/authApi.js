@@ -1,4 +1,5 @@
 import { SignJWT } from "jose";
+import toast from "react-hot-toast";
 import { loginErrorHandler } from "../../helper/login/loginResErrorHandler";
 import { apiSlice } from "../api/apiSlice";
 import { userLoggedIn, userLoggedOut } from "./authSlice";
@@ -18,6 +19,7 @@ export const authApi = apiSlice.injectEndpoints({
         method: "POST",
         body: data,
       }),
+      invalidatesTags: ["myProfile"],
       async onQueryStarted(arg, { dispatch, queryFulfilled }) {
         try {
           // Await the result of the query
@@ -25,13 +27,6 @@ export const authApi = apiSlice.injectEndpoints({
           if (result?.data) {
             // Extract the profile from the result
             const profile = result?.data?.profile;
-
-            // Dispatch the userLoggedIn action with the profile
-            dispatch(
-              userLoggedIn({
-                profile: result?.data?.profile,
-              })
-            );
 
             try {
               // Convert the secret key to Uint8Array
@@ -59,10 +54,19 @@ export const authApi = apiSlice.injectEndpoints({
               );
               // Dispatch the logout mutation to ensure the user is logged out, is there is an error while generating the token
               dispatch(authApi.endpoints.logout.initiate());
+              toast.error("Something went wrong! Unable to login");
             }
+            // Dispatch the userLoggedIn action with the profile
+            dispatch(
+              userLoggedIn({
+                profile: result?.data?.profile,
+              })
+            );
           }
         } catch (error) {
-          // do nothing
+          const extractError = loginErrorHandler(error?.error);
+
+          toast.error(extractError?.message);
         }
       },
     }),
@@ -89,6 +93,7 @@ export const authApi = apiSlice.injectEndpoints({
           }
           // Dispatch the userLoggedOut action with an error message if the logout fails
           dispatch(userLoggedOut({ error: errorData }));
+          toast.error(errorData?.message);
         }
       },
     }),

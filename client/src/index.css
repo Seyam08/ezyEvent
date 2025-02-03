@@ -2,7 +2,18 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  body {
+    font-family: "Montserrat", sans-serif;
+  }
+}
 @layer components {
+  .width-holder {
+    @apply max-w-6xl 2xl:max-w-7xl w-full mx-auto;
+  }
   .bg-primary {
     @apply bg-[#efefef] dark:bg-[#0D1117];
   }
@@ -13,8 +24,40 @@
     @apply bg-[#f1edf9] dark:bg-[#21262D];
   }
   .foreground {
-    @apply bg-[#8C5BFE];
+    @apply bg-[#514cfe];
   }
+  .foreground-2nd {
+    @apply bg-[#15242E];
+  }
+  .gradient-bg {
+    @apply bg-gradient-to-br from-[#605df5] to-[#504BFF];
+  }
+  .gradient-bg-2nd {
+    @apply bg-gradient-to-br from-[#2D3A43] to-[#15242E];
+  }
+  .gradient-bg-3rd {
+    @apply bg-gradient-to-tl from-[#E9E9E9] to-[#F4F4F4] dark:from-[#020202] dark:to-[#0A0C0B];
+  }
+  .gradient-bg-4th {
+    @apply bg-gradient-to-tl from-cyan-500 to-blue-700;
+  }
+  .gradient-bg-5th {
+    background: rgb(6, 182, 212);
+    background: linear-gradient(
+      180deg,
+      rgba(6, 182, 212, 1) 0%,
+      rgba(29, 78, 216, 1) 80%,
+      rgba(0, 0, 0, 0) 80%
+    );
+  }
+  .gradient-bg-6th {
+    background-image: linear-gradient(
+      90.1deg,
+      rgba(8, 81, 98, 1) 14.5%,
+      rgba(198, 231, 249, 1) 135.4%
+    );
+  }
+
   .text-primary {
     @apply text-[#140C37] dark:text-[#EDEDED];
   }
@@ -22,10 +65,7 @@
     @apply text-[#263858] dark:text-[#c7c7c7];
   }
   .text-tertiary {
-    @apply text-[#7C899C] dark:text-[#a1a1a1];
-  }
-  .text-glow {
-    @apply text-[#8C5BFE];
+    @apply text-[#091e42] dark:text-[#a1a1a1];
   }
   .text-heading-size {
     @apply lg:text-xl md:text-lg text-base;
@@ -41,6 +81,25 @@
   }
   .box-shadow {
     @apply shadow-light-shadow dark:shadow-dark-shadow;
+  }
+  .text-glow {
+    @apply text-[#514cfe];
+  }
+  .text-glow-2nd {
+    @apply text-purple-700;
+  }
+  .fadeIn {
+    @apply opacity-0 translate-y-5 transition-all duration-500 ease-in;
+  }
+  /* toast style  */
+  .notification {
+    @apply bg-gradient-to-br from-slate-800 to-slate-950 dark:from-slate-400 dark:to-slate-300 rounded-2xl text-[#EDEDED] dark:text-[#140C37] py-1 px-3 font-medium;
+  }
+  .notificationSuccess {
+    @apply bg-emerald-500 rounded-2xl text-[#EDEDED] py-1 px-3 font-medium;
+  }
+  .notificationError {
+    @apply bg-red-400 rounded-2xl text-[#EDEDED] py-1 px-3 font-medium;
   }
   /* menu active item start */
   .sidebar-main-nav .active li {

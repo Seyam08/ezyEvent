@@ -1,20 +1,87 @@
+import { useEffect } from "react";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../../features/auth/authApi";
+import { redirectHolder } from "../../../features/auth/authSlice";
 
 export default function LogoutBtn() {
   const [logout, { data, isLoading, isError }] = useLogoutMutation();
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleBtnClick = (e) => {
     e.prevent;
     e.preventDefault();
     logout();
+    dispatch(
+      redirectHolder({
+        holder: true,
+      })
+    );
   };
+
+  // redirect to LandingPage after successfully logged out
+  useEffect(() => {
+    if (data) {
+      new Promise((resolve, reject) => {
+        const duration = 1000;
+        // Show the toast
+        toast.success(data?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (data?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
+            }),
+            {
+              loading: "Redirecting...",
+              success: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                navigate("/");
+              },
+              error: () => {
+                dispatch(
+                  redirectHolder({
+                    holder: false,
+                  })
+                );
+                return "Something went wrong!";
+              },
+            }
+          );
+        })
+        .catch(() => {
+          dispatch(
+            redirectHolder({
+              holder: false,
+            })
+          );
+        });
+    }
+  }, [data]);
 
   return (
     <button
       onClick={handleBtnClick}
       disabled={isLoading}
-      className={`flex justify-evenly items-center cursor-pointer w-28 h-10 foreground text-white  hover:opacity-80 hover:shadow-lg transition-all group ease-in-out ${
-        isLoading ? "w-11 h-11 rounded-full duration-300" : "rounded-lg"
+      className={`flex justify-evenly items-center cursor-pointer w-28 h-8 foreground text-white  hover:opacity-80 hover:shadow-lg transition-all group ease-in-out ${
+        isLoading ? "w-11 h-11 rounded-full duration-300" : "rounded-full"
       }`}
     >
       <svg

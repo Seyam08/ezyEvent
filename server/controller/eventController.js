@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import Client from '../models/Clients.js';
 import Event from '../models/Events.js';
 
@@ -69,11 +70,26 @@ export async function addEvent(req, res) {
 
 export async function getAllEvent(req, res) {
   try {
-    const events = await Event.find().select({
-      __v: 0,
-      createdAt: 0,
-      updatedAt: 0,
-    });
+    const events = await Event.find()
+      .select({
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+      })
+      .populate([
+        {
+          path: 'hostId',
+          select: 'username avatar',
+        },
+        {
+          path: 'speakerId',
+          select: 'username avatar',
+        },
+        {
+          path: 'attendeesId',
+          select: 'username avatar',
+        },
+      ]);
 
     res.status(200).json({
       events: events,
@@ -92,11 +108,26 @@ export async function getAllEvent(req, res) {
 export async function getEvent(req, res) {
   try {
     const { id } = req.params;
-    const event = await Event.findOne({ _id: id }).select({
-      __v: 0,
-      createdAt: 0,
-      updatedAt: 0,
-    });
+    const event = await Event.findOne({ _id: id })
+      .select({
+        __v: 0,
+        createdAt: 0,
+        updatedAt: 0,
+      })
+      .populate([
+        {
+          path: 'hostId',
+          select: 'username avatar name',
+        },
+        {
+          path: 'speakerId',
+          select: 'username avatar name',
+        },
+        {
+          path: 'attendeesId',
+          select: 'username avatar name',
+        },
+      ]);
     if (event) {
       res.status(200).json(event);
     } else {
@@ -112,7 +143,7 @@ export async function getEvent(req, res) {
     res.status(500).json({
       errors: {
         common: {
-          msg: 'Internal server error!',
+          msg: "Event doesn't exist!",
         },
       },
     });
@@ -168,8 +199,14 @@ export async function removeAttend(req, res) {
     const attendanceList = req.userInfo.eventsAttended;
     const attendeesList = event.attendeesId;
 
-    const attendanceExist = attendanceList.includes(id);
-    const attendeesExist = attendeesList.includes(userId);
+    const attendanceExist = _.includes(
+      _.map(attendanceList, (id) => id.toString()),
+      id.toString(),
+    );
+    const attendeesExist = _.includes(
+      _.map(attendeesList, (id) => id.toString()),
+      userId.toString(),
+    );
 
     if (attendanceExist && attendeesExist) {
       // Update both and remove the user's attended events
@@ -181,7 +218,7 @@ export async function removeAttend(req, res) {
         ),
       ]);
 
-      res.status(200).json({ message: 'Removed attendence successfully!' });
+      res.status(200).json({ message: 'Removed attendance successfully!' });
     } else {
       res.status(409).json({
         errors: {

@@ -1,29 +1,10 @@
 import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
+import useColorMode from "../../hooks/useColorMode";
 import { MoonIcon, SunIcon } from "../../icons/icons";
 import styles from "./ToogleMode.module.css";
 
-export default function ToogleMode({ customClass }) {
-  const [theme, setTheme] = useState(() => {
-    const storedTheme = localStorage.getItem("theme");
-    return storedTheme
-      ? storedTheme
-      : window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-  });
-
-  useEffect(() => {
-    localStorage.setItem("theme", theme);
-  }, [theme]);
-
-  useEffect(() => {
-    if (theme === "dark") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-  }, [theme]);
+export default function ToogleMode({ customClass = "bg-primary border-thin" }) {
+  const [theme, setTheme] = useColorMode();
 
   const handleDarkSwitch = () => {
     setTheme("dark");
@@ -34,23 +15,19 @@ export default function ToogleMode({ customClass }) {
 
   return (
     <div className={styles.mode_btn_container}>
-      <div
-        className={`${styles.area} bg-primary border-thin ${
-          customClass ? customClass : ""
-        }`}
-      >
+      <div className={`${styles.area} ${customClass ? customClass : ""}`}>
         <button
           onClick={handleDarkSwitch}
           className={`${styles.mode_btn} bg-transparent text-primary  dark:foreground hover:foreground hover:text-white`}
         >
-          <MoonIcon className="dark:fill-current fill-none h-5 w-5 md:h-6 md:w-6" />
+          <MoonIcon className="dark:fill-current fill-none h-4 w-4 2xl:h-5 2xl:w-5" />
         </button>
         <button
           onClick={handleLightSwitch}
           className={`${styles.mode_btn} foreground text-white dark:bg-transparent
         hover:foreground`}
         >
-          <SunIcon className="fill-current dark:fill-none h-5 w-5 md:h-6 md:w-6" />
+          <SunIcon className="fill-current dark:fill-none h-4 w-4 2xl:h-5 2xl:w-5" />
         </button>
       </div>
     </div>

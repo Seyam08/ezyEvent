@@ -1,9 +1,8 @@
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
-import { menuItem } from "../../constants/menuItem";
 import styles from "./Menu.module.css";
 
-export default function Menu({ customClassname }) {
+export default function Menu({ customClassname, menuItem }) {
   return (
     <ul className={`${customClassname} min-w-full`}>
       {menuItem.map((item, key) => {
@@ -24,4 +23,5 @@ export default function Menu({ customClassname }) {
 }
 Menu.propTypes = {
   customClassname: PropTypes.string,
+  menuItem: PropTypes.array.isRequired,
 };

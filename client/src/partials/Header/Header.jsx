@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
 import ToogleMode from "../../Components/ToogleMode/ToogleMode";
 import UserProfile from "../../Components/subComponents/UserProfile/UserProfile";
-import logo from "../../assets/ezyTrans.png";
+import logo from "../../assets/ezyTrans.svg";
+import { DashboardMenu } from "../../constants/dashboardMenu";
 import Menu from "../Menu/Menu";
 import MobileMenu from "../Menu/MobileMenu";
 import styles from "./Header.module.css";
@@ -14,10 +15,13 @@ export default function Header() {
           <img src={logo} alt="ezyEvent" />
         </Link>
       </div>
-      <Menu customClassname="hidden md:block sidebar-main-nav" />
+      <Menu
+        customClassname="hidden md:block sidebar-main-nav"
+        menuItem={DashboardMenu}
+      />
       <ToogleMode />
       <UserProfile />
-      <MobileMenu customClass={"md:hidden"} />
+      <MobileMenu customClass={"md:hidden"} menuItem={DashboardMenu} />
     </nav>
   );
 }

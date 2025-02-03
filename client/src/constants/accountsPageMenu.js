@@ -1,29 +1,29 @@
-import { Profile, Settings } from "../icons/icons";
+import {
+  CalendarFavorite01Icon,
+  LeftToRightListStarIcon,
+  MicIcon,
+  Profile,
+} from "../icons/icons";
 
 export const accountsPageMenu = [
   {
-    href: "/accounts/my-profile",
+    href: "/dashboard/accounts",
     label: "My Profile",
     icon: Profile,
   },
   {
-    href: "/accounts/anything",
-    label: "Settings",
-    icon: Settings,
+    href: "/dashboard/accounts/hosted-events",
+    label: "Hosted Events",
+    icon: CalendarFavorite01Icon,
   },
   {
-    href: "/some",
-    label: "Settings",
-    icon: Settings,
+    href: "/dashboard/accounts/attended-events",
+    label: "Attended Events",
+    icon: LeftToRightListStarIcon,
   },
   {
-    href: "/others",
-    label: "Settings",
-    icon: Settings,
-  },
-  {
-    href: "/some",
-    label: "Settings",
-    icon: Settings,
+    href: "/dashboard/accounts/as-speaker",
+    label: "As Speaker",
+    icon: MicIcon,
   },
 ];

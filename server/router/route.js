@@ -31,7 +31,6 @@ router
   .get(userController.getUserByUsername)
   .put(
     protectRoute.protectedRoute,
-    avatarUpload,
     editUserValidator.editUserValidators,
     editUserValidator.editUserValidationHandler,
     userController.editUser,
@@ -42,7 +41,10 @@ router
     deleteUserValidator.deleteUserValidationHandler,
     userController.deleteUser,
   );
-
+// edit avatar
+router
+  .route('/users/avatar/:username')
+  .patch(protectRoute.protectedRoute, avatarUpload, userController.editAvatar);
 // login route
 router
   .route('/login')

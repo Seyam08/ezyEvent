@@ -1,4 +1,4 @@
-import image from "../assets/user.png";
+import image from "../assets/user.svg";
 
 export const speakersList = [
   {

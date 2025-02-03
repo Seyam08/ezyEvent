@@ -2,7 +2,7 @@
   @apply /* lg:px-5 md:px-2 px-1*/ ml-auto md:mx-auto;
 }
 .area {
-  @apply max-w-28 w-20 md:w-28 flex flex-row p-1 rounded-full justify-between border-thin;
+  @apply max-w-24 w-20 md:w-20 2xl:w-24 flex flex-row p-1 rounded-full justify-between border-thin;
 }
 .mode_btn {
   @apply rounded-full p-1 transition-colors;
