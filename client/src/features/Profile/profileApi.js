@@ -26,7 +26,19 @@ export const profileApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    updateAvatar: builder.mutation({
+      query: ({ username, data }) => ({
+        url: `/users/avatar/${username}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["myProfile"],
+    }),
   }),
 });
 
-export const { useGetProfileQuery, useLazyGetProfileQuery } = profileApi;
+export const {
+  useGetProfileQuery,
+  useLazyGetProfileQuery,
+  useUpdateAvatarMutation,
+} = profileApi;
