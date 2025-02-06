@@ -26,6 +26,14 @@ export const profileApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    editProfile: builder.mutation({
+      query: ({ username, data }) => ({
+        url: `/users/${username}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["myProfile"],
+    }),
     updateAvatar: builder.mutation({
       query: ({ username, data }) => ({
         url: `/users/avatar/${username}`,

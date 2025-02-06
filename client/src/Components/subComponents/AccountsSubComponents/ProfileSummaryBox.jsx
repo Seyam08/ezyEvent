@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import defaultImage from "../../../assets/user.svg";
 import { EditIcon } from "../../../icons/icons";
-import TooltipIcon from "../AnimatedIcons/TooltipIcon";
-import EditAvatar from "../EditAvatar/EditAvatar";
+import EditAvatar from "../EditProfileComponents/EditAvatar";
 
 export default function ProfileSummaryBox({ name, role, designation, avatar }) {
   const [image, setImage] = useState(defaultImage);
@@ -70,10 +69,6 @@ export default function ProfileSummaryBox({ name, role, designation, avatar }) {
           <h5 className="text-secondary text-desc-size">{designation}</h5>
         </div>
       </section>
-
-      <div className="absolute top-4 right-4">
-        <TooltipIcon text={"Edit"} icon={EditIcon} />
-      </div>
     </div>
   );
 }

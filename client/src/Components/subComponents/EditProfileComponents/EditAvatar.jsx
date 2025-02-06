@@ -143,7 +143,7 @@ export default function EditAvatar({ modalIsOpen, closeModal }) {
           )}
         </div>
 
-        {/* signup button  */}
+        {/* submit button  */}
         <div>
           <button
             className="bg-blue-500 hover:bg-blue-700 flex gap-2 items-center text-white py-1 px-3 rounded-md font-medium
