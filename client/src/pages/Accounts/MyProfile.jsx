@@ -40,7 +40,12 @@ export default function MyProfile() {
           <div className="absolute top-4 right-4">
             <TooltipIcon text={"Edit"} icon={EditIcon} onClick={openModal} />
           </div>
-          <EditInfo modalIsOpen={modalIsOpen} closeModal={closeModal} />
+          <EditInfo
+            modalIsOpen={modalIsOpen}
+            closeModal={closeModal}
+            prevFullname={name}
+            prevEmail={email}
+          />
         </div>
 
         <div className="grid grid-cols-2 gap-y-4 text-sm text-secondary">

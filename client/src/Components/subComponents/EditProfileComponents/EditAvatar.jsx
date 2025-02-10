@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -165,3 +166,7 @@ export default function EditAvatar({ modalIsOpen, closeModal }) {
     </Modal>
   );
 }
+EditAvatar.propTypes = {
+  modalIsOpen: PropTypes.func.isRequired,
+  closeModal: PropTypes.func.isRequired,
+};
