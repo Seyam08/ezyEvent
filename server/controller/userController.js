@@ -122,19 +122,14 @@ export async function editUser(req, res) {
 
   if (loggedInUser === paramUser) {
     try {
-      const { name, email, password, ...rest } = req.body;
+      const { name, email } = req.body;
 
-      const hashedPassword = password
-        ? await bcrypt.hash(password, 10)
-        : undefined;
-
-      if ((name || email || password) && Object.keys(rest).length === 0) {
+      if (name || email) {
         const result = await Client.updateMany(
           { username: loggedInUser },
           {
             name,
             email,
-            password: hashedPassword,
           },
           { runValidators: true },
         );
@@ -154,7 +149,7 @@ export async function editUser(req, res) {
         res.status(400).json({
           errors: {
             common: {
-              msg: 'ONly name, email and password are editable!',
+              msg: 'Only name and email are editable!',
             },
           },
         });
