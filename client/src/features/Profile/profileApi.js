@@ -42,6 +42,13 @@ export const profileApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["myProfile"],
     }),
+    deleteUser: builder.mutation({
+      query: ({ username, data }) => ({
+        url: `/users/${username}`,
+        method: "DELETE",
+        body: data,
+      }),
+    }),
   }),
 });
 
@@ -50,4 +57,5 @@ export const {
   useLazyGetProfileQuery,
   useUpdateAvatarMutation,
   useEditProfileMutation,
+  useDeleteUserMutation,
 } = profileApi;

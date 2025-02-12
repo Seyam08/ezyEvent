@@ -1,19 +1,30 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
 import defaultImage from "../../../assets/user.svg";
-import { EditIcon } from "../../../icons/icons";
+import { DeleteIcon, EditIcon } from "../../../icons/icons";
+import TooltipIcon from "../AnimatedIcons/TooltipIcon";
+import DeleteAccount from "../EditProfileComponents/DeleteAccount";
 import EditAvatar from "../EditProfileComponents/EditAvatar";
 
 export default function ProfileSummaryBox({ name, role, designation, avatar }) {
   const [image, setImage] = useState(defaultImage);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [deleteModalIsOpen, setDeleteMIsOpen] = useState(false);
 
+  // for controlling edit avatar modal
   const openModal = () => {
     setIsOpen(true);
   };
-
   const closeModal = () => {
     setIsOpen(false);
+  };
+
+  // for controlling delete account modal
+  const openDeleteModal = () => {
+    setDeleteMIsOpen(true);
+  };
+  const closeDeleteModal = () => {
+    setDeleteMIsOpen(false);
   };
 
   useEffect(() => {
@@ -21,6 +32,7 @@ export default function ProfileSummaryBox({ name, role, designation, avatar }) {
     setImage(imageUrl);
   }, [avatar]);
 
+  // for handling image error - set default image
   const handleImageError = (event) => {
     event.target.src = defaultImage;
   };
@@ -69,6 +81,17 @@ export default function ProfileSummaryBox({ name, role, designation, avatar }) {
           <h5 className="text-secondary text-desc-size">{designation}</h5>
         </div>
       </section>
+      <div className="absolute top-4 right-4">
+        <TooltipIcon
+          text={"Delete"}
+          icon={DeleteIcon}
+          onClick={openDeleteModal}
+        />
+        <DeleteAccount
+          modalIsOpen={deleteModalIsOpen}
+          closeModal={closeDeleteModal}
+        />
+      </div>
     </div>
   );
 }
