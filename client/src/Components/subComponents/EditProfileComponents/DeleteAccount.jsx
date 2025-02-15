@@ -1,8 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import Modal from "react-modal";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
+import { userLoggedOut } from "../../../features/auth/authSlice";
+import { useDeleteUserMutation } from "../../../features/Profile/profileApi";
+import { resErrorHandler } from "../../../helper/commmon/resErrorHandler";
 import { CancelCircleHalfDotIcon, TickDoubleIcon } from "../../../icons/icons";
 import ErrorMsgBox from "../ErrorMsgBox/ErrorMsgBox";
 
@@ -31,17 +38,72 @@ export default function DeleteAccount({ modalIsOpen, closeModal }) {
       })
     ),
   });
+  const [deleteUser, { data, isLoading, error: resError }] =
+    useDeleteUserMutation();
 
-  //   const [editProfile, { data, isLoading, error: resError }] =
-  //     useEditProfileMutation();
-  //   const account = useSelector((state) => state.account);
-  //   // destructuring the username
-  //   const username = account?.myAccount?.username;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const account = useSelector((state) => state.account);
+  // destructuring the username
+  const username = account?.myAccount?.username;
 
   // form submit handler
   const onSubmit = (data) => {
-    console.log(data);
+    if (data) {
+      deleteUser({ username, data: { password: data.password } });
+    }
   };
+
+  // show toast notification after getting error
+  useEffect(() => {
+    if (resError) {
+      const extractError = resErrorHandler(resError);
+      toast.error(extractError?.message, { duration: 1000 });
+    }
+  }, [resError]);
+
+  // redirect to LandingPage after successfully deleting account
+  useEffect(() => {
+    if (data) {
+      new Promise((resolve, reject) => {
+        const duration = 1000;
+        // Show the toast
+        toast.success(data?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (data?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
+            }),
+            {
+              loading: "Redirecting...",
+              success: () => {
+                dispatch(userLoggedOut());
+                navigate("/");
+              },
+              error: () => {
+                return "Something went wrong!";
+              },
+            }
+          );
+        })
+        .catch(() => {
+          toast.error("Something went wrong!");
+        });
+    }
+  }, [data]);
 
   return (
     <Modal
@@ -91,14 +153,13 @@ export default function DeleteAccount({ modalIsOpen, closeModal }) {
             // disabled={isLoading}
           >
             Confirm
-            {/* {isLoading ? (
+            {isLoading ? (
               <div className="inline-block h-4 w-4 mr-2 animate-spin rounded-full border-2 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]">
                 <span className="!absolute !-m-px !h-px !w-px !overflow-hidden !whitespace-nowrap !border-0 !p-0 ![clip:rect(0,0,0,0)]"></span>
               </div>
             ) : (
               <TickDoubleIcon className="text-white h-5 w-5" />
-            )} */}
-            <TickDoubleIcon className="text-white h-5 w-5" />
+            )}
           </button>
         </div>
       </form>
