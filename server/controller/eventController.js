@@ -56,6 +56,7 @@ export async function addEvent(req, res) {
 
     res.status(201).json({
       message: 'Event registration successfull!',
+      eventId: event._id,
     });
   } catch (err) {
     res.status(500).json({
