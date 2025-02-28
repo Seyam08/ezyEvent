@@ -1,11 +1,16 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import Modal from "react-modal";
-import { CancelCircleHalfDotIcon, TickDoubleIcon } from "../../icons/icons";
+import {
+  CalendarIcon,
+  CancelCircleHalfDotIcon,
+  TickDoubleIcon,
+} from "../../icons/icons";
 import Calender from "../subComponents/Calender/Calender";
 
 export default function AddEventModal({ modalIsOpen, closeModal }) {
   const [date, setDate] = useState(new Date());
+  const [visibleCalender, setVisibleCalender] = useState(false);
 
   console.log(date.toLocaleDateString("sv-SE"));
 
@@ -13,7 +18,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
     <Modal
       isOpen={modalIsOpen}
       onRequestClose={closeModal}
-      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-secondary p-3 rounded-xl focus-visible:outline-none w-4/5 md:w-3/4"
+      className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-secondary p-3 rounded-xl focus-visible:outline-none w-4/5 md:w-3/4 h-5/6"
       overlayClassName="fixed top-0 bottom-0 right-0 left-0 bg-slate-500 bg-opacity-40"
     >
       <div className="flex justify-between items-center mb-4">
@@ -27,35 +32,77 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
       </div>
 
       <form
-        className="grid grid-cols-1 gap-4 text-sm text-secondary py-2"
+        className="grid grid-cols-3 gap-4 text-sm text-secondary py-2"
         // onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col gap-2">
-          <label className="font-medium text-tertiary" htmlFor="new-name">
-            New name
+        <div className="flex flex-col col-span-3 gap-2">
+          <label className="font-medium text-tertiary" htmlFor="event-name">
+            Event name
           </label>
           <input
-            id="new-name"
-            placeholder="Type your fullname..."
+            id="event-name"
+            placeholder="Type Event Name..."
             autoComplete="off"
-            className="px-2 py-1 text-base font-medium rounded-lg border focus:outline focus:outline-1 focus:outline-offset-1 bg-transparent text-primary focus:outline-[#aaaaaa] border-[#514cfe]"
+            className="px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
             // {...formRegister("fullname")}
           />
         </div>
+
         <div className="flex flex-col gap-2">
-          <label className="font-medium text-tertiary" htmlFor="new-email">
-            New email
+          <label className="font-medium text-tertiary" htmlFor="event-date">
+            Event date
+          </label>
+
+          <div className="relative">
+            <input
+              placeholder="Event date"
+              className="block w-full px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
+              id="event-date"
+              type="text"
+            />
+
+            <div className="absolute top-1 right-1">
+              <CalendarIcon
+                onClick={() => setVisibleCalender((prevState) => !prevState)}
+                className="cursor-pointer"
+              />
+            </div>
+            <div
+              className={`${
+                visibleCalender ? "block" : "hidden"
+              } animate-fade-up animate-duration-300 absolute top-9 left-0`}
+            >
+              <Calender date={date} setDate={setDate} />
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          <label
+            className="font-medium text-tertiary"
+            htmlFor="attendance-limit"
+          >
+            Attendance Limit
           </label>
           <input
-            id="new-email"
-            placeholder="Type your email..."
+            id="attendance-limit"
+            type="number"
+            placeholder="Set attendance limit"
             autoComplete="off"
-            className="px-2 py-1 text-base font-medium rounded-lg border focus:outline focus:outline-1 focus:outline-offset-1 bg-transparent text-primary focus:outline-[#aaaaaa] border-[#514cfe]"
+            className="px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
+            // {...formRegister("fullname")}
           />
         </div>
+
         <div className="flex flex-col gap-2">
-          <Calender date={date} setDate={setDate} />
+          <label className="font-medium text-tertiary">Event status</label>
+          <select class="px-2 py-1 pe-9 block w-full border-b border-transparent rounded-md text-base focus:border-[#514cfe] focus:ring-[#514cfe] bg-primary text-primary">
+            <option selected>Upcoming</option>
+            <option>Ongoing</option>
+            <option>Completed</option>
+          </select>
         </div>
+
         {/* submit button  */}
         <div>
           <button
