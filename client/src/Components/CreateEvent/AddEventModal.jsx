@@ -7,12 +7,13 @@ import {
   TickDoubleIcon,
 } from "../../icons/icons";
 import Calender from "../subComponents/Calender/Calender";
+import SearchInput from "../subComponents/SearchInput/SearchInput";
 
 export default function AddEventModal({ modalIsOpen, closeModal }) {
   const [date, setDate] = useState(new Date());
   const [visibleCalender, setVisibleCalender] = useState(false);
 
-  console.log(date.toLocaleDateString("sv-SE"));
+  // console.log(date.toLocaleDateString("sv-SE"));
 
   return (
     <Modal
@@ -32,10 +33,10 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
       </div>
 
       <form
-        className="grid grid-cols-3 gap-4 text-sm text-secondary py-2"
+        className="grid grid-cols-6 gap-4 text-sm text-secondary py-2"
         // onSubmit={handleSubmit(onSubmit)}
       >
-        <div className="flex flex-col col-span-3 gap-2">
+        <div className="flex flex-col col-span-6 gap-2">
           <label className="font-medium text-tertiary" htmlFor="event-name">
             Event name
           </label>
@@ -48,7 +49,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col col-span-2 gap-2">
           <label className="font-medium text-tertiary" htmlFor="event-date">
             Event date
           </label>
@@ -70,14 +71,14 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             <div
               className={`${
                 visibleCalender ? "block" : "hidden"
-              } animate-fade-up animate-duration-300 absolute top-9 left-0`}
+              } animate-fade-up animate-duration-300 absolute top-9 left-0 z-10`}
             >
               <Calender date={date} setDate={setDate} />
             </div>
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col col-span-2 gap-2">
           <label
             className="font-medium text-tertiary"
             htmlFor="attendance-limit"
@@ -94,15 +95,26 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
           />
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col col-span-2 gap-2">
           <label className="font-medium text-tertiary">Event status</label>
-          <select class="px-2 py-1 pe-9 block w-full border-b border-transparent rounded-md text-base focus:border-[#514cfe] focus:ring-[#514cfe] bg-primary text-primary">
-            <option selected>Upcoming</option>
-            <option>Ongoing</option>
-            <option>Completed</option>
+          <select
+            className="px-2 py-1 pe-9 block w-full border-b border-transparent rounded-md text-base focus:border-[#514cfe] focus:ring-[#514cfe] bg-primary text-primary"
+            defaultValue="Upcoming"
+          >
+            <option value="Upcoming">Upcoming</option>
+            <option value="Ongoing">Ongoing</option>
+            <option value="Completed">Completed</option>
           </select>
         </div>
 
+        <div className="flex flex-col col-span-3 gap-2">
+          <label className="font-medium text-tertiary">Select Host</label>
+          <SearchInput />
+        </div>
+        <div className="flex flex-col col-span-3 gap-2">
+          <label className="font-medium text-tertiary">Select Speaker</label>
+          <SearchInput />
+        </div>
         {/* submit button  */}
         <div>
           <button
