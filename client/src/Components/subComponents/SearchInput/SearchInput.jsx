@@ -1,38 +1,15 @@
-import React, { useState } from "react";
+import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import defaultImage from "../../../assets/avatar.svg";
 
-const usersList = [
-  {
-    id: 1,
-    name: "Christina",
-    description: "chris",
-    img: "https://images.unsplash.com/photo-1531927557220-a9e23c1e4794?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  },
-  {
-    id: 2,
-    name: "David",
-    description: "david",
-    img: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  },
-  {
-    id: 3,
-    name: "Alex",
-    description: "alex27",
-    img: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-    disabled: true,
-  },
-  {
-    id: 4,
-    name: "Samia",
-    description: "samia_samia",
-    img: "https://images.unsplash.com/photo-1541101767792-f9b2b1c4f127?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8MHx8&auto=format&fit=facearea&facepad=2&w=300&h=300&q=80",
-  },
-];
-
-export default function SearchInput() {
+export default function SearchInput({ usersList = [], users }) {
   const [search, setSearch] = useState("");
   const [selectedUsers, setSelectedUsers] = useState([]);
 
-  console.log(selectedUsers);
+  // for passing the selected users to the parent component
+  useEffect(() => {
+    users(selectedUsers);
+  }, [selectedUsers]);
 
   const filteredUsers = usersList.filter(
     (user) =>
@@ -40,13 +17,18 @@ export default function SearchInput() {
       !selectedUsers.some((s) => s.id === user.id)
   );
 
+  // for adding a new user to the list of selected users
   const selectUser = (user) => {
     setSelectedUsers([...selectedUsers, user]);
     // setSearch("");
   };
-
+  //  for removing a user from the list of selected users
   const removeUser = (userId) => {
     setSelectedUsers(selectedUsers.filter((user) => user.id !== userId));
+  };
+  // for handling image error
+  const handleImageError = (event) => {
+    event.target.src = defaultImage;
   };
 
   return (
@@ -59,8 +41,9 @@ export default function SearchInput() {
             className="flex items-center bg-primary rounded-full px-2 py-1"
           >
             <img
-              src={user.img}
+              src={user.avatar}
               alt={user.name}
+              onError={handleImageError}
               className="w-6 h-6 rounded-full mr-2"
             />
             <span className="text-secondary">{user.name}</span>
@@ -77,7 +60,7 @@ export default function SearchInput() {
       {/* Search Input */}
       <input
         type="text"
-        placeholder="Search users..."
+        placeholder="Type Username..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
         className="w-full px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
@@ -94,15 +77,14 @@ export default function SearchInput() {
                 onClick={() => selectUser(user)}
               >
                 <img
-                  src={user.img}
+                  src={user.avatar}
                   alt={user.name}
+                  onError={handleImageError}
                   className="w-8 h-8 rounded-full mr-2"
                 />
                 <div>
                   <div className="font-semibold text-primary">{user.name}</div>
-                  <div className="text-sm text-secondary">
-                    {user.description}
-                  </div>
+                  <div className="text-sm text-secondary">{user.username}</div>
                 </div>
               </li>
             ))
@@ -114,3 +96,15 @@ export default function SearchInput() {
     </div>
   );
 }
+
+SearchInput.propTypes = {
+  usersList: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      name: PropTypes.string.isRequired,
+      username: PropTypes.string.isRequired,
+      avatar: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  setHosts: PropTypes.func.isRequired,
+};
