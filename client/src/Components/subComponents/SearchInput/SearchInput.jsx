@@ -8,7 +8,8 @@ export default function SearchInput({ usersList = [], users }) {
 
   // for passing the selected users to the parent component
   useEffect(() => {
-    users(selectedUsers);
+    const usernames = selectedUsers.map((user) => user.username);
+    users(usernames);
   }, [selectedUsers]);
 
   const filteredUsers = usersList.filter(

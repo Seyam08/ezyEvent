@@ -20,7 +20,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
   const [usersArray, setUsersArray] = useState([]);
   const [getAllUsers, { data, error, isLoading }] = useLazyGetAllUsersQuery();
 
-  // console.log(usersArray);
+  console.log(JSON.stringify(hosts));
   // console.log(date.toLocaleDateString("sv-SE"));
 
   useEffect(() => {
