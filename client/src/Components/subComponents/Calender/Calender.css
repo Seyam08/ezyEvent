@@ -1,5 +1,5 @@
 .react-calendar {
-  @apply w-80 p-3 flex flex-col bg-white border shadow-lg rounded-xl overflow-hidden dark:bg-neutral-900 dark:border-neutral-700;
+  @apply w-80 p-3 flex flex-col bg-primary border shadow-lg rounded-xl overflow-hidden  dark:border-neutral-700;
 }
 .react-calendar__navigation {
   @apply grid grid-cols-5 items-center gap-x-3 mx-1.5 pb-3;

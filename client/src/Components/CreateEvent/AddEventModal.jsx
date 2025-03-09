@@ -1,14 +1,18 @@
+import { yupResolver } from "@hookform/resolvers/yup";
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
 import { useLazyGetAllUsersQuery } from "../../features/users/usersApi";
+import { addEventFormSchema } from "../../helper/addEvent/addEventFormSchema";
 import {
   CalendarIcon,
   CancelCircleHalfDotIcon,
   TickDoubleIcon,
 } from "../../icons/icons";
 import Calender from "../subComponents/Calender/Calender";
+import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
 import FullScreenLoader from "../subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import SearchInput from "../subComponents/SearchInput/SearchInput";
 
@@ -20,15 +24,50 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
   const [usersArray, setUsersArray] = useState([]);
   const [getAllUsers, { data, error, isLoading }] = useLazyGetAllUsersQuery();
 
-  console.log(JSON.stringify(hosts));
+  // react hook form
+  const {
+    register,
+    handleSubmit,
+    setValue,
+    watch,
+    reset,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(addEventFormSchema),
+  });
+
+  // Set the value of "eventDate" in React Hook Form manually
+  useEffect(() => {
+    setValue("eventDate", date.toLocaleDateString("sv-SE"));
+  }, [date, setValue]);
+
+  // Set the value of "hostName" in React Hook Form manually
+  useEffect(() => {
+    setValue("hostName", hosts);
+  }, [hosts, setValue]);
+
+  // Set the value of "speakerName" in React Hook Form manually
+  useEffect(() => {
+    setValue("speakerName", speakers);
+  }, [speakers, setValue]);
+
+  // submit controller
+  const onSubmit = (data) => {
+    const newDate = data.eventDate.toLocaleDateString("sv-SE");
+    console.log(newDate);
+    console.log(data);
+  };
+  // console.log(hosts);
   // console.log(date.toLocaleDateString("sv-SE"));
 
+  // call data when modal is open
   useEffect(() => {
     if (modalIsOpen) {
       getAllUsers();
     }
   }, [modalIsOpen]);
 
+  // control userdata from api
   useEffect(() => {
     if (error) {
       toast.error("Something went wrong while fetching users!");
@@ -66,7 +105,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
 
         <form
           className="grid grid-cols-6 gap-4 text-sm text-secondary py-2"
-          // onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit)}
         >
           <div className="flex flex-col col-span-6 gap-2">
             <label className="font-medium text-tertiary" htmlFor="event-name">
@@ -77,8 +116,13 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
               placeholder="Type Event Name..."
               autoComplete="off"
               className="px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
-              // {...formRegister("fullname")}
+              {...register("eventName")}
             />
+            {errors.eventName && (
+              <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                {errors.eventName.message}
+              </ErrorMsgBox>
+            )}
           </div>
 
           <div className="flex flex-col col-span-2 gap-2">
@@ -89,9 +133,12 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             <div className="relative">
               <input
                 placeholder="Event date"
-                className="block w-full px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
+                className="block w-full px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe] cursor-pointer"
                 id="event-date"
                 type="text"
+                readOnly
+                value={watch("eventDate")}
+                {...register("eventDate")}
               />
 
               <div className="absolute top-1 right-1">
@@ -103,11 +150,16 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
               <div
                 className={`${
                   visibleCalender ? "block" : "hidden"
-                } animate-fade-up animate-duration-300 absolute top-9 left-0 z-10`}
+                } animate-fade-up animate-duration-300 absolute top-9 left-0 z-30`}
               >
                 <Calender date={date} setDate={setDate} />
               </div>
             </div>
+            {errors.eventDate && (
+              <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                {errors.eventDate.message}
+              </ErrorMsgBox>
+            )}
           </div>
 
           <div className="flex flex-col col-span-2 gap-2">
@@ -123,8 +175,13 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
               placeholder="Set attendance limit"
               autoComplete="off"
               className="px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
-              // {...formRegister("fullname")}
+              {...register("attendanceLimit")}
             />
+            {errors.attendanceLimit && (
+              <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                {errors.attendanceLimit.message}
+              </ErrorMsgBox>
+            )}
           </div>
 
           <div className="flex flex-col col-span-2 gap-2">
@@ -132,21 +189,37 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             <select
               className="px-2 py-1 pe-9 block w-full border-b border-transparent rounded-md text-base focus:border-[#514cfe] focus:ring-[#514cfe] bg-primary text-primary"
               defaultValue="Upcoming"
+              {...register("status")}
             >
               <option value="Upcoming">Upcoming</option>
               <option value="Ongoing">Ongoing</option>
               <option value="Completed">Completed</option>
             </select>
+            {errors.status && (
+              <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                {errors.status.message}
+              </ErrorMsgBox>
+            )}
           </div>
 
           <div className="flex flex-col col-span-3 gap-2">
             <label className="font-medium text-tertiary">Select Host</label>
             <SearchInput usersList={usersArray} users={setHosts} />
+            {errors.hostName && (
+              <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                {errors.hostName.message}
+              </ErrorMsgBox>
+            )}
           </div>
 
           <div className="flex flex-col col-span-3 gap-2">
             <label className="font-medium text-tertiary">Select Speaker</label>
             <SearchInput usersList={usersArray} users={setSpeakers} />
+            {errors.speakerName && (
+              <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
+                {errors.speakerName.message}
+              </ErrorMsgBox>
+            )}
           </div>
           {/* submit button  */}
           <div>

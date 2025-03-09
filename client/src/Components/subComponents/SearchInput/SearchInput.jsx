@@ -69,7 +69,7 @@ export default function SearchInput({ usersList = [], users }) {
 
       {/* Dropdown */}
       {search && (
-        <ul className="absolute mt-1 w-full bg-primary rounded-lg shadow-lg max-h-60 overflow-auto">
+        <ul className="absolute mt-1 w-full bg-primary rounded-lg shadow-lg max-h-60 overflow-auto z-10">
           {filteredUsers.length > 0 ? (
             filteredUsers.map((user) => (
               <li
