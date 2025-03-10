@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
+import { useNavigate } from "react-router-dom";
+import { useAddEventMutation } from "../../features/Events/eventApi";
 import { useLazyGetAllUsersQuery } from "../../features/users/usersApi";
 import { addEventFormSchema } from "../../helper/addEvent/addEventFormSchema";
 import {
@@ -23,7 +25,11 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
   const [speakers, setSpeakers] = useState([]);
   const [usersArray, setUsersArray] = useState([]);
   const [getAllUsers, { data, error, isLoading }] = useLazyGetAllUsersQuery();
-
+  const [
+    addEvent,
+    { data: addEventData, isLoading: addEventLoading, error: responseError },
+  ] = useAddEventMutation();
+  const navigate = useNavigate();
   // react hook form
   const {
     register,
@@ -53,12 +59,17 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
 
   // submit controller
   const onSubmit = (data) => {
-    const newDate = data.eventDate.toLocaleDateString("sv-SE");
-    console.log(newDate);
-    console.log(data);
+    const reqObj = {
+      eventName: data.eventName,
+      eventDate: data.eventDate.toLocaleDateString("sv-SE"),
+      attendanceLimit: data.attendanceLimit,
+      hostName: data.hostName,
+      speakerName: data.speakerName,
+      status: data.status,
+    };
+
+    addEvent(reqObj);
   };
-  // console.log(hosts);
-  // console.log(date.toLocaleDateString("sv-SE"));
 
   // call data when modal is open
   useEffect(() => {
@@ -84,13 +95,68 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
     }
   }, [error, data]);
 
+  // handling responseError of addEvent mutation hook
+  useEffect(() => {
+    const errors = responseError?.data?.errors;
+
+    if (errors) {
+      Object.values(errors).forEach((error) => {
+        if (error?.msg) {
+          toast.error(error.msg);
+        }
+      });
+    }
+  }, [responseError]);
+
+  // handling api response of addEvent mutation hook
+  useEffect(() => {
+    if (addEventData) {
+      reset();
+      new Promise((resolve, reject) => {
+        const duration = 1000;
+        // Show the toast
+        toast.success(addEventData?.message, { duration: duration });
+
+        // Wait for the toast's duration, then resolve the Promise
+        setTimeout(() => {
+          if (addEventData?.message) {
+            resolve();
+          } else {
+            reject();
+          }
+        }, duration);
+      })
+        .then(() => {
+          toast.promise(
+            new Promise((resolve) => {
+              setTimeout(() => {
+                resolve();
+              }, 1000);
+            }),
+            {
+              loading: "Redirecting to event...",
+              success: () => {
+                navigate(`/event/${addEventData?.eventId}`);
+              },
+              error: () => "Something went wrong!",
+            }
+          );
+        })
+        .catch(() => {
+          toast.error("Something went wrong");
+        });
+    }
+  }, [addEventData]);
+
   return (
     <>
-      {isLoading ? <FullScreenLoader color="bg-[#514cfe]" /> : null}
+      {isLoading || addEventLoading ? (
+        <FullScreenLoader color="bg-[#514cfe]" />
+      ) : null}
       <Modal
         isOpen={modalIsOpen}
         onRequestClose={closeModal}
-        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-secondary p-3 rounded-xl focus-visible:outline-none w-4/5 md:w-3/4 h-5/6"
+        className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-secondary p-3 rounded-xl focus-visible:outline-none w-4/5 md:w-3/4 h-auto md:h-4/5"
         overlayClassName="fixed top-0 bottom-0 right-0 left-0 bg-slate-500 bg-opacity-40"
       >
         <div className="flex justify-between items-center mb-4">
@@ -125,7 +191,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             )}
           </div>
 
-          <div className="flex flex-col col-span-2 gap-2">
+          <div className="flex flex-col col-span-6 md:col-span-2 gap-2">
             <label className="font-medium text-tertiary" htmlFor="event-date">
               Event date
             </label>
@@ -162,7 +228,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             )}
           </div>
 
-          <div className="flex flex-col col-span-2 gap-2">
+          <div className="flex flex-col col-span-6 md:col-span-2 gap-2">
             <label
               className="font-medium text-tertiary"
               htmlFor="attendance-limit"
@@ -184,7 +250,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             )}
           </div>
 
-          <div className="flex flex-col col-span-2 gap-2">
+          <div className="flex flex-col col-span-6 md:col-span-2 gap-2">
             <label className="font-medium text-tertiary">Event status</label>
             <select
               className="px-2 py-1 pe-9 block w-full border-b border-transparent rounded-md text-base focus:border-[#514cfe] focus:ring-[#514cfe] bg-primary text-primary"
@@ -202,7 +268,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             )}
           </div>
 
-          <div className="flex flex-col col-span-3 gap-2">
+          <div className="flex flex-col col-span-6 md:col-span-3 gap-2">
             <label className="font-medium text-tertiary">Select Host</label>
             <SearchInput usersList={usersArray} users={setHosts} />
             {errors.hostName && (
@@ -212,7 +278,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             )}
           </div>
 
-          <div className="flex flex-col col-span-3 gap-2">
+          <div className="flex flex-col col-span-6 md:col-span-3 gap-2">
             <label className="font-medium text-tertiary">Select Speaker</label>
             <SearchInput usersList={usersArray} users={setSpeakers} />
             {errors.speakerName && (
@@ -226,7 +292,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
             <button
               className="bg-blue-500 hover:bg-blue-700 flex gap-2 items-center text-white py-1 px-3 rounded-md font-medium transition-all duration-200"
               type="submit"
-              // disabled={isLoading}
+              disabled={isLoading || addEventLoading}
             >
               Confirm
               {/* {isLoading ? (
