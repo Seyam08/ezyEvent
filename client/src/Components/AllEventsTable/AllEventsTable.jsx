@@ -1,7 +1,10 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import SearchBox from "../subComponents/SearchBox/SearchBox";
 
 export default function AllEventsTable({ events, filter = true }) {
+  const [searchEventArray, setSearchEventArray] = useState([]);
   const getStatusClass = (status) => {
     switch (status) {
       case "Upcoming":
@@ -14,18 +17,42 @@ export default function AllEventsTable({ events, filter = true }) {
         return "bg-blue-500 bg-opacity-25 text-blue-700 dark:text-blue-200";
     }
   };
+  useEffect(() => {
+    if (events) {
+      const eventArray = events.map((item) => {
+        const { _id, eventName, eventDate } = item;
+        const shortID = _id.length > 4 ? _id.slice(-4) : _id;
+        const readableDate = new Date(eventDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+        return {
+          id: shortID,
+          name: eventName,
+          desc: readableDate,
+          avatar: null,
+          link: `/event/${_id}`,
+        };
+      });
 
+      setSearchEventArray(eventArray);
+    }
+  }, [events]);
   return (
     <div className="bg-secondary shadow rounded-lg p-6">
       <div className="flex flex-row items-center justify-between pb-4">
         <h1 className="text-heading-size font-semibold mb-4 md:mb-0 text-primary">
           All Event's ({events.length})
         </h1>
-        <input
+        {/* <input
           type="text"
           placeholder="Search"
           className="border-none rounded-lg p-2 text-sm w-48 md:w-auto bg-tertiary text-tertiary focus:outline-none focus:bg-primary placeholder:text-secondary"
-        />
+        /> */}
+        <div>
+          <SearchBox arrayOfObject={searchEventArray} />
+        </div>
       </div>
 
       {filter ? (
