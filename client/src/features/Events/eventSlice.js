@@ -33,6 +33,8 @@ const eventSlice = createSlice({
         // If no events or error, reset the state
         state.allEvents = null;
         state.upcoming = null;
+        state.ongoing = null;
+        state.completed = null;
       }
     },
   },
