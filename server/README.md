@@ -517,7 +517,7 @@ This endpoint is used to create a new event. The user must be authenticated to a
 }
 ```
 
-### Edit Event
+### Edit Event as Host
 
 ---
 
