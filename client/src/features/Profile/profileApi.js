@@ -26,7 +26,36 @@ export const profileApi = apiSlice.injectEndpoints({
         }
       },
     }),
+    editProfile: builder.mutation({
+      query: ({ username, data }) => ({
+        url: `/users/${username}`,
+        method: "PUT",
+        body: data,
+      }),
+      invalidatesTags: ["myProfile"],
+    }),
+    updateAvatar: builder.mutation({
+      query: ({ username, data }) => ({
+        url: `/users/avatar/${username}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["myProfile"],
+    }),
+    deleteUser: builder.mutation({
+      query: ({ username, data }) => ({
+        url: `/users/${username}`,
+        method: "DELETE",
+        body: data,
+      }),
+    }),
   }),
 });
 
-export const { useGetProfileQuery, useLazyGetProfileQuery } = profileApi;
+export const {
+  useGetProfileQuery,
+  useLazyGetProfileQuery,
+  useUpdateAvatarMutation,
+  useEditProfileMutation,
+  useDeleteUserMutation,
+} = profileApi;

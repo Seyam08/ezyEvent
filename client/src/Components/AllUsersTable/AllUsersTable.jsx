@@ -1,14 +1,32 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import defaultImage from "../../assets/avatar.svg";
+import SearchBox from "../subComponents/SearchBox/SearchBox";
 
 export default function AllUsersTable({ users }) {
+  const [filteredUsers, setFilteredUsers] = useState(users);
+  const [searchUserArray, setSearchUserArray] = useState([]);
+  const { allUsers, speakers, hosts } = useSelector((state) => state.users);
+
+  const filterUsers = (role) => {
+    if (role === "user") {
+      setFilteredUsers(allUsers);
+    } else if (role === "speaker") {
+      setFilteredUsers(speakers);
+    } else if (role === "host") {
+      setFilteredUsers(hosts);
+    }
+  };
+
   const getRoleClass = (role) => {
     switch (role) {
       case "host":
         return "bg-teal-500 bg-opacity-25 text-teal-700 dark:text-teal-200";
       case "speaker":
         return "bg-fuchsia-500 bg-opacity-25 text-fuchsia-700 dark:text-fuchsia-200";
-      case "user":
+      case "users":
         return "bg-amber-500 bg-opacity-25 text-amber-700 dark:text-amber-200";
       default:
         return "bg-blue-500 bg-opacity-25 text-blue-700 dark:text-blue-200";
@@ -19,29 +37,55 @@ export default function AllUsersTable({ users }) {
     event.target.src = defaultImage;
   };
 
+  useEffect(() => {
+    if (users) {
+      const userArray = users.map((user) => {
+        const { username, name, avatar } = user;
+        const image = `${import.meta.env.VITE_SERVER_URL}/${avatar}`;
+
+        return {
+          id: username,
+          name: name,
+          desc: username,
+          avatar: image,
+          link: `/users/${username}`,
+        };
+      });
+
+      setSearchUserArray(userArray);
+    }
+  }, [users]);
+
   return (
     <div className="bg-secondary shadow rounded-lg p-6">
       <div className="flex flex-row items-center justify-between pb-4">
         <h1 className="text-heading-size font-semibold mb-4 md:mb-0 text-primary">
           All users ({users.length})
         </h1>
-        <input
+        {/* <input
           type="text"
           placeholder="Search"
           className="border-none rounded-lg p-2 text-sm w-48 md:w-auto bg-tertiary text-tertiary focus:outline-none focus:bg-primary placeholder:text-secondary"
-        />
+        /> */}
+        <div>
+          <SearchBox arrayOfObject={searchUserArray} />
+        </div>
       </div>
 
       <div className="flex flex-wrap gap-2 mb-4">
         <button
-          className={`px-3 py-1 rounded-lg font-medium text-sm ${getRoleClass()}`}
+          className={`px-3 py-1 rounded-lg font-medium text-sm ${getRoleClass(
+            "users"
+          )}`}
+          onClick={() => filterUsers("user")}
         >
-          View all
+          All Users
         </button>
         <button
           className={`px-3 py-1 rounded-lg font-medium text-sm ${getRoleClass(
             "host"
           )}`}
+          onClick={() => filterUsers("host")}
         >
           Host
         </button>
@@ -49,15 +93,9 @@ export default function AllUsersTable({ users }) {
           className={`px-3 py-1 rounded-lg font-medium text-sm ${getRoleClass(
             "speaker"
           )}`}
+          onclick={() => filterUsers("speaker")}
         >
           Speaker
-        </button>
-        <button
-          className={`px-3 py-1 rounded-lg font-medium text-sm ${getRoleClass(
-            "user"
-          )}`}
-        >
-          User
         </button>
       </div>
 
@@ -82,7 +120,7 @@ export default function AllUsersTable({ users }) {
             </tr>
           </thead>
           <tbody>
-            {users.map((user, index) => {
+            {filteredUsers.map((user, index) => {
               const {
                 avatar,
                 name,
@@ -111,9 +149,13 @@ export default function AllUsersTable({ users }) {
                   </td>
                   <td className="px-2 py-2">
                     <div>
-                      <p className="font-semibold text-primary text-subHeading-size">
+                      <Link
+                        target="_blank"
+                        to={`/users/${username}`}
+                        className="font-semibold text-glow text-subHeading-size"
+                      >
                         {name}
-                      </p>
+                      </Link>
                       <p className="text-desc-size text-tertiary">{username}</p>
                     </div>
                   </td>

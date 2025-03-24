@@ -512,11 +512,12 @@ This endpoint is used to create a new event. The user must be authenticated to a
 
 ```json
 {
-  "message": "Event registration successful!"
+  "message": "Event registration successful!",
+  "eventId": "67cf40kba4a6meb67deap5a6"
 }
 ```
 
-### Edit Event
+### Edit Event as Host
 
 ---
 

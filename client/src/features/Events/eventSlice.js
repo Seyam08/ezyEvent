@@ -3,6 +3,8 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   allEvents: null,
   upcoming: null,
+  ongoing: null,
+  completed: null,
 };
 
 const eventSlice = createSlice({
@@ -16,18 +18,28 @@ const eventSlice = createSlice({
         const upcomingEvents = events.filter(
           (event) => event.status === "Upcoming"
         );
+        const ongoingEvents = events.filter(
+          (event) => event.status === "Ongoing"
+        );
+        const completedEvents = events.filter(
+          (event) => event.status === "Completed"
+        );
 
         state.allEvents = events;
         state.upcoming = upcomingEvents;
+        state.ongoing = ongoingEvents;
+        state.completed = completedEvents;
       } else {
         // If no events or error, reset the state
         state.allEvents = null;
         state.upcoming = null;
+        state.ongoing = null;
+        state.completed = null;
       }
     },
   },
 });
 
-export const { getAllEvents } = eventSlice.actions;
+export const { getAllEvents, filterEventsByStatus } = eventSlice.actions;
 const allEventsSliceReducer = eventSlice.reducer;
 export default allEventsSliceReducer;

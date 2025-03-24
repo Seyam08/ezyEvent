@@ -1,7 +1,28 @@
 import PropTypes from "prop-types";
+import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import SearchBox from "../subComponents/SearchBox/SearchBox";
 
 export default function AllEventsTable({ events, filter = true }) {
+  const [filteredEvents, setFilteredEvents] = useState(events);
+  const [searchEventArray, setSearchEventArray] = useState([]);
+  const { allEvents, upcoming, ongoing, completed } = useSelector(
+    (state) => state.events
+  );
+
+  const filterEvents = (status) => {
+    if (status === "Upcoming") {
+      setFilteredEvents(upcoming);
+    } else if (status === "Ongoing") {
+      setFilteredEvents(ongoing);
+    } else if (status === "Completed") {
+      setFilteredEvents(completed);
+    } else if (status === "View all") {
+      setFilteredEvents(allEvents);
+    }
+  };
+
   const getStatusClass = (status) => {
     switch (status) {
       case "Upcoming":
@@ -14,6 +35,28 @@ export default function AllEventsTable({ events, filter = true }) {
         return "bg-blue-500 bg-opacity-25 text-blue-700 dark:text-blue-200";
     }
   };
+  useEffect(() => {
+    if (events) {
+      const eventArray = events.map((item) => {
+        const { _id, eventName, eventDate } = item;
+        const shortID = _id.length > 4 ? _id.slice(-4) : _id;
+        const readableDate = new Date(eventDate).toLocaleDateString("en-US", {
+          year: "numeric",
+          month: "short",
+          day: "numeric",
+        });
+        return {
+          id: shortID,
+          name: eventName,
+          desc: readableDate,
+          avatar: null,
+          link: `/event/${_id}`,
+        };
+      });
+
+      setSearchEventArray(eventArray);
+    }
+  }, [events]);
 
   return (
     <div className="bg-secondary shadow rounded-lg p-6">
@@ -21,17 +64,21 @@ export default function AllEventsTable({ events, filter = true }) {
         <h1 className="text-heading-size font-semibold mb-4 md:mb-0 text-primary">
           All Event's ({events.length})
         </h1>
-        <input
+        {/* <input
           type="text"
           placeholder="Search"
           className="border-none rounded-lg p-2 text-sm w-48 md:w-auto bg-tertiary text-tertiary focus:outline-none focus:bg-primary placeholder:text-secondary"
-        />
+        /> */}
+        <div>
+          <SearchBox arrayOfObject={searchEventArray} />
+        </div>
       </div>
 
       {filter ? (
         <div className="flex flex-wrap gap-2 mb-4">
           <button
             className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass()}`}
+            onClick={() => filterEvents("View all")}
           >
             View all
           </button>
@@ -39,6 +86,7 @@ export default function AllEventsTable({ events, filter = true }) {
             className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
               "Upcoming"
             )}`}
+            onClick={() => filterEvents("Upcoming")}
           >
             Upcoming
           </button>
@@ -46,6 +94,7 @@ export default function AllEventsTable({ events, filter = true }) {
             className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
               "Ongoing"
             )}`}
+            onClick={() => filterEvents("Ongoing")}
           >
             Ongoing
           </button>
@@ -53,6 +102,7 @@ export default function AllEventsTable({ events, filter = true }) {
             className={`px-3 py-1 rounded-lg font-medium text-sm ${getStatusClass(
               "Completed"
             )}`}
+            onClick={() => filterEvents("Completed")}
           >
             Completed
           </button>
@@ -78,7 +128,7 @@ export default function AllEventsTable({ events, filter = true }) {
             </tr>
           </thead>
           <tbody>
-            {events.map((event, index) => {
+            {filteredEvents.map((event, index) => {
               const {
                 _id,
                 eventName,
