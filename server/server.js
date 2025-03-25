@@ -36,7 +36,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 // enabling cors
 app.use(
   cors({
-    origin: process.env.CLIENT_ORIGIN, // Use environment variable for browser
+    origin: '*', // Use environment variable for browser
     credentials: true, // Allow cookies
   }),
 );
