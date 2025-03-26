@@ -40,6 +40,8 @@ export async function login(req, res) {
           maxAge: process.env.JWT_EXPIRY,
           httpOnly: true,
           signed: true,
+          secure: true, // Important for HTTPS (Render)
+          sameSite: 'None', // Required for cross-origin cookie sharing
         });
 
         res.status(200).json({ message: 'login successful', profile });
