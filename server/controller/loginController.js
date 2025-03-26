@@ -139,7 +139,11 @@ export async function loggedInUserInfo(req, res) {
 
 // logout function
 export function logout(req, res) {
-  res.clearCookie(process.env.COOKIE_NAME);
+  res.clearCookie(process.env.COOKIE_NAME, {
+    httpOnly: true,
+    secure: true, // Important for HTTPS (Render)
+    sameSite: 'None',
+  });
   res.status(200).json({ message: 'logged out' });
 }
 
