@@ -31,7 +31,7 @@ export default function SearchBox({ arrayOfObject = [] }) {
         <ul className="w-96 absolute right-0 mt-1 bg-primary rounded-lg shadow-lg max-h-60 overflow-auto z-10">
           {filteredItems.length > 0 ? (
             filteredItems.map((item) => (
-              <li key={item.id} onClick={() => console.log(item)}>
+              <li key={item.id}>
                 <Link
                   to={item.link}
                   className="flex items-center p-2 cursor-pointer hover:bg-secondary"
