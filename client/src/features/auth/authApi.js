@@ -48,6 +48,7 @@ export const authApi = apiSlice.injectEndpoints({
               // Store the token in localStorage
               localStorage.setItem("auth", token);
             } catch (error) {
+              console.log(`Login jwt error : ${error}`);
               // Dispatch an action to update the state with an error message, if there is an error while generating the token
               dispatch(
                 userLoggedIn({ error: "Something went wrong! Unable to login" })
@@ -77,6 +78,7 @@ export const authApi = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled, dispatch }) {
         try {
+          console.log(`Logout api is calling`);
           // Await the result of the query
           const result = await queryFulfilled;
           // Dispatch the userLoggedOut action if the logout is successful
