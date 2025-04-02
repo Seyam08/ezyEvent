@@ -12,6 +12,7 @@ import { AtIcon, LockIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
 import FullScreenLoader from "../subComponents/Loader/FullScreenLoader/FullScreenLoader";
+import PasswordInput from "../subComponents/PasswordInput/PasswordInput";
 import styles from "./LoginForm.module.css";
 
 export default function LoginForm() {
@@ -128,7 +129,7 @@ export default function LoginForm() {
         {/* email */}
         <div className="space-y-3">
           <div className={styles.flex_column}>
-            <label className={`text-primary`}>Email</label>
+            <label className={`text-primary`}>Email or Username</label>
           </div>
           <div className={`${styles.inputForm} bg-primary`}>
             <AtIcon className="text-primary" />
@@ -148,14 +149,14 @@ export default function LoginForm() {
         {/* password */}
         <div className="space-y-3">
           <div className={styles.flex_column}>
-            <label className={`text-primary`}>Password </label>
+            <label className={`text-primary`}>Password</label>
           </div>
           <div className={`${styles.inputForm} bg-primary`}>
             <LockIcon className="text-primary" />
-            <input
+            <PasswordInput
+              parentClassName={"h-full w-full"}
               placeholder="Type here..."
               className={`${styles.input} bg-primary`}
-              type="password"
               {...formRegister("password")}
             />
           </div>

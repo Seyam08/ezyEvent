@@ -14,6 +14,7 @@ import Dashboard from "../pages/Dashboard/Dashboard";
 import EventPage from "../pages/EventPage/EventPage";
 import LandingPage from "../pages/LandingPage/LandingPage";
 import Login from "../pages/Login/Login";
+import NotFoundPage from "../pages/NotFoundPage/NotFoundPage";
 import PublicProfile from "../pages/PublicProfile/PublicProfile";
 import Register from "../pages/Registration/Registration";
 import Speakers from "../pages/Speakers/Speakers";
@@ -103,6 +104,10 @@ const route = createBrowserRouter([
         ],
       },
     ],
+  },
+  {
+    path: "*",
+    element: <NotFoundPage />,
   },
 ]);
 
