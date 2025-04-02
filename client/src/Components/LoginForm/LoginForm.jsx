@@ -129,7 +129,7 @@ export default function LoginForm() {
         {/* email */}
         <div className="space-y-3">
           <div className={styles.flex_column}>
-            <label className={`text-primary`}>Email</label>
+            <label className={`text-primary`}>Email or Username</label>
           </div>
           <div className={`${styles.inputForm} bg-primary`}>
             <AtIcon className="text-primary" />
@@ -149,7 +149,7 @@ export default function LoginForm() {
         {/* password */}
         <div className="space-y-3">
           <div className={styles.flex_column}>
-            <label className={`text-primary`}>Password </label>
+            <label className={`text-primary`}>Password</label>
           </div>
           <div className={`${styles.inputForm} bg-primary`}>
             <LockIcon className="text-primary" />
