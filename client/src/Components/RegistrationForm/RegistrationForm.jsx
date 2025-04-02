@@ -12,6 +12,7 @@ import { FileAddIcon } from "../../icons/icons";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
 import FullScreenLoader from "../subComponents/Loader/FullScreenLoader/FullScreenLoader";
+import PasswordInput from "../subComponents/PasswordInput/PasswordInput";
 import styles from "./RegistrationForm.module.css";
 
 export default function RegistrationForm() {
@@ -233,9 +234,8 @@ export default function RegistrationForm() {
               >
                 Password
               </label>
-              <input
+              <PasswordInput
                 className={`${styles.input_box} bg-primary`}
-                type="password"
                 id="password"
                 {...formRegister("password")}
               />
@@ -258,9 +258,8 @@ export default function RegistrationForm() {
               >
                 Confirm password
               </label>
-              <input
+              <PasswordInput
                 className={`${styles.input_box} bg-primary`}
-                type="password"
                 id="confirmPassword"
                 {...formRegister("confirmPassword")}
               />

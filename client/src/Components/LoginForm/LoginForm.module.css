@@ -8,7 +8,7 @@
   @apply font-medium tracking-wider text-base 2xl:text-lg;
 }
 .inputForm {
-  @apply border-2 border-solid border-transparent rounded-xl h-12 flex items-center pl-3 transition-all;
+  @apply border-2 border-solid border-transparent rounded-xl h-12 flex items-center pl-3 transition-all overflow-hidden;
 }
 .input {
   @apply ml-2.5 rounded-lg border-none w-full h-full text-glow caret-[#514cfe] text-base 2xl:text-xl;
