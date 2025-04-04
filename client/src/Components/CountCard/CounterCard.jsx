@@ -8,12 +8,13 @@ export default function CounterCard({
   heading,
   icon: Icon,
   customClass,
+  colorClass = "bg-gradient-to-b from-red-400 to-red-500 shadow-red-400",
 }) {
   return (
     <div className={customClass}>
       <div className={` ${styles.card} bg-secondary`}>
         <div className={`${styles.card_col} items-start`}>
-          <div className={styles.card_icon}>
+          <div className={`${styles.card_icon} ${colorClass}`}>
             <Icon className="text-white p-2 md:p-3 h-full w-full" />
           </div>
 
@@ -42,4 +43,5 @@ CounterCard.propTypes = {
   heading: PropTypes.string.isRequired,
   icon: PropTypes.func.isRequired,
   customClass: PropTypes.string,
+  colorClass: PropTypes.string,
 };
