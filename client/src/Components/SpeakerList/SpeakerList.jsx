@@ -38,9 +38,9 @@ export default function SpeakerList({ list, link, customClass }) {
               <p className="text-xs text-tertiary">{speaker.designation}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs text-tertiary">Upcoming Event</p>
+              <p className="text-xs text-tertiary">Spoken at</p>
               <p className="text-sm text-secondary font-medium">
-                {speaker.upcomingEvent}
+                {speaker.spokenAt} events
               </p>
             </div>
           </li>
