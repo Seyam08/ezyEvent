@@ -7,7 +7,7 @@ import Modal from "react-modal";
 import { useSelector } from "react-redux";
 import { useEditProfileMutation } from "../../../features/Profile/profileApi";
 import { resErrorHandler } from "../../../helper/commmon/resErrorHandler";
-import { editAccountsInfo } from "../../../helper/editAccount/editAccountsInfo";
+import { editAccountsInfoSchema } from "../../../helper/editAccount/editAccountsInfo";
 import { CancelCircleHalfDotIcon, TickDoubleIcon } from "../../../icons/icons";
 import ErrorMsgBox from "../ErrorMsgBox/ErrorMsgBox";
 
@@ -23,7 +23,7 @@ export default function EditInfo({
     reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(editAccountsInfo),
+    resolver: yupResolver(editAccountsInfoSchema),
   });
   const [editProfile, { data, isLoading, error: resError }] =
     useEditProfileMutation();
@@ -46,7 +46,7 @@ export default function EditInfo({
       if (data.fullname) {
         formData.append("name", data.fullname);
       }
-      if (data.email) {
+      if (data.email !== prevEmail) {
         formData.append("email", data.email);
       }
 
