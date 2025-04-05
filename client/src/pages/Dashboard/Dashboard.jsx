@@ -94,6 +94,7 @@ export default function Dashboard() {
         <CounterCard
           limit={totalUsers}
           heading="Total user"
+          link={"/dashboard/all-users"}
           icon={UserGroupIcon}
           colorClass="bg-gradient-to-b from-emerald-400 to-emerald-500 shadow-emerald-400"
         />
@@ -101,17 +102,20 @@ export default function Dashboard() {
           limit={totalEvents}
           heading="Total event's"
           icon={TaskDaily}
+          link={"/dashboard/all-events"}
           colorClass="bg-gradient-to-b from-cyan-400 to-cyan-500 shadow-cyan-400"
         />
         <CounterCard
           limit={totalSpeakers}
           heading="Total speaker"
           icon={MicIcon}
+          link={"/dashboard/speakers"}
           colorClass="bg-gradient-to-b from-violet-400 to-violet-500 shadow-violet-400"
         />
         <CounterCard
           limit={totalUpcomingEvents}
-          heading="Past Event's"
+          heading="Upcoming Event's"
+          link={"/dashboard/upcoming-events"}
           icon={CalendarCheckOutIcon}
           colorClass="bg-gradient-to-b from-fuchsia-400 to-fuchsia-500 shadow-fuchsia-400"
         />
