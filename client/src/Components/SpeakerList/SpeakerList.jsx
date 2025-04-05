@@ -3,7 +3,13 @@ import { Link } from "react-router-dom";
 import defaultImage from "../../assets/avatar.svg";
 import ComponentLoader from "../subComponents/Loader/ComponentLoader/ComponentLoader";
 
-export default function SpeakerList({ loading, list, link, customClass }) {
+export default function SpeakerList({
+  loading,
+  list,
+  title,
+  link,
+  customClass,
+}) {
   const handleImageError = (event) => {
     event.target.src = defaultImage;
   };
@@ -19,9 +25,7 @@ export default function SpeakerList({ loading, list, link, customClass }) {
         className={`px-5 py-5 bg-secondary rounded-lg w-full mx-auto max-h-max ${customClass}`}
       >
         <div className="flex justify-between items-center mb-4">
-          <h2 className="text-lg font-semibold text-primary">
-            Event Speaker List
-          </h2>
+          <h2 className="text-lg font-semibold text-primary">{title}</h2>
           <Link
             to={link}
             className="text-secondary font-medium text-base bg-tertiary rounded-full px-4 py-1 hover:foreground hover:text-[#EDEDED] transition"
@@ -68,4 +72,5 @@ SpeakerList.propTypes = {
   list: PropTypes.array.isRequired,
   link: PropTypes.string.isRequired,
   customClass: PropTypes.string,
+  title: PropTypes.string.isRequired,
 };
