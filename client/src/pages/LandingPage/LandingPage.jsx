@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
-import mac from "../../assets/mac_mockup.svg";
+import mac from "../../assets/dashboard-mockup.png";
 import CTA from "../../Components/LandingPage/CTA";
 import Features from "../../Components/LandingPage/Features";
 import UseCase from "../../Components/LandingPage/UseCase";
