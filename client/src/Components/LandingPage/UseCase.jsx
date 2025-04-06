@@ -1,5 +1,7 @@
 import { Link } from "react-router-dom";
-import mockup from "../../assets/screenshot-mockup.svg";
+import eventPage from "../../assets/event-page.png";
+import publicProfile from "../../assets/public-profile.png";
+import speakerPage from "../../assets/speakers-page (1).png";
 import useFadeInOnScroll from "../../hooks/useFadeInOnScroll";
 import { CalendarIcon, Dashboard, TaskDaily } from "../../icons/icons";
 
@@ -11,7 +13,7 @@ export default function UseCase() {
       title: "Seamless Event Management",
       description:
         "Simplify your workflow with intuitive tools that help you plan, schedule, and manage every detail of your event. Keep everything organized and ensure your event’s success without breaking a sweat.",
-      image: mockup,
+      image: eventPage,
       link: "#",
       icon: (className) => <Dashboard className={className} />,
     },
@@ -20,7 +22,7 @@ export default function UseCase() {
       title: "Collaboration Made Easy",
       description:
         "Empower your team to work smarter. Assign roles, coordinate tasks, and keep everyone on the same page with a centralized hub for communication and task tracking.",
-      image: mockup,
+      image: speakerPage,
       link: "#",
       icon: (className) => <TaskDaily className={className} />,
     },
@@ -29,7 +31,7 @@ export default function UseCase() {
       title: "Discover and Participate",
       description:
         "Explore events that spark your interest and get involved effortlessly. Whether you want to attend, learn, or connect, our app offers a smooth and enjoyable experience from start to finish.",
-      image: mockup,
+      image: publicProfile,
       link: "#",
       icon: (className) => <CalendarIcon className={className} />,
     },
