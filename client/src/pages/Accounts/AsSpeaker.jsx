@@ -24,9 +24,9 @@ export default function AsSpeaker() {
         return {
           idNo: shortID,
           date: readableDate,
-          seminar: item?.eventName,
+          event: item?.eventName,
           status: item?.status,
-          link: `/event/${item?._id}`,
+          eventLink: `/event/${item?._id}`,
         };
       });
       setSpeakingEventArray(modifiedData);
