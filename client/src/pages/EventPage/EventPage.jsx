@@ -3,8 +3,8 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
+import EditEventDate from "../../Components/EditEvent/EditEventDate";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
-import TooltipIcon from "../../Components/subComponents/AnimatedIcons/TooltipIcon";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import AttendEventBtn from "../../Components/subComponents/EventBtn/AttendEventBtn";
 import RemoveAttendEventBtn from "../../Components/subComponents/EventBtn/RemoveAttendEventBtn";
@@ -14,7 +14,6 @@ import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
 import { getStatusClass } from "../../helper/enentsTable/getColorClass";
 import { getRandomDesignation } from "../../helper/static data/getRandomDesignation";
 import useAuth from "../../hooks/useAuth";
-import { EditIcon } from "../../icons/icons";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
 import Header from "../../partials/PublicComponent/Header/Header";
 
@@ -26,6 +25,7 @@ export default function EventPage() {
   const [attendees, setAttendees] = useState([]);
   const [date, setDate] = useState("");
   const [status, setStatus] = useState(null);
+  const [editDateModalIsOpen, setIsOpen] = useState(false);
   const [attendanceInfo, setAttendanceInfo] = useState({
     limit: null,
     left: null,
@@ -295,11 +295,7 @@ export default function EventPage() {
                   ) : (
                     <AttendEventBtn eventId={id} />
                   )}
-                  {authority && (
-                    <div className="absolute top-4 right-4">
-                      <TooltipIcon text={"Edit"} icon={EditIcon} />
-                    </div>
-                  )}
+                  {authority && <EditEventDate currentEventDate={date} />}
                 </div>
 
                 <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">

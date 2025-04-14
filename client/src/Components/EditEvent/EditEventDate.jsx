@@ -1,0 +1,31 @@
+import PropTypes from "prop-types";
+import { useState } from "react";
+import { EditIcon } from "../../icons/icons";
+import TooltipIcon from "../subComponents/AnimatedIcons/TooltipIcon";
+import EditEventModal from "./EditEventDateModal";
+
+export default function EditEventDate({ currentEventDate }) {
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  const openModal = () => {
+    setIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
+
+  return (
+    <div className="absolute top-4 right-4">
+      <TooltipIcon text={"Edit"} icon={EditIcon} onClick={openModal} />
+      <EditEventModal
+        modalIsOpen={modalIsOpen}
+        closeModal={closeModal}
+        currentEventDate={currentEventDate}
+      />
+    </div>
+  );
+}
+EditEventDate.propTypes = {
+  currentEventDate: PropTypes.string,
+};
