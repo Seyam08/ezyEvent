@@ -33,3 +33,6 @@
 .react-calendar__tile--now {
   @apply bg-blue-600 text-white hover:text-white focus:text-white hover:bg-blue-700;
 }
+.react-calendar__tile--active {
+  @apply bg-slate-500 text-white hover:text-white focus:text-white hover:bg-slate-700;
+}
