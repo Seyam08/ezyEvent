@@ -4,14 +4,17 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
+import TooltipIcon from "../../Components/subComponents/AnimatedIcons/TooltipIcon";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import AttendEventBtn from "../../Components/subComponents/EventBtn/AttendEventBtn";
 import RemoveAttendEventBtn from "../../Components/subComponents/EventBtn/RemoveAttendEventBtn";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import { useGetEventQuery } from "../../features/Events/eventApi";
 import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
+import { getStatusClass } from "../../helper/enentsTable/getColorClass";
 import { getRandomDesignation } from "../../helper/static data/getRandomDesignation";
 import useAuth from "../../hooks/useAuth";
+import { EditIcon } from "../../icons/icons";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
 import Header from "../../partials/PublicComponent/Header/Header";
 
@@ -29,6 +32,7 @@ export default function EventPage() {
     attend: null,
   });
   const [attended, setAttended] = useState(false);
+  const [authority, setAuthority] = useState(false);
   const { myAccount } = useSelector((state) => state.account);
 
   // running query for getting event
@@ -106,18 +110,23 @@ export default function EventPage() {
     }
   }, [attendees, data]);
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "Upcoming":
-        return "bg-green-500 bg-opacity-25 text-green-500";
-      case "Ongoing":
-        return "bg-yellow-500 bg-opacity-25 text-yellow-500";
-      case "Completed":
-        return "bg-blue-500 bg-opacity-25 text-blue-500";
-      default:
-        return "";
+  useEffect(() => {
+    // checking host
+
+    const userId = myAccount?._id;
+    const eventId = id;
+    const eventHosted = myAccount?.eventsHosted.map((item) => item._id);
+    const hostIds = data?.hostId.map((item) => item._id);
+    // ---------------
+    const eventHostExist = eventHosted?.includes(eventId);
+    const hostIdsExist = hostIds?.includes(userId);
+    const role = myAccount?.role.includes("host");
+
+    // checking if the user is host or not
+    if (eventHostExist && hostIdsExist && role) {
+      setAuthority(true);
     }
-  };
+  }, [myAccount, data, id]);
 
   return (
     <div className="bg-primary">
@@ -275,7 +284,7 @@ export default function EventPage() {
 
               {/* Right Column */}
               <div className="mt-10">
-                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
+                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6 relative">
                   <h2 className="text-xl font-bold mb-4 text-secondary">
                     Date & Time
                   </h2>
@@ -285,6 +294,11 @@ export default function EventPage() {
                     <RemoveAttendEventBtn eventId={id} />
                   ) : (
                     <AttendEventBtn eventId={id} />
+                  )}
+                  {authority && (
+                    <div className="absolute top-4 right-4">
+                      <TooltipIcon text={"Edit"} icon={EditIcon} />
+                    </div>
                   )}
                 </div>
 
