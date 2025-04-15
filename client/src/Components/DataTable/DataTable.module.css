@@ -1,9 +1,6 @@
 .table_container {
   @apply container mx-auto py-8;
 }
-.table_container > div {
-  @apply overflow-x-auto;
-}
 
 /* width */
 .table_container > div::-webkit-scrollbar {
@@ -26,7 +23,7 @@
 }
 
 .table {
-  @apply min-w-full table-fixed rounded-md overflow-hidden;
+  @apply min-w-full table-fixed rounded-md;
 }
 
 .table_h_row th {
