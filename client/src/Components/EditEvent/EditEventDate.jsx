@@ -4,7 +4,7 @@ import { EditIcon } from "../../icons/icons";
 import TooltipIcon from "../subComponents/AnimatedIcons/TooltipIcon";
 import EditEventModal from "./EditEventDateModal";
 
-export default function EditEventDate({ currentEventDate }) {
+export default function EditEventDate({ currentEventDate, eventId }) {
   const [modalIsOpen, setIsOpen] = useState(false);
 
   const openModal = () => {
@@ -22,10 +22,12 @@ export default function EditEventDate({ currentEventDate }) {
         modalIsOpen={modalIsOpen}
         closeModal={closeModal}
         currentEventDate={currentEventDate}
+        eventId={eventId}
       />
     </div>
   );
 }
 EditEventDate.propTypes = {
   currentEventDate: PropTypes.string,
+  eventId: PropTypes.string.isRequired,
 };

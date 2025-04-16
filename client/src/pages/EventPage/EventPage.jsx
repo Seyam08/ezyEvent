@@ -295,7 +295,9 @@ export default function EventPage() {
                   ) : (
                     <AttendEventBtn eventId={id} />
                   )}
-                  {authority && <EditEventDate currentEventDate={date} />}
+                  {authority && (
+                    <EditEventDate currentEventDate={date} eventId={id} />
+                  )}
                 </div>
 
                 <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
