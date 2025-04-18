@@ -4,14 +4,14 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
-import { useEditEventMutation } from "../../features/Events/eventApi";
-import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
-import { editEventDateSchema } from "../../helper/EditEvent/editEventDateSchema";
-import { CancelCircleHalfDotIcon, TickDoubleIcon } from "../../icons/icons";
-import Calender from "../subComponents/Calender/Calender";
-import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
-import ItemHeading from "../subComponents/Heading/ItemHeading";
-import ComponentLoader from "../subComponents/Loader/ComponentLoader/ComponentLoader";
+import { useEditEventMutation } from "../../../features/Events/eventApi";
+import { resErrorHandler } from "../../../helper/commmon/resErrorHandler";
+import { editEventDateSchema } from "../../../helper/EditEvent/editEventDateSchema";
+import { CancelCircleHalfDotIcon, TickDoubleIcon } from "../../../icons/icons";
+import Calender from "../../subComponents/Calender/Calender";
+import ErrorMsgBox from "../../subComponents/ErrorMsgBox/ErrorMsgBox";
+import ItemHeading from "../../subComponents/Heading/ItemHeading";
+import ComponentLoader from "../../subComponents/Loader/ComponentLoader/ComponentLoader";
 
 export default function EditEventDateModal({
   modalIsOpen,

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
-import EditEventDate from "../../Components/EditEvent/EditEventDate";
+import EditEventDate from "../../Components/EditEvent/EditEventDate/EditEventDate";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import AttendEventBtn from "../../Components/subComponents/EventBtn/AttendEventBtn";
