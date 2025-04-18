@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
 import EditEventDate from "../../Components/EditEvent/EditEventDate/EditEventDate";
+import EditEventStatus from "../../Components/EditEvent/EditEventStatus/EditEventStatus";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import AttendEventBtn from "../../Components/subComponents/EventBtn/AttendEventBtn";
@@ -25,7 +26,6 @@ export default function EventPage() {
   const [attendees, setAttendees] = useState([]);
   const [date, setDate] = useState("");
   const [status, setStatus] = useState(null);
-  const [editDateModalIsOpen, setIsOpen] = useState(false);
   const [attendanceInfo, setAttendanceInfo] = useState({
     limit: null,
     left: null,
@@ -300,7 +300,7 @@ export default function EventPage() {
                   )}
                 </div>
 
-                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
+                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6 relative">
                   <h2 className="text-xl font-bold mb-4 text-secondary">
                     Event status
                   </h2>
@@ -311,6 +311,9 @@ export default function EventPage() {
                   >
                     <span>{status}</span>
                   </div>
+                  {authority && (
+                    <EditEventStatus currentEventStatus={status} eventId={id} />
+                  )}
                 </div>
 
                 <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
