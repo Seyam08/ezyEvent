@@ -19,7 +19,7 @@ export default function EditEventStatusModal({
   currentEventStatus,
   eventId,
 }) {
-  const [status, setStatus] = useState(new Date());
+  const [status, setStatus] = useState("");
   const [editEvent, { data, isLoading, error }] = useEditEventMutation();
   // react hook form
   const {
@@ -59,7 +59,7 @@ export default function EditEventStatusModal({
   // handling ui and notifying after api call
   useEffect(() => {
     if (data?.message) {
-      toast.success("Event date updated successfully!");
+      toast.success("Event status updated successfully!");
       closeModal();
     }
     if (error) {
