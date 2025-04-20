@@ -6,60 +6,61 @@ import toast from "react-hot-toast";
 import Modal from "react-modal";
 import { useEditEventMutation } from "../../../features/Events/eventApi";
 import { resErrorHandler } from "../../../helper/commmon/resErrorHandler";
-import { editEventStatusSchema } from "../../../helper/EditEvent/editEventStatusSchema";
-import { getStatusClass } from "../../../helper/enentsTable/getColorClass";
+import { editEventSeatsSchema } from "../../../helper/EditEvent/editEventSeatsSchema";
 import { CancelCircleHalfDotIcon, TickDoubleIcon } from "../../../icons/icons";
 import ErrorMsgBox from "../../subComponents/ErrorMsgBox/ErrorMsgBox";
 import ItemHeading from "../../subComponents/Heading/ItemHeading";
 import ComponentLoader from "../../subComponents/Loader/ComponentLoader/ComponentLoader";
 
-export default function EditEventStatusModal({
+export default function EditEventSeatsModal({
   modalIsOpen,
   closeModal,
-  currentEventStatus,
+  currentSeatsLimit,
   eventId,
 }) {
-  const [status, setStatus] = useState("");
+  const [seatsLimit, setSeatsLimit] = useState(0);
   const [editEvent, { data, isLoading, error }] = useEditEventMutation();
   // react hook form
   const {
     register,
     handleSubmit,
     setError,
-    setValue,
+    reset,
     formState: { errors },
   } = useForm({
-    resolver: yupResolver(editEventStatusSchema),
+    resolver: yupResolver(editEventSeatsSchema),
   });
 
   //   setting the date to the current event date
   useEffect(() => {
-    if (currentEventStatus) {
-      setStatus(currentEventStatus);
+    if (currentSeatsLimit) {
+      setSeatsLimit(currentSeatsLimit);
     }
-  }, [currentEventStatus]);
+  }, [currentSeatsLimit]);
 
   // submit controller
   const onSubmit = (data) => {
-    // checking if the status is same as the previous status
-    if (currentEventStatus == data.status) {
-      setError("status", {
+    // checking if the limit is same as the previous status
+
+    if (seatsLimit === data.attendanceLimit) {
+      setError("attendanceLimit", {
         type: "custom",
-        message: "Please select a new status!",
+        message: "It's same as previous limit!",
       });
       return;
     } else {
       editEvent({
         id: eventId,
-        data: { status: data.status },
+        data: { attendanceLimit: data.attendanceLimit },
       });
+      reset();
     }
   };
 
   // handling ui and notifying after api call
   useEffect(() => {
     if (data?.message) {
-      toast.success("Event status updated successfully!");
+      toast.success("Event seats limit updated successfully!");
       closeModal();
     }
     if (error) {
@@ -81,8 +82,8 @@ export default function EditEventStatusModal({
             <ComponentLoader />
           </div>
         ) : null}
-        <div className="flex justify-between items-center mb-4">
-          <ItemHeading>Edit Event Status</ItemHeading>
+        <div className="flex justify-between items-center gap-5 mb-4">
+          <ItemHeading>Edit event seats limit</ItemHeading>
           <button
             onClick={closeModal}
             className="bg-red-500 rounded-lg p-1 text-white text-xl"
@@ -90,33 +91,31 @@ export default function EditEventStatusModal({
             <CancelCircleHalfDotIcon className="text-white" />
           </button>
         </div>
-        <div className="flex items-center gap-5">
-          <h4 className="text-secondary">Current Status</h4>
-          <span className="text-secondary">-</span>
-          <div
-            className={`py-1 px-5 rounded-full flex justify-center ${getStatusClass(
-              status
-            )}`}
-          >
-            <span>{status}</span>
-          </div>
+        <div className="space-y-3 text-center">
+          <p className="foreground bg-opacity-10 text-tertiary font-medium px-3 py-1 rounded-md text-base 2xl:text-lg">
+            {seatsLimit} seats in total
+          </p>
         </div>
 
         <form className="space-y-3" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col col-span-6 md:col-span-2 gap-2">
-            <label className="font-medium text-tertiary">Edit status</label>
-            <select
-              className="px-2 py-1 pe-9 block w-full border-b border-transparent rounded-md text-base focus:border-[#514cfe] focus:ring-[#514cfe] bg-primary text-primary"
-              defaultValue="Upcoming"
-              {...register("status")}
+            <label
+              className="font-medium text-tertiary"
+              htmlFor="attendance-limit"
             >
-              <option value="Upcoming">Upcoming</option>
-              <option value="Ongoing">Ongoing</option>
-              <option value="Completed">Completed</option>
-            </select>
-            {errors.status && (
+              Attendance Limit
+            </label>
+            <input
+              id="attendance-limit"
+              type="number"
+              placeholder="Set attendance limit"
+              autoComplete="off"
+              className="px-2 py-1 text-base font-medium rounded-md focus:outline-none bg-primary text-primary border-b border-transparent focus:border-[#514cfe]"
+              {...register("attendanceLimit")}
+            />
+            {errors.attendanceLimit && (
               <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
-                {errors.status.message}
+                {errors.attendanceLimit.message}
               </ErrorMsgBox>
             )}
           </div>
@@ -144,9 +143,9 @@ export default function EditEventStatusModal({
     </>
   );
 }
-EditEventStatusModal.propTypes = {
+EditEventSeatsModal.propTypes = {
   modalIsOpen: PropTypes.func.isRequired,
   closeModal: PropTypes.func.isRequired,
-  currentEventStatus: PropTypes.string,
+  currentSeatsLimit: PropTypes.number,
   eventId: PropTypes.string.isRequired,
 };

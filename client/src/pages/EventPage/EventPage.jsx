@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
 import EditEventDate from "../../Components/EditEvent/EditEventDate/EditEventDate";
+import EditEventSeats from "../../Components/EditEvent/EditEventSeats/EditEventSeats";
 import EditEventStatus from "../../Components/EditEvent/EditEventStatus/EditEventStatus";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
@@ -27,9 +28,9 @@ export default function EventPage() {
   const [date, setDate] = useState("");
   const [status, setStatus] = useState(null);
   const [attendanceInfo, setAttendanceInfo] = useState({
-    limit: null,
-    left: null,
-    attend: null,
+    limit: 0,
+    left: 0,
+    attend: 0,
   });
   const [attended, setAttended] = useState(false);
   const [authority, setAuthority] = useState(false);
@@ -316,7 +317,7 @@ export default function EventPage() {
                   )}
                 </div>
 
-                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
+                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6 relative">
                   <h2 className="text-xl font-bold mb-4 text-secondary">
                     Seats Info
                   </h2>
@@ -331,6 +332,12 @@ export default function EventPage() {
                       {attendanceInfo.left} seats are left
                     </p>
                   </div>
+                  {authority && (
+                    <EditEventSeats
+                      currentSeatsLimit={attendanceInfo.limit}
+                      eventId={id}
+                    />
+                  )}
                 </div>
               </div>
             </div>
