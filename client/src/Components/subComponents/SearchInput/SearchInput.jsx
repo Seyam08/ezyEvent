@@ -107,5 +107,5 @@ SearchInput.propTypes = {
       avatar: PropTypes.string.isRequired,
     })
   ).isRequired,
-  setHosts: PropTypes.func.isRequired,
+  users: PropTypes.func.isRequired,
 };
