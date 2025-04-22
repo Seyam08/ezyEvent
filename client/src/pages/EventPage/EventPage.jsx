@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
 import EditEventDate from "../../Components/EditEvent/EditEventDate/EditEventDate";
 import EditEventSeats from "../../Components/EditEvent/EditEventSeats/EditEventSeats";
+import EditEventSpeakers from "../../Components/EditEvent/EditEventSpeakers/EditEventSpeakers";
 import EditEventStatus from "../../Components/EditEvent/EditEventStatus/EditEventStatus";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
@@ -191,7 +192,7 @@ export default function EventPage() {
               {/* Left Column */}
               <div className="md:col-span-2 space-y-10">
                 {/* speakers section  */}
-                <div>
+                <div className="relative">
                   <h2 className="text-2xl font-bold mb-4 text-secondary">
                     Speakers
                   </h2>
@@ -217,6 +218,12 @@ export default function EventPage() {
                       );
                     })}
                   </div>
+                  {authority && (
+                    <EditEventSpeakers
+                      currentSpeakers={speakers}
+                      eventId={id}
+                    />
+                  )}
                 </div>
 
                 {/* attendees section  */}
