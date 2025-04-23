@@ -3,6 +3,11 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
+import EditEventAttendance from "../../Components/EditEvent/EditEventAttendance/EditEventAttendance";
+import EditEventDate from "../../Components/EditEvent/EditEventDate/EditEventDate";
+import EditEventSeats from "../../Components/EditEvent/EditEventSeats/EditEventSeats";
+import EditEventSpeakers from "../../Components/EditEvent/EditEventSpeakers/EditEventSpeakers";
+import EditEventStatus from "../../Components/EditEvent/EditEventStatus/EditEventStatus";
 import ProfileCard from "../../Components/ProfileCard/ProfileCard";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import AttendEventBtn from "../../Components/subComponents/EventBtn/AttendEventBtn";
@@ -10,6 +15,7 @@ import RemoveAttendEventBtn from "../../Components/subComponents/EventBtn/Remove
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import { useGetEventQuery } from "../../features/Events/eventApi";
 import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
+import { getStatusClass } from "../../helper/enentsTable/getColorClass";
 import { getRandomDesignation } from "../../helper/static data/getRandomDesignation";
 import useAuth from "../../hooks/useAuth";
 import Footer from "../../partials/PublicComponent/Footer/Footer";
@@ -24,11 +30,12 @@ export default function EventPage() {
   const [date, setDate] = useState("");
   const [status, setStatus] = useState(null);
   const [attendanceInfo, setAttendanceInfo] = useState({
-    limit: null,
-    left: null,
-    attend: null,
+    limit: 0,
+    left: 0,
+    attend: 0,
   });
   const [attended, setAttended] = useState(false);
+  const [authority, setAuthority] = useState(false);
   const { myAccount } = useSelector((state) => state.account);
 
   // running query for getting event
@@ -104,20 +111,25 @@ export default function EventPage() {
         setAttended(false);
       }
     }
-  }, [attendees, data]);
+  }, [attendees, myAccount, loggedIn]);
 
-  const getStatusClass = (status) => {
-    switch (status) {
-      case "Upcoming":
-        return "bg-green-500 bg-opacity-25 text-green-500";
-      case "Ongoing":
-        return "bg-yellow-500 bg-opacity-25 text-yellow-500";
-      case "Completed":
-        return "bg-blue-500 bg-opacity-25 text-blue-500";
-      default:
-        return "";
+  useEffect(() => {
+    // checking host
+
+    const userId = myAccount?._id;
+    const eventId = id;
+    const eventHosted = myAccount?.eventsHosted.map((item) => item._id);
+    const hostIds = data?.hostId.map((item) => item._id);
+    // ---------------
+    const eventHostExist = eventHosted?.includes(eventId);
+    const hostIdsExist = hostIds?.includes(userId);
+    const role = myAccount?.role.includes("host");
+
+    // checking if the user is host or not
+    if (eventHostExist && hostIdsExist && role) {
+      setAuthority(true);
     }
-  };
+  }, [myAccount, data, id]);
 
   return (
     <div className="bg-primary">
@@ -181,7 +193,7 @@ export default function EventPage() {
               {/* Left Column */}
               <div className="md:col-span-2 space-y-10">
                 {/* speakers section  */}
-                <div>
+                <div className="relative">
                   <h2 className="text-2xl font-bold mb-4 text-secondary">
                     Speakers
                   </h2>
@@ -207,10 +219,16 @@ export default function EventPage() {
                       );
                     })}
                   </div>
+                  {authority && (
+                    <EditEventSpeakers
+                      currentSpeakers={speakers}
+                      eventId={id}
+                    />
+                  )}
                 </div>
 
                 {/* attendees section  */}
-                <div>
+                <div className="relative">
                   <h2 className="text-2xl font-bold mb-4 text-secondary">
                     People who's gonna attend
                   </h2>
@@ -270,12 +288,18 @@ export default function EventPage() {
                       )}
                     </ul>
                   </div>
+                  {authority && (
+                    <EditEventAttendance
+                      currentAttendance={attendees}
+                      eventId={id}
+                    />
+                  )}
                 </div>
               </div>
 
               {/* Right Column */}
               <div className="mt-10">
-                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
+                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6 relative">
                   <h2 className="text-xl font-bold mb-4 text-secondary">
                     Date & Time
                   </h2>
@@ -286,9 +310,12 @@ export default function EventPage() {
                   ) : (
                     <AttendEventBtn eventId={id} />
                   )}
+                  {authority && (
+                    <EditEventDate currentEventDate={date} eventId={id} />
+                  )}
                 </div>
 
-                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
+                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6 relative">
                   <h2 className="text-xl font-bold mb-4 text-secondary">
                     Event status
                   </h2>
@@ -299,9 +326,12 @@ export default function EventPage() {
                   >
                     <span>{status}</span>
                   </div>
+                  {authority && (
+                    <EditEventStatus currentEventStatus={status} eventId={id} />
+                  )}
                 </div>
 
-                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6">
+                <div className="bg-secondary shadow-lg rounded-lg p-6 mb-6 relative">
                   <h2 className="text-xl font-bold mb-4 text-secondary">
                     Seats Info
                   </h2>
@@ -316,6 +346,12 @@ export default function EventPage() {
                       {attendanceInfo.left} seats are left
                     </p>
                   </div>
+                  {authority && (
+                    <EditEventSeats
+                      currentSeatsLimit={attendanceInfo.limit}
+                      eventId={id}
+                    />
+                  )}
                 </div>
               </div>
             </div>

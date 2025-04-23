@@ -6,12 +6,12 @@ export async function addEvent(req, res) {
   let newEvent;
 
   const username = req.userInfo.username;
-  //  making hostName into an Array, making sure that there will be no repeted value
+  //  making hostName into an Array, making sure that there will be no repeated value
   const hostName = new Set([
     username,
     ...(req.body.hostName ? req.body.hostName : ''),
   ]);
-  //  making speakerName into an Array, making sure that there will be no repeted value
+  //  making speakerName into an Array, making sure that there will be no repeated value
   const speakerName = new Set([
     ...(req.body.speakerName ? req.body.speakerName : ''),
   ]);
@@ -55,7 +55,7 @@ export async function addEvent(req, res) {
     ]);
 
     res.status(201).json({
-      message: 'Event registration successfull!',
+      message: 'Event registration successful!',
       eventId: event._id,
     });
   } catch (err) {
@@ -167,7 +167,7 @@ export async function attendEvent(req, res) {
       res.status(409).json({
         errors: {
           common: {
-            msg: 'Alredy attended!',
+            msg: 'Already attended!',
           },
         },
       });
@@ -249,8 +249,9 @@ export async function editEvent(req, res) {
     const eventHosted = req.userInfo.eventsHosted;
     const hostIds = event.hostId;
 
-    // checking host
-    const eventHostExist = eventHosted.includes(id);
+    // checking authority
+    // const eventHostExist = eventHosted.includes(id);
+    const eventHostExist = eventHosted.some((el) => el.toString() === id);
     const hostIdsExist = hostIds.includes(userId);
     const role = req.userInfo.role.includes('host');
 
@@ -269,7 +270,9 @@ export async function editEvent(req, res) {
           },
           { new: true, runValidators: true },
         ).select({ __v: 0, createdAt: 0, updatedAt: 0 });
-        res.status(201).json({ message: result });
+
+        // res.status(201).json({ message: result });
+        res.status(200).json({ message: 'Successfully edited.' });
       } else {
         res.status(400).json({
           errors: {
@@ -308,8 +311,9 @@ export async function editSpeakerList(req, res) {
     const eventHosted = req.userInfo.eventsHosted;
     const hostIds = event.hostId;
 
-    // checking host
-    const eventHostExist = eventHosted.includes(id);
+    // checking authority
+    // const eventHostExist = eventHosted.includes(id);
+    const eventHostExist = eventHosted.some((el) => el.toString() === id);
     const hostIdsExist = hostIds.includes(userId);
     const role = req.userInfo.role.includes('host');
 
@@ -349,7 +353,8 @@ export async function editSpeakerList(req, res) {
             { new: true, runValidators: true, useFindAndModify: false },
           ).select({ name: 1 }),
         ]);
-        res.status(200).json({ message: result[0] });
+        // res.status(200).json({ message: result[0] });
+        res.status(200).json({ message: 'Successfully edited.' });
       } else {
         res.status(401).json({
           errors: {
@@ -388,8 +393,9 @@ export async function editAttendenceList(req, res) {
     const eventHosted = req.userInfo.eventsHosted;
     const hostIds = event.hostId;
 
-    // checking host
-    const eventHostExist = eventHosted.includes(id);
+    // checking authority
+    // const eventHostExist = eventHosted.includes(id);
+    const eventHostExist = eventHosted.some((el) => el.toString() === id);
     const hostIdsExist = hostIds.includes(userId);
     const role = req.userInfo.role.includes('host');
 
@@ -423,14 +429,15 @@ export async function editAttendenceList(req, res) {
           Client.updateMany(
             { _id: { $in: attendeesId } },
             {
-              $set: { eventsSpeaking: eventId },
+              $set: { eventsAttended: eventId },
               $addToSet: { role: 'user' },
             },
             { new: true, runValidators: true },
           ).select({ name: 1 }),
         ]);
 
-        res.status(200).json({ message: result[0] });
+        // res.status(200).json({ message: result[0] });
+        res.status(200).json({ message: 'Successfully edited' });
       } else {
         res.status(401).json({
           errors: {
@@ -469,8 +476,9 @@ export async function deleteEvent(req, res) {
     const eventHosted = req.userInfo.eventsHosted;
     const hostIds = event.hostId;
 
-    // checking host
-    const eventHostExist = eventHosted.includes(id);
+    // checking authority
+    // const eventHostExist = eventHosted.includes(id);
+    const eventHostExist = eventHosted.some((el) => el.toString() === id);
     const hostIdsExist = hostIds.includes(userId);
     const role = req.userInfo.role.includes('host');
 

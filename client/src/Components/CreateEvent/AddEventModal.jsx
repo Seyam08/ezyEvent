@@ -84,8 +84,7 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
       toast.error("Something went wrong while fetching users!");
     }
     if (data) {
-      const filteredUsers = data.map((user, index) => ({
-        id: index + 1,
+      const filteredUsers = data.map((user) => ({
         name: user.name,
         username: user.username,
         avatar: `${import.meta.env.VITE_SERVER_URL}/${user.avatar}`,
