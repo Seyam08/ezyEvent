@@ -429,7 +429,7 @@ export async function editAttendenceList(req, res) {
           Client.updateMany(
             { _id: { $in: attendeesId } },
             {
-              $set: { eventsSpeaking: eventId },
+              $set: { eventsAttended: eventId },
               $addToSet: { role: 'user' },
             },
             { new: true, runValidators: true },
