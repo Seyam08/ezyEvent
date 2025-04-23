@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import dummyImage from "../../assets/dummy-image-removebg-preview.png";
+import EditEventAttendance from "../../Components/EditEvent/EditEventAttendance/EditEventAttendance";
 import EditEventDate from "../../Components/EditEvent/EditEventDate/EditEventDate";
 import EditEventSeats from "../../Components/EditEvent/EditEventSeats/EditEventSeats";
 import EditEventSpeakers from "../../Components/EditEvent/EditEventSpeakers/EditEventSpeakers";
@@ -110,7 +111,7 @@ export default function EventPage() {
         setAttended(false);
       }
     }
-  }, [attendees, data]);
+  }, [attendees, myAccount, loggedIn]);
 
   useEffect(() => {
     // checking host
@@ -227,7 +228,7 @@ export default function EventPage() {
                 </div>
 
                 {/* attendees section  */}
-                <div>
+                <div className="relative">
                   <h2 className="text-2xl font-bold mb-4 text-secondary">
                     People who's gonna attend
                   </h2>
@@ -287,6 +288,12 @@ export default function EventPage() {
                       )}
                     </ul>
                   </div>
+                  {authority && (
+                    <EditEventAttendance
+                      currentAttendance={attendees}
+                      eventId={id}
+                    />
+                  )}
                 </div>
               </div>
 

@@ -67,6 +67,14 @@ export const profileApi = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["singleEvent"],
     }),
+    editEventAttendees: builder.mutation({
+      query: ({ id, data }) => ({
+        url: `/event/editattendence/${id}`,
+        method: "PATCH",
+        body: data,
+      }),
+      invalidatesTags: ["singleEvent"],
+    }),
   }),
 });
 
@@ -78,4 +86,5 @@ export const {
   useAddEventMutation,
   useEditEventMutation,
   useEditEventSpeakersMutation,
+  useEditEventAttendeesMutation,
 } = profileApi;
