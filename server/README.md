@@ -91,28 +91,38 @@ This endpoint retrieves all user information. User need to authenticate to acces
 **Response Example:**
 
 ```json
-{
-  "users": [
-    {
-      "username": "john@1",
-      "name": "John Doe",
-      "email": "johndoe@gmail.com",
-      "eventsHosted": ["event_id_1", "event_id_2", "event_id_3"],
-      "eventsAttended": ["event_id_1", "event_id_2"],
-      "eventsSpeaking": ["event_id_4", "event_id_5"],
-      "avatar": "avatars/avatar-default-1733086474786.jpg"
-    },
-    {
-      "username": "john@2",
-      "name": "John Doe 2",
-      "email": "johndoe2@gmail.com",
-      "eventsHosted": [],
-      "eventsAttended": [],
-      "eventsSpeaking": [],
-      "avatar": "avatars/avatar-default-1733086474786.jpg"
-    }
-  ]
-}
+[
+  {
+    "username": "alex99",
+    "name": "Alex Johnson",
+    "email": "alex.johnson@example.com",
+    "avatar": "avatars/avatar-alex.jpg",
+    "role": ["host", "speaker", "user"],
+    "eventsHosted": ["event123", "event456", "event789"],
+    "eventsAttended": [],
+    "eventsSpeaking": ["event123", "event456"]
+  },
+  {
+    "username": "sara88",
+    "name": "Sara Miller",
+    "email": "sara.miller@example.com",
+    "avatar": "avatars/avatar-sara.jpg",
+    "role": ["speaker", "user"],
+    "eventsHosted": [],
+    "eventsAttended": ["event456"],
+    "eventsSpeaking": ["event789"]
+  },
+  {
+    "username": "mike77",
+    "name": "Michael Lee",
+    "email": "michael.lee@example.com",
+    "avatar": "avatars/avatar-mike.jpg",
+    "role": ["user"],
+    "eventsHosted": [],
+    "eventsAttended": ["event123", "event789"],
+    "eventsSpeaking": []
+  }
+]
 ```
 
 ### Get User Info by Username
@@ -133,14 +143,44 @@ This endpoint retrieves user information by username. No authentication is requi
 
 ```json
 {
-  "username": "john@1",
+  "username": "user123",
   "name": "John Doe",
-  "email": "johndoe@gmail.com",
-  "role": ["user"],
-  "eventsHosted": [],
-  "eventsAttended": [],
-  "eventsSpeaking": [],
-  "avatar": "avatars/avatar-default-1733086474786.jpg"
+  "email": "john.doe@example.com",
+  "avatar": "avatars/profile_pic-123456789.jpg",
+  "role": ["user", "speaker", "host"],
+  "eventsHosted": [
+    {
+      "_id": "evt001abcxyz",
+      "eventName": "Tech Innovations Summit",
+      "eventDate": "2025-01-15T00:00:00.000Z",
+      "status": "Completed",
+      "attendeesId": ["att001", "att002", "att003"]
+    },
+    {
+      "_id": "evt002abcxyz",
+      "eventName": "Cloud Tech Expo",
+      "eventDate": "2025-06-20T00:00:00.000Z",
+      "status": "Ongoing",
+      "attendeesId": ["att003", "att005"]
+    }
+  ],
+  "eventsAttended": ["evt001abcxyz"],
+  "eventsSpeaking": [
+    {
+      "_id": "evt001abcxyz",
+      "eventName": "Tech Innovations Summit",
+      "eventDate": "2025-01-15T00:00:00.000Z",
+      "status": "Completed",
+      "attendeesId": ["att001", "att002", "att003"]
+    },
+    {
+      "_id": "evt002abcxyz",
+      "eventName": "Cloud Tech Expo",
+      "eventDate": "2025-06-20T00:00:00.000Z",
+      "status": "Ongoing",
+      "attendeesId": ["att003", "att005"]
+    }
+  ]
 }
 ```
 
@@ -331,15 +371,46 @@ Yes, the user must be logged in.
 ```json
 {
   "profile": {
-    "_id": "66eb48338079f7f79fbcc3f0",
-    "username": "johndoe@1",
-    "name": "John Doe",
-    "email": "johndoe@example.com",
-    "avatar": "default-avatar.jpg",
-    "role": ["user"],
-    "eventsHosted": [],
-    "eventsAttended": [],
-    "eventsSpeaking": []
+    "_id": "1234567890abcdef12345678",
+    "username": "dummy_user01",
+    "name": "Jamie Rivers",
+    "email": "jamie.rivers@example.com",
+    "avatar": "avatars/avatar-jamie.jpg",
+    "role": ["user", "speaker", "host"],
+    "eventsHosted": [
+      {
+        "_id": "event001",
+        "eventName": "TechWave Conference",
+        "eventDate": "2024-11-15T00:00:00.000Z",
+        "status": "Completed",
+        "attendeesId": ["user001", "user002", "user003", "user004"]
+      },
+      {
+        "_id": "event002",
+        "eventName": "AI Future Forum",
+        "eventDate": "2025-01-20T00:00:00.000Z",
+        "status": "Ongoing",
+        "attendeesId": ["user001", "user002"]
+      }
+    ],
+    "eventsAttended": [
+      {
+        "_id": "event001",
+        "eventName": "TechWave Conference",
+        "eventDate": "2024-11-15T00:00:00.000Z",
+        "status": "Completed",
+        "attendeesId": ["user001", "user002", "user003", "user004"]
+      }
+    ],
+    "eventsSpeaking": [
+      {
+        "_id": "event001",
+        "eventName": "TechWave Conference",
+        "eventDate": "2024-11-15T00:00:00.000Z",
+        "status": "Completed",
+        "attendeesId": ["user001", "user002", "user003", "user004"]
+      }
+    ]
   }
 }
 ```
@@ -546,21 +617,7 @@ Yes, the user must be logged in.
 
 ```json
 {
-    "message": {
-        "_id": "66f3e35f7ed",
-        "eventName": "express con 15",
-        "eventDate": "2024-12-20T00:00:00.000Z",
-        "attendanceLimit": 10,
-        "status": "Completed",
-        "hostId": [
-            "66f3e35f7ed"
-        ],
-        "speakerId": [
-            "66f3e35f7ed",
-            "66d762739fc"
-        ],
-        "attendeesId": []
-    }
+    "message": "Successfully edited."
 }
 ````
 
@@ -636,14 +693,7 @@ will return the updated event
 
 ```json
 {
-  "message": {
-    "_id": "66f3e35f7edb",
-    "eventName": "express metup",
-    "eventDate": "2024-12-20T00:00:00.000Z",
-    "attendanceLimit": 10,
-    "status": "Completed",
-    "speakerId": ["66eb432c060659", "66d75fe457f210", "66d762739fcc22"]
-  }
+  "message": "Successfully edited."
 }
 ```
 
@@ -671,14 +721,7 @@ will return the updated event
 
 ```json
 {
-  "message": {
-    "_id": "66f3e35f7edb987e46676556",
-    "eventName": "express con 15",
-    "eventDate": "2024-12-20T00:00:00.000Z",
-    "attendanceLimit": 10,
-    "status": "Completed",
-    "attendeesId": ["66eb432c060659", "66d75fe457f210", "66d762739fcc2f"]
-  }
+  "message": "Successfully edited."
 }
 ```
 
