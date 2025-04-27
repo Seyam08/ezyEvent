@@ -93,7 +93,7 @@ export default function AllUsersTable({ users }) {
           className={`px-3 py-1 rounded-lg font-medium text-sm ${getRoleClass(
             "speaker"
           )}`}
-          onclick={() => filterUsers("speaker")}
+          onClick={() => filterUsers("speaker")}
         >
           Speaker
         </button>
