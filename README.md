@@ -1,7 +1,6 @@
 # ezyEvent - Event Management System
 
-![Project Architecture](https://i.imgur.com/JKv0lYn.png)  
-_Unified repository with separate client and server components_
+**ezyEvent** is a full-stack event platform with a React.js/Vite frontend and Node.js/Express backend. The frontend uses RTK Query for API calls and JWT authentication, organized by features for scalability. The backend offers a RESTful API with MongoDB, handling CRUD operations for events/users with secure JWT/bcrypt auth. Following monorepo architecture, it cleanly separates client and server code while enabling seamless communication via REST standards.
 
 ## 🚀 How It Works
 
