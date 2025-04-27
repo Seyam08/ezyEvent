@@ -1,23 +1,41 @@
-# Project Repository Restructure
+# ezyEvent - Event Management System
 
-## Notice
+![Project Architecture](https://i.imgur.com/JKv0lYn.png)  
+_Unified repository with separate client and server components_
 
-We have restructured our project repositories to enhance maintainability and scalability. Previously, the **client** and **server** codebases were maintained in a single repository. To improve organization, we have split them into two separate repositories:
+## 🚀 How It Works
 
-1. **Client Repository**
-2. **Server Repository**
+### Frontend (Client)
 
-### **New Repositories**
+- Built with **React.js + Vite**
+- Uses **RTK Query** for API communication
+- Protected routes with JWT authentication
+- Feature-based architecture
 
-- **Client Repository:** [Insert Client Repo URL]
-- **Server Repository:** [Insert Server Repo URL]
+### Backend (Server)
 
-### **Why the Change?**
+- RESTful API with **Node.js/Express**
+- MongoDB database
+- JWT authentication
+- CRUD operations for events/users
 
-- Improved maintainability by separating client and server code.
-- Simplified collaboration for frontend and backend teams.
-- Independent versioning and deployment for the client and server.
+## 🔌 API Connection
 
-If you have any questions or need assistance with the new structure, please reach out to the team.
+The frontend communicates with backend via:
 
-Thank you for adapting to this improved workflow!
+- All requests require valid JWT (except login/register)
+- Standard REST conventions (GET/POST/PUT/DELETE)
+
+## 📚 Documentation
+
+- [📖 Frontend Details](./client/README.md)
+- [🔌 API Endpoints](./server/README.md)
+
+## Key features of this README:
+
+1. Visualizes the monorepo structure
+2. Clearly separates frontend/backend concerns
+3. Shows how they connect
+4. Provides minimal but complete setup instructions
+5. Links to detailed docs for each part
+6. Maintains clean formatting
