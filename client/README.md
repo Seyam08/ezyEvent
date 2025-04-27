@@ -1,6 +1,33 @@
 # ezyEvent Frontend Documentation
 
----------------need to place content
+**ezyEvent** is a full-featured event management system built with **React.js** and powered by **Redux Toolkit (RTK) Query** for seamless state management and API interactions.
+
+## 🌟 Key Features
+
+- **Discover** upcoming events
+- **Create & manage** custom events
+- **RSVP** to events with confirmation
+- **Track** hosted/attended events via an interactive dashboard
+
+## 🛠️ Technical Highlights
+
+### React.js Architecture
+
+- Component-based UI design
+- Hooks-driven state management
+- Optimized performance with Vite
+
+### Redux Toolkit (RTK) Query
+
+- Automated API endpoint management
+- Built-in data caching
+- Optimistic UI updates
+
+### Security & Authentication
+
+- JWT-based authentication
+- Protected routes
+- Session persistence
 
 ## Installation
 
