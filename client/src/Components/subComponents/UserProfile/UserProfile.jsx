@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import defaultImage from "../../../assets/user.svg";
 import { userProfileMenuItem } from "../../../constants/userProfileMenu.js";
+import useClickOutside from "../../../hooks/useClickOutside";
 import useScreenSize from "../../../hooks/useScreenSize.js";
 import { ArrowDataTransferVerticalIcon } from "../../../icons/icons";
 import SubMenu from "../../../partials/Menu/SubMenu.jsx";
@@ -14,6 +15,7 @@ export default function UserProfile() {
   const { myAccount } = useSelector((state) => state.account);
   const username = myAccount?.username || "Username";
   const avatar = myAccount?.avatar || "avatars/avatar-default.jpg";
+  const menuRef = useClickOutside(() => setSubMenuOpen(false));
 
   const handleImageError = (event) => {
     event.target.src = defaultImage;
@@ -24,7 +26,7 @@ export default function UserProfile() {
   };
 
   return (
-    <div className={styles.user_profile}>
+    <div className={styles.user_profile} ref={menuRef}>
       <div className={styles.user_icon} onClick={handleSubMenu}>
         <img
           onError={handleImageError}
