@@ -1,6 +1,6 @@
 {
   "name": "ezyevent",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "ezyEvent web application backend for REST Api",
   "main": "server.js",
   "type": "module",
