@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { useAddEventMutation } from "../../features/Events/eventApi";
 import { useLazyGetAllUsersQuery } from "../../features/users/usersApi";
 import { addEventFormSchema } from "../../helper/addEvent/addEventFormSchema";
+import useClickOutside from "../../hooks/useClickOutside";
 import {
   CalendarIcon,
   CancelCircleHalfDotIcon,
@@ -41,6 +42,8 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
   } = useForm({
     resolver: yupResolver(addEventFormSchema),
   });
+
+  const calenderRef = useClickOutside(() => setVisibleCalender(false));
 
   // Set the value of "eventDate" in React Hook Form manually
   useEffect(() => {
@@ -205,19 +208,22 @@ export default function AddEventModal({ modalIsOpen, closeModal }) {
                 value={watch("eventDate")}
                 {...register("eventDate")}
               />
-
-              <div className="absolute top-1 right-1">
-                <CalendarIcon
-                  onClick={() => setVisibleCalender((prevState) => !prevState)}
-                  className="cursor-pointer"
-                />
-              </div>
-              <div
-                className={`${
-                  visibleCalender ? "block" : "hidden"
-                } animate-fade-up animate-duration-300 absolute top-9 left-0 z-30`}
-              >
-                <Calender date={date} setDate={setDate} />
+              <div ref={calenderRef}>
+                <div className="absolute top-1 right-1">
+                  <CalendarIcon
+                    onClick={() =>
+                      setVisibleCalender((prevState) => !prevState)
+                    }
+                    className="cursor-pointer"
+                  />
+                </div>
+                <div
+                  className={`${
+                    visibleCalender ? "block" : "hidden"
+                  } animate-fade-up animate-duration-300 absolute top-9 left-0 z-30`}
+                >
+                  <Calender date={date} setDate={setDate} />
+                </div>
               </div>
             </div>
             {errors.eventDate && (
