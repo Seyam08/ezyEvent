@@ -1,13 +1,15 @@
 import PropTypes from "prop-types";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useClickOutside from "../../../hooks/useClickOutside";
 import { MoreIcon } from "../../../icons/icons";
 
 export default function ClickToAction({ link }) {
   const [open, setOpen] = useState(false);
+  const clickRef = useClickOutside(() => setOpen(false));
 
   return (
-    <div className="relative flex justify-center">
+    <div className="relative flex justify-center" ref={clickRef}>
       <MoreIcon
         className="fill-current cursor-pointer text-primary"
         onClick={() => setOpen((prev) => !prev)}
