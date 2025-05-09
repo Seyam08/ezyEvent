@@ -9,7 +9,7 @@ export default function VerticalMenu() {
         {accountsPageMenu.map((item, key) => {
           const { href, label, icon: Icon } = item;
           return (
-            <NavLink to={href} key={key}>
+            <NavLink to={href} key={key} end>
               <li
                 className={`${styles.item} text-primary focus:bg-tertiary hover:bg-tertiary`}
               >
