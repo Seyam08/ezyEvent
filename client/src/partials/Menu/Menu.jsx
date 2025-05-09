@@ -8,7 +8,7 @@ export default function Menu({ customClassname, menuItem }) {
       {menuItem.map((item, key) => {
         const { href, label, icon: Icon } = item;
         return (
-          <NavLink to={href} key={key} className={styles.active}>
+          <NavLink to={href} key={key} className={styles.active} end>
             <li
               className={`${styles.menu_item} text-secondary focus:bg-tertiary hover:bg-tertiary`}
             >
