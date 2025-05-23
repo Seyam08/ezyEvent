@@ -3,7 +3,7 @@ import { Toaster } from "react-hot-toast";
 import { RouterProvider } from "react-router-dom";
 import FullScreenLoader from "./Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import route from "./Router/route";
-import { useLazyGetProfileQuery } from "./features/profile/profileApi";
+import { useLazyGetProfileQuery } from "./features/account/profileApi";
 import useAuth from "./hooks/useAuth";
 import useAuthCheck from "./hooks/useAuthCheck";
 import useColorMode from "./hooks/useColorMode";
