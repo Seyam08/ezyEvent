@@ -25,6 +25,6 @@ export default function AllUsers() {
     );
   }
   if (data) {
-    return <AllUsersTable users={data} />;
+    return <AllUsersTable />;
   }
 }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import defaultImage from "../../assets/avatar.svg";
@@ -14,9 +14,6 @@ export default function AllUsersTable() {
   const [searchUserArray, setSearchUserArray] = useState([]);
   const dispatch = useDispatch();
   const { userStatus } = useSelector((state) => state.userFilter);
-
-  const renderCount = useRef(0);
-  console.log(`All Users Table ${renderCount.current++}`);
 
   const users = useSelector((state) => {
     switch (userStatus) {
