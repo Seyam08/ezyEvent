@@ -1,15 +1,14 @@
-import React from "react";
 import { useSelector } from "react-redux";
 import AllEventsTable from "../../Components/AllEventsTable/AllEventsTable";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import { useGetAllEventsQuery } from "../../features/Events/eventApi";
+import { upcomingSelector } from "../../features/Events/eventSelector";
 import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
 
 export default function UpcomingEvents() {
   const { data, isLoading, error } = useGetAllEventsQuery();
-  const { upcoming } = useSelector((state) => state.events);
-  const upcomingEvents = upcoming || [];
+  const upcomingEvents = useSelector(upcomingSelector);
 
   if (isLoading) {
     return <FullScreenLoader />;
