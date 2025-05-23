@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import { userLoggedOut } from "../../../features/auth/authSlice";
-import { useDeleteUserMutation } from "../../../features/Profile/profileApi";
+import { useDeleteUserMutation } from "../../../features/profile/profileApi";
 import { resErrorHandler } from "../../../helper/commmon/resErrorHandler";
 import { CancelCircleHalfDotIcon, TickDoubleIcon } from "../../../icons/icons";
 import ErrorMsgBox from "../ErrorMsgBox/ErrorMsgBox";

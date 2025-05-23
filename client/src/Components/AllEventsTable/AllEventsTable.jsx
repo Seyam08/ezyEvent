@@ -1,27 +1,39 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import {
+  allEventSelector,
+  completedSelector,
+  ongoingSelector,
+  upcomingSelector,
+} from "../../features/Events/eventSelector";
+import { eventFilterStatus } from "../../features/filters/eventFilterSlice";
 import { getStatusClass } from "../../helper/enentsTable/getColorClass";
 import SearchBox from "../subComponents/SearchBox/SearchBox";
 
-export default function AllEventsTable({ events, filter = true }) {
-  const [filteredEvents, setFilteredEvents] = useState(events);
+export default function AllEventsTable({ filter = true }) {
   const [searchEventArray, setSearchEventArray] = useState([]);
-  const { allEvents, upcoming, ongoing, completed } = useSelector(
-    (state) => state.events
-  );
+  const dispatch = useDispatch();
+  const { eventStatus } = useSelector((state) => state.eventFilter);
+
+  const events = useSelector((state) => {
+    switch (eventStatus) {
+      case "All":
+        return allEventSelector(state);
+      case "Upcoming":
+        return upcomingSelector(state);
+      case "Ongoing":
+        return ongoingSelector(state);
+      case "Completed":
+        return completedSelector(state);
+      default:
+        return state.events.allEvents;
+    }
+  });
 
   const filterEvents = (status) => {
-    if (status === "Upcoming") {
-      setFilteredEvents(upcoming);
-    } else if (status === "Ongoing") {
-      setFilteredEvents(ongoing);
-    } else if (status === "Completed") {
-      setFilteredEvents(completed);
-    } else if (status === "View all") {
-      setFilteredEvents(allEvents);
-    }
+    dispatch(eventFilterStatus(status));
   };
 
   useEffect(() => {
@@ -45,7 +57,7 @@ export default function AllEventsTable({ events, filter = true }) {
 
       setSearchEventArray(eventArray);
     }
-  }, [events]);
+  }, []);
 
   return (
     <div className="bg-secondary shadow rounded-lg p-6">
@@ -117,7 +129,7 @@ export default function AllEventsTable({ events, filter = true }) {
             </tr>
           </thead>
           <tbody>
-            {filteredEvents.map((event, index) => {
+            {events.map((event, index) => {
               const {
                 _id,
                 eventName,
@@ -205,6 +217,5 @@ export default function AllEventsTable({ events, filter = true }) {
 }
 
 AllEventsTable.propTypes = {
-  events: PropTypes.array.isRequired,
   filter: PropTypes.bool,
 };

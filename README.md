@@ -2,6 +2,10 @@
 
 **ezyEvent** is a full-stack event platform with a React.js/Vite frontend and Node.js/Express backend. The frontend uses RTK Query for API calls and JWT authentication, organized by features for scalability. The backend offers a RESTful API with MongoDB, handling CRUD operations for events/users with secure JWT/bcrypt auth. Following monorepo architecture, it cleanly separates client and server code while enabling seamless communication via REST standards.
 
+Open DeepWiki for a detailed documentation
+
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/Seyam08/ezyEvent)
+
 ## 🚀 How It Works
 
 ### Frontend (Client)

@@ -24,6 +24,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.1",
     "react-router-hash-link": "^2.4.3",
+    "reselect": "^5.1.1",
     "tailwindcss-animated": "^1.1.2",
     "yup": "^1.6.1"
   },

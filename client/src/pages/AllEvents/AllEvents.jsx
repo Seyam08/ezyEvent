@@ -25,6 +25,6 @@ export default function AllEvents() {
     );
   }
   if (data?.events) {
-    return <AllEventsTable events={data.events} />;
+    return <AllEventsTable />;
   }
 }
