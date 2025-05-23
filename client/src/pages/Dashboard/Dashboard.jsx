@@ -5,7 +5,15 @@ import CounterCard from "../../Components/CountCard/CounterCard";
 import DataTable from "../../Components/DataTable/DataTable";
 import SpeakerList from "../../Components/SpeakerList/SpeakerList";
 import { useGetAllEventsQuery } from "../../features/Events/eventApi.js";
+import {
+  allEventSelector,
+  upcomingSelector,
+} from "../../features/Events/eventSelector.js";
 import { useGetAllUsersQuery } from "../../features/users/usersApi.js";
+import {
+  allUserSelector,
+  speakersSelector,
+} from "../../features/users/userSelector.js";
 import { resErrorHandler } from "../../helper/commmon/resErrorHandler.js";
 import { getRandomDesignation } from "../../helper/static data/getRandomDesignation.js";
 import {
@@ -23,8 +31,10 @@ export default function Dashboard() {
   const { isLoading: usersLoading, error: usersError } = useGetAllUsersQuery();
   const { isLoading: eventsLoading, error: eventsError } =
     useGetAllEventsQuery();
-  const { speakers, allUsers } = useSelector((state) => state.users);
-  const { allEvents, upcoming } = useSelector((state) => state.events);
+  const allUsers = useSelector(allUserSelector);
+  const speakers = useSelector(speakersSelector);
+  const allEvents = useSelector(allEventSelector);
+  const upcoming = useSelector(upcomingSelector);
 
   // creating object for speakers list
   const speakersList =
