@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "../features/api/apiSlice";
 import authSliceReducer from "../features/auth/authSlice";
 import allEventsSliceReducer from "../features/Events/eventSlice";
+import userFilterSliceReducer from "../features/filters/userFilterSlice";
 import myAccountSliceReducer from "../features/Profile/profileSlice";
 import allUsersSliceReducer from "../features/users/userSlice";
 
@@ -12,6 +13,7 @@ export const store = configureStore({
     account: myAccountSliceReducer,
     users: allUsersSliceReducer,
     events: allEventsSliceReducer,
+    userFilter: userFilterSliceReducer,
   },
   devTools: true,
   middleware: (getDefaultMiddlewares) =>

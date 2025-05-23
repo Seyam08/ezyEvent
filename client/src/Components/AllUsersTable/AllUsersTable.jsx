@@ -1,23 +1,38 @@
-import PropTypes from "prop-types";
-import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useEffect, useRef, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import defaultImage from "../../assets/avatar.svg";
+import { userFilterStatus } from "../../features/filters/userFilterSlice";
+import {
+  allUserSelector,
+  hostsSelector,
+  speakersSelector,
+} from "../../features/users/userSelector";
 import SearchBox from "../subComponents/SearchBox/SearchBox";
 
-export default function AllUsersTable({ users }) {
-  const [filteredUsers, setFilteredUsers] = useState(users);
+export default function AllUsersTable() {
   const [searchUserArray, setSearchUserArray] = useState([]);
-  const { allUsers, speakers, hosts } = useSelector((state) => state.users);
+  const dispatch = useDispatch();
+  const { userStatus } = useSelector((state) => state.userFilter);
+
+  const renderCount = useRef(0);
+  console.log(`All Users Table ${renderCount.current++}`);
+
+  const users = useSelector((state) => {
+    switch (userStatus) {
+      case "user":
+        return allUserSelector(state);
+      case "speaker":
+        return speakersSelector(state);
+      case "host":
+        return hostsSelector(state);
+      default:
+        return state.users.allUsers;
+    }
+  });
 
   const filterUsers = (role) => {
-    if (role === "user") {
-      setFilteredUsers(allUsers);
-    } else if (role === "speaker") {
-      setFilteredUsers(speakers);
-    } else if (role === "host") {
-      setFilteredUsers(hosts);
-    }
+    dispatch(userFilterStatus(role));
   };
 
   const getRoleClass = (role) => {
@@ -54,7 +69,7 @@ export default function AllUsersTable({ users }) {
 
       setSearchUserArray(userArray);
     }
-  }, [users]);
+  }, []);
 
   return (
     <div className="bg-secondary shadow rounded-lg p-6">
@@ -120,7 +135,7 @@ export default function AllUsersTable({ users }) {
             </tr>
           </thead>
           <tbody>
-            {filteredUsers.map((user, index) => {
+            {users.map((user, index) => {
               const {
                 avatar,
                 name,
@@ -212,7 +227,3 @@ export default function AllUsersTable({ users }) {
     </div>
   );
 }
-
-AllUsersTable.propTypes = {
-  users: PropTypes.array.isRequired,
-};

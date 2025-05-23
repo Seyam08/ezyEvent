@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import AllEventsTable from "../../Components/AllEventsTable/AllEventsTable";
 import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
@@ -6,6 +7,8 @@ import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
 
 export default function AllEvents() {
   const { data, isLoading, error } = useGetAllEventsQuery();
+  const renderCount = useRef(0);
+  console.log(`All Events Page ${renderCount.current++}`);
 
   if (isLoading) {
     return <FullScreenLoader />;
