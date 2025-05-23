@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import Modal from "react-modal";
 import { useSelector } from "react-redux";
-import { useUpdateAvatarMutation } from "../../../features/profile/profileApi";
+import { useUpdateAvatarMutation } from "../../../features/Profile/profileApi";
 import { resErrorHandler } from "../../../helper/commmon/resErrorHandler";
 import { editAvatarSchema } from "../../../helper/editAccount/editAvatarSchema";
 import {
