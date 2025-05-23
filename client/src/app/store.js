@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
+import myAccountSliceReducer from "../features/account/profileSlice";
 import { apiSlice } from "../features/api/apiSlice";
 import authSliceReducer from "../features/auth/authSlice";
 import allEventsSliceReducer from "../features/Events/eventSlice";
 import eventFilterSliceReducer from "../features/filters/eventFilterSlice";
 import userFilterSliceReducer from "../features/filters/userFilterSlice";
-import myAccountSliceReducer from "../features/Profile/profileSlice";
 import allUsersSliceReducer from "../features/users/userSlice";
 
 export const store = configureStore({
