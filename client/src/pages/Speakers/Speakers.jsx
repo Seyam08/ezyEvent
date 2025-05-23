@@ -4,12 +4,13 @@ import ErrorBox from "../../Components/subComponents/ErrorBox/ErrorBox";
 import PageHeading from "../../Components/subComponents/Heading/PageHeading";
 import FullScreenLoader from "../../Components/subComponents/Loader/FullScreenLoader/FullScreenLoader";
 import { useGetAllUsersQuery } from "../../features/users/usersApi";
+import { speakersSelector } from "../../features/users/userSelector";
 import { resErrorHandler } from "../../helper/commmon/resErrorHandler";
 import { getRandomDesignation } from "../../helper/static data/getRandomDesignation";
 
 export default function Speakers() {
   const { data, isLoading, error } = useGetAllUsersQuery();
-  const { speakers } = useSelector((state) => state.users);
+  const speakers = useSelector(speakersSelector);
   const allSpeakers =
     speakers?.map((speaker) => {
       return {

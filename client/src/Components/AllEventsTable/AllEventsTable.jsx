@@ -1,36 +1,14 @@
 import PropTypes from "prop-types";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  allEventSelector,
-  completedSelector,
-  ongoingSelector,
-  upcomingSelector,
-} from "../../features/Events/eventSelector";
 import { eventFilterStatus } from "../../features/filters/eventFilterSlice";
 import { getStatusClass } from "../../helper/enentsTable/getColorClass";
 import SearchBox from "../subComponents/SearchBox/SearchBox";
 
-export default function AllEventsTable({ filter = true }) {
+export default function AllEventsTable({ events, filter = true }) {
   const [searchEventArray, setSearchEventArray] = useState([]);
   const dispatch = useDispatch();
-  const { eventStatus } = useSelector((state) => state.eventFilter);
-
-  const events = useSelector((state) => {
-    switch (eventStatus) {
-      case "All":
-        return allEventSelector(state);
-      case "Upcoming":
-        return upcomingSelector(state);
-      case "Ongoing":
-        return ongoingSelector(state);
-      case "Completed":
-        return completedSelector(state);
-      default:
-        return state.events.allEvents;
-    }
-  });
 
   const filterEvents = (status) => {
     dispatch(eventFilterStatus(status));
@@ -217,5 +195,6 @@ export default function AllEventsTable({ filter = true }) {
 }
 
 AllEventsTable.propTypes = {
+  events: PropTypes.array.isRequired,
   filter: PropTypes.bool,
 };
