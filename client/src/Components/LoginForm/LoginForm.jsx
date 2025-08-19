@@ -9,6 +9,7 @@ import { redirectHolder } from "../../features/auth/authSlice";
 import { loginFormSchema } from "../../helper/login/loginFormSchema";
 import { loginErrorHandler } from "../../helper/login/loginResErrorHandler";
 import { AtIcon, LockIcon } from "../../icons/icons";
+import DemoAccount from "../DemoAccount/DemoAccount";
 import AnimatedCheckbox from "../subComponents/AnimatedCheckbox/AnimatedCheckbox";
 import ErrorMsgBox from "../subComponents/ErrorMsgBox/ErrorMsgBox";
 import FullScreenLoader from "../subComponents/Loader/FullScreenLoader/FullScreenLoader";
@@ -173,7 +174,7 @@ export default function LoginForm() {
               isChecked={rememberMe}
               setIsChecked={setRememberMe}
             />
-            <label className={`text-secondary`}>Remember me </label>
+            <label className="text-secondary">Remember me</label>
           </div>
           {errors.rememberMe && (
             <ErrorMsgBox bgColor="bg-red-400" txtColor="text-red-400">
@@ -181,7 +182,7 @@ export default function LoginForm() {
             </ErrorMsgBox>
           )}
 
-          {/* <span className={styles.span}>Forgot password?</span> */}
+          <DemoAccount />
         </div>
         <button
           className={styles.button_submit}
