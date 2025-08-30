@@ -26,3 +26,5 @@ yarn-error.log*
 # Output of build process
 dist/
 build
+# avatar uploads 
+public/uploads/avatars/
